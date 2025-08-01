@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5b0085f48ca7d04287357fce0768021, type: 3}
-  m_Name: Kaylinh
+  m_Name: Nova
   m_EditorClassIdentifier: 
-  tag: Kaylinh
-  characterName: Kaylinh La Boss
-  characterColor: {r: 0.08940016, g: 0.38679248, b: 0.31358823, a: 1}
+  tag: Nova
+  characterName: Nova
+  characterColor: {r: 0.8018868, g: 0.10969208, b: 0.10969208, a: 1}
   defaultExpression: base
   expressions:
   - expressionName: base

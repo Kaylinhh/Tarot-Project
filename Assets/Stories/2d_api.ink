@@ -39,3 +39,6 @@ EXTERNAL playSound(name)
 
 === function rotate(ang,b)
 EXTERNAL rotate(a,b)
+
+=== function changeScene(name)
+EXTERNAL changeScene(name)

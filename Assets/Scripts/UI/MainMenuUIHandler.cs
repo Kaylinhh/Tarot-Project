@@ -6,11 +6,18 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuUIHandler : MonoBehaviour
+public class MainMenuUIHandler : MonoBehaviour
 {
+    [SerializeField] FadeTransition fade;
+
+    public void Start()
+    {
+        fade.FadeOut();
+    }
+
     public void StartNew()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("GlobalScene");
     }
 
     public void Exit()

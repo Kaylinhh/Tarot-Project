@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5b0085f48ca7d04287357fce0768021, type: 3}
-  m_Name: Kub
+  m_Name: Mei
   m_EditorClassIdentifier: 
-  tag: Kub
-  characterName: Kub Le Sorcier
-  characterColor: {r: 1, g: 0.98807836, b: 0, a: 1}
+  tag: Mei
+  characterName: Mei
+  characterColor: {r: 0.19814381, g: 0.027367389, b: 0.38679248, a: 1}
   defaultExpression: base
   expressions:
   - expressionName: base

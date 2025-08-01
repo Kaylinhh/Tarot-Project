@@ -32,6 +32,12 @@ namespace vinkn
             reader.story.BindExternalFunction("face", (string character, string name) => engine.SetEmotion(character, name));
             reader.story.BindExternalFunction("moveTo", (string character, string name, float duration) => engine.MoveTo(character, name, duration));
             reader.story.BindExternalFunction("placeTo", (string character, string name) => engine.MoveTo(character, name, 0));
+            reader.story.BindExternalFunction("changeScene", (string sceneName) => engine.ChangeScene(sceneName));
+        }
+
+        public void Load()
+        {
+            engine = GameObjectUtility.FindObjectOfType<VNEngine>();
         }
     }
 }

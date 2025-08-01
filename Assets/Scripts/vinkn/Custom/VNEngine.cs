@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace vinkn
 {
@@ -10,6 +11,7 @@ namespace vinkn
         [SerializeField] List<SOCharacter> charactersDefinitions;
         [SerializeField] List<EDisplayable> backgrounds;
         [SerializeField] List<DisplayAnchor> anchors;
+        GameSceneManager gameSceneManager;
 
         protected EDisplayable currentBg { get; set; }
 
@@ -17,6 +19,7 @@ namespace vinkn
         void Awake()
         {
             currentBg = null;
+            gameSceneManager = FindAnyObjectByType<GameSceneManager>();
         }
 
         public void Add(DisplayAnchor a)
@@ -156,6 +159,11 @@ namespace vinkn
                 c.Move(a.transform.position, duration);
             else
                 c.transform.position = a.transform.position;
+        }
+
+        public void ChangeScene(string sceneName) 
+        {
+            gameSceneManager.ChangeScene(sceneName);
         }
     }
 }

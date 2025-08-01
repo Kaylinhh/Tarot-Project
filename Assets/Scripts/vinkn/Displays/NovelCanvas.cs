@@ -41,4 +41,13 @@ public class NovelCanvas : MonoBehaviour
             choices.gameObject.SetActive(!active);
         }
     }
+
+    public void DisplayUI(bool active)
+    {
+        if (storyDisplay.activeSelf != active)
+        {
+            storyDisplay.SetActive(active);
+            choices.gameObject.SetActive(active);
+        }
+    }
 }
