@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Cocktail.unity
+    path: Assets/Scenes/BarView.unity
     guid: 76e2874a8dd258c438cb49fc279d008d
   m_configObjects: {}
