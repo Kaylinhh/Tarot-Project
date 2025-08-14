@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f80929ce34614489bc12bcae5ba583, type: 3}
+  m_Name: Ti' Punch
+  m_EditorClassIdentifier: 
+  recipeName: Ti Punch
+  ingredients:
+  - {fileID: 11400000, guid: 124e338ffaa68cc4abf4dff8052e672f, type: 2}
+  - {fileID: 11400000, guid: d9975a0c87233ae44a425019976cc1e1, type: 2}
+  - {fileID: 11400000, guid: 4ec87689f63ef784c868c594f124b14f, type: 2}
+  description: A small little cocktail that packs quite the punch.
+  image: {fileID: 0}

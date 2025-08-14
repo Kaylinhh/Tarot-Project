@@ -5,17 +5,15 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
+    [SerializeField] IngredientData ingredient;
+    [SerializeField] Collider2D dropTarget;
     private Vector3 offset;
     private Vector3 oldPos;
     private bool dragging = false;
 
+
     void Start()
     {
-    }
-
-    private Vector3 GetMousePos()
-    {
-        return Camera.main.WorldToScreenPoint(transform.position);
     }
 
     private void Update()
@@ -25,6 +23,11 @@ public class DragAndDrop : MonoBehaviour
             //Move object, taking into account original offest
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
+    }
+
+    private Vector3 GetMousePos()
+    {
+        return Camera.main.WorldToScreenPoint(transform.position);
     }
 
     private void OnMouseDown()
@@ -40,6 +43,11 @@ public class DragAndDrop : MonoBehaviour
     {
         //stop dragging
         dragging = false;
+
+        if (dropTarget != null && dropTarget.OverlapPoint(transform.position))
+        {
+            dropTarget.GetComponent<Glass>().AddIngredient(ingredient);
+        }
         //Go back to old pos
         transform.position = oldPos;
     }
