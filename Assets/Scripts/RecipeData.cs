@@ -6,9 +6,8 @@ using UnityEngine;
 public class RecipeData : ScriptableObject
 {
     public string recipeName;
+    public Sprite recipeImage;
     public IngredientData[] ingredients;
-    [TextArea]
-    public string description;
-    public Sprite image;
+    [TextArea] public string description;
 }
 
