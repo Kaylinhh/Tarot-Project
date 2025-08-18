@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sugar
   m_EditorClassIdentifier: 
   ingredientName: Sugar
-  icone: {fileID: 21300000, guid: faad23949541ecd439d19f3eebac0b83, type: 3}
+  icon: {fileID: 21300000, guid: faad23949541ecd439d19f3eebac0b83, type: 3}

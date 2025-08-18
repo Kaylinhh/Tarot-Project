@@ -4,26 +4,16 @@ using UnityEngine;
 
 public class GrimoireUI : MonoBehaviour
 {
-    
-    [SerializeField] GameObject grimoirePanel;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject grimoirePanel;
 
     public void ToggleGrimoire()
     {
-        bool isActive = grimoirePanel.activeSelf;
-        grimoirePanel.SetActive(!isActive);
+        grimoirePanel.SetActive(!grimoirePanel.activeSelf);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
-        {
             ToggleGrimoire();
-        }
     }
 }

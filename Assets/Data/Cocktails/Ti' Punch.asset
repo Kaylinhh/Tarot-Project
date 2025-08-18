@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Ti' Punch
   m_EditorClassIdentifier: 
   recipeName: Ti Punch
+  recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
   ingredients:
-  - {fileID: 11400000, guid: 124e338ffaa68cc4abf4dff8052e672f, type: 2}
-  - {fileID: 11400000, guid: d9975a0c87233ae44a425019976cc1e1, type: 2}
   - {fileID: 11400000, guid: 4ec87689f63ef784c868c594f124b14f, type: 2}
-  description: A small little cocktail that packs quite the punch.
-  image: {fileID: 0}
+  - {fileID: 11400000, guid: d9975a0c87233ae44a425019976cc1e1, type: 2}
+  - {fileID: 11400000, guid: 74f7c53e527cb16499240349578d8015, type: 2}
+  description: A short drink that packs quite the punch.

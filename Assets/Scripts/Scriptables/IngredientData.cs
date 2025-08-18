@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Cocktail/Ingredient")]
+[CreateAssetMenu(menuName = "Grimoire/Ingredient")]
 public class IngredientData : ScriptableObject
 {
     public string ingredientName;

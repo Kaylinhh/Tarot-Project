@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lime
   m_EditorClassIdentifier: 
   ingredientName: Lime
-  icone: {fileID: 21300000, guid: 2dde88c2bd4871545a7a52a84956fef0, type: 3}
+  icon: {fileID: 21300000, guid: 2dde88c2bd4871545a7a52a84956fef0, type: 3}
