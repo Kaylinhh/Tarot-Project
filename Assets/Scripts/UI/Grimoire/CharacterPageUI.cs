@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Linq;
 
 public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
 {
@@ -10,6 +9,11 @@ public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
     public TextMeshProUGUI descriptionText;
     public TextMeshProUGUI traitsText;
     public TextMeshProUGUI friendshipText;
+
+    private void Start()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+    }
 
     public void FillPage(CharacterData character)
     {
@@ -22,5 +26,8 @@ public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
 
         // Exemple de stat : niveau d’amitié
         friendshipText.text = "Friendship: " + character.friendshipLevel;
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+
     }
 }

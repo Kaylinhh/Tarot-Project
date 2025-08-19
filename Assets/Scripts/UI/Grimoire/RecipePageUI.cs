@@ -11,6 +11,12 @@ public class RecipePageUI : MonoBehaviour, IPageFiller<RecipeData>
     public TMP_Text descriptionText;
     public TMP_Text ingredientsText; // Nouveau : juste un texte pour la liste des ingrédients
 
+
+    private void Start()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+    }
+
     public void FillPage(RecipeData recipe)
     {
         // Nom et image du cocktail
@@ -22,5 +28,9 @@ public class RecipePageUI : MonoBehaviour, IPageFiller<RecipeData>
 
         // Liste des ingrédients sous forme de texte
         ingredientsText.text = "Ingredients: " + string.Join(", ", recipe.ingredients.Select(i => i.ingredientName));
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
     }
+
+
 }

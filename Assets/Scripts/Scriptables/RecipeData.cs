@@ -11,15 +11,5 @@ public class RecipeData : ScriptableObject
     public IngredientData[] ingredients;
     [TextArea] public string description;
 
-    public void FillPage(GameObject page)
-    {
-        page.transform.Find("Name").GetComponent<TMPro.TextMeshProUGUI>().text= recipeName;
-        page.transform.Find("Image").GetComponent<UnityEngine.UI.Image>().sprite = recipeImage;
-        page.transform.Find("Description").GetComponent<TMPro.TextMeshProUGUI>().text = description;
-
-        string ingredientsList = "Ingredients: " + string.Join(", ", ingredients.Select(i => i.ingredientName));
-
-        page.transform.Find("Ingredients").GetComponent<TMPro.TextMeshProUGUI>().text = ingredientsList;
-    }
 }
 

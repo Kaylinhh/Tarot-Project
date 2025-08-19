@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GrimoireTabsUI : MonoBehaviour
 {
-    [Header("Tab Contents")]
-    [SerializeField] private GameObject recipesTab;
-    [SerializeField] private GameObject charactersTab;
+    [Header("Tabs Content")]
+    public PagedTabUI<RecipeData> recipesContent;
+    public PagedTabUI<CharacterData> charactersContent;
 
-    public void ShowRecipes() => SetActiveTab(recipesTab);
-    public void ShowCharacters() => SetActiveTab(charactersTab);
-
-    private void SetActiveTab(GameObject activeTab)
+    public void ShowRecipes()
     {
-        recipesTab.SetActive(activeTab == recipesTab);
-        charactersTab.SetActive(activeTab == charactersTab);
+        recipesContent.Show();
+        charactersContent.Hide();
+    }
 
+    public void ShowCharacters()
+    {
+        charactersContent.Show();
+        recipesContent.Hide();
     }
 }
-

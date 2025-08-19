@@ -1,78 +1,93 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PagedTabUI<T> : MonoBehaviour
+public class PagedTabUI<T> : MonoBehaviour where T : ScriptableObject
 {
-    [Header("UI References")]
-    [SerializeField] private Transform contentParent; // Conteneur où les pages sont instanciées
-    [SerializeField] private GameObject pagePrefab;
+    [Header("Data & Prefab")]
+    public List<T> dataList;
+    public GameObject pagePrefab;
+    public Transform leftPageParent;
+    public Transform rightPageParent;
 
-    [Header("Data")]
-    [SerializeField] private List<T> dataList = new List<T>();
-
+    private int currentIndex = 0;
     private List<GameObject> instantiatedPages = new List<GameObject>();
-    private int currentPage = 0;
 
-    private void Start()
+    public void Show()
     {
-        GeneratePages();
-        ShowPage(0);
+        gameObject.SetActive(true);
+
+        if (instantiatedPages.Count == 0)
+            InstantiatePages();
+
+        currentIndex = 0;
+        UpdatePages();
     }
 
-    private void GeneratePages()
+    public void Hide()
     {
-        foreach (Transform child in contentParent)
-            Destroy(child.gameObject);
+        gameObject.SetActive(false);
+    }
 
-        instantiatedPages.Clear();
-
-        foreach (var data in dataList)
+    private void InstantiatePages()
+    {
+        foreach (T data in dataList)
         {
-            GameObject pageGO = Instantiate(pagePrefab, contentParent);
-            pageGO.SetActive(false);
+            GameObject page = Instantiate(pagePrefab);
+            page.SetActive(false);
 
-            // On cherche un composant capable de remplir la page
-            var filler = pageGO.GetComponent<IPageFiller<T>>();
-            if (filler != null)
-            {
-                filler.FillPage(data);
-            }
-            else
-            {
-                Debug.LogWarning("Le prefab ne possède pas de composant IPageFiller<" + typeof(T).Name + ">");
-            }
+            // Attache dans une liste générique
+            instantiatedPages.Add(page);
 
-            instantiatedPages.Add(pageGO);
+            // Remplissage avec IPageFiller
+            var filler = page.GetComponent<IPageFiller<T>>();
+            if (filler != null) filler.FillPage(data);
         }
     }
 
-    private void ShowPage(int index)
+    public void Next()
     {
-        if (instantiatedPages.Count == 0) return;
+        Debug.Log("[NEXT] avant incrément : " + currentIndex);
 
-        for (int i = 0; i < instantiatedPages.Count; i++)
-            instantiatedPages[i].SetActive(i == index);
+        if (currentIndex + 2 < instantiatedPages.Count)
+        {
+            currentIndex += 2;
+            UpdatePages();
+            Debug.Log("[NEXT] après incrément : " + currentIndex);
 
-        currentPage = index;
+        }
     }
 
-    public void NextPage()
+    public void Previous()
     {
-        if (instantiatedPages.Count == 0) return;
-        ShowPage((currentPage + 1) % instantiatedPages.Count);
+        Debug.Log("[PREV] avant incrément : " + currentIndex);
+
+        if (currentIndex - 2 >= 0)
+        {
+            currentIndex -= 2;
+            UpdatePages();
+            Debug.Log("[PREV] après incrément : " + currentIndex);
+
+        }
     }
 
-    public void PreviousPage()
+    private void UpdatePages()
     {
-        if (instantiatedPages.Count == 0) return;
-        ShowPage((currentPage - 1 + instantiatedPages.Count) % instantiatedPages.Count);
-    }
+        // On cache tout
+        foreach (var page in instantiatedPages)
+            page.SetActive(false);
 
-    // Pour assigner la liste de données dynamiquement
-    public void SetDataList(List<T> list)
-    {
-        dataList = list;
-        GeneratePages();
-        ShowPage(0);
+        // Page gauche
+        if (currentIndex < instantiatedPages.Count)
+        {
+            instantiatedPages[currentIndex].SetActive(true);
+            instantiatedPages[currentIndex].transform.SetParent(leftPageParent, false);
+        }
+
+        // Page droite
+        if (currentIndex + 1 < instantiatedPages.Count)
+        {
+            instantiatedPages[currentIndex + 1].SetActive(true);
+            instantiatedPages[currentIndex + 1].transform.SetParent(rightPageParent, false);
+        }
     }
 }
