@@ -11,3 +11,15 @@ Mei:Bonjour...
 - 
 Bon bah d'accord.
 ~ changeScene("BarView")
+A
+A
+~ changeBg("Mountain")
+~ show("Nova")
+Nova:Bonsoir !
+~ show("Mei")
+Mei:Salut...
+
+*Oui
+*Non
+- 
+Bon bah d'accord.

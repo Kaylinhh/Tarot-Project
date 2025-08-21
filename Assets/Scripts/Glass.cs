@@ -8,6 +8,8 @@ public class Glass : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI recipeText;
     [SerializeField] List<RecipeData> allRecipes;
+    [SerializeField] GameObject shakeButton;
+    [SerializeField] GameObject serveButton;
     private List<IngredientData> currentIngredients = new List<IngredientData>();
 
     // Start is called before the first frame update
@@ -34,20 +36,30 @@ public class Glass : MonoBehaviour
         recipeText.text = "Recipe:\n";
         foreach(var ingredient in currentIngredients)
         {
-            recipeText.text += "- " + ingredient.name + "\n";
+            recipeText.text += "- " + ingredient.ingredientName + "\n";
         }
     }
 
     public void CheckForRecipe()
     {
-        foreach(var recipe in allRecipes)
+        foreach (var recipe in allRecipes)
         {
-            Debug.Log(recipe.recipeName);
-            return;
+            if (MatchRecipe(recipe))
+            {
+                Debug.Log("FOUND" + recipe.recipeName);
+                recipeText.text = "You created: " + recipe.recipeName;
+                ServeDrink(recipe);
+                return; 
+            }
         }
+
+        Debug.Log("No match");
+        recipeText.text = "Unknown recipe";
+        
     }
 
-   private bool MatchRecipe(RecipeData recipe)
+
+    private bool MatchRecipe(RecipeData recipe)
     {
         if (recipe.ingredients.Length != currentIngredients.Count)
             return false;
@@ -62,5 +74,14 @@ public class Glass : MonoBehaviour
             tempList.Remove(ingredient);
         }
         return true;
+    }
+
+    public void ServeDrink(RecipeData recipe)
+    {
+        if (MatchRecipe(recipe))
+        {
+            shakeButton.SetActive(false);
+            serveButton.SetActive(true);
+        }
     }
 }

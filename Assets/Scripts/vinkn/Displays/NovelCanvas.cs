@@ -6,6 +6,7 @@ using UnityEngine;
 public class NovelCanvas : MonoBehaviour
 {
     [SerializeField] CharacterDisplay character;
+    [SerializeField] GameObject charNameTextBox;
     [SerializeField] GameObject storyDisplay;
     [SerializeField] ChoiceDisplay choices;
     // Start is called before the first frame update
@@ -26,10 +27,12 @@ public class NovelCanvas : MonoBehaviour
         {
             character.SetCharacter(ch);
             character.gameObject.SetActive(true);
+            charNameTextBox.SetActive(true);
         }
         else
         {
             character.gameObject.SetActive(false);
+            charNameTextBox.SetActive(false);
         }
     }
 

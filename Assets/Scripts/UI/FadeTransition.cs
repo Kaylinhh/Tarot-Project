@@ -9,10 +9,6 @@ public class FadeTransition : MonoBehaviour
     [SerializeField] Image image;
     [SerializeField] AnimationCurve fadeCurve;
     [SerializeField] float fadeDuration;
-    [SerializeField] UnityEvent onFadeIn;
-    [SerializeField] UnityEvent onFadeOut;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -26,17 +22,17 @@ public class FadeTransition : MonoBehaviour
         
     }
 
-    public void FadeIn() 
+    public void FadeIn(UnityEvent callback = null) 
     {
-        StartCoroutine(_FadeAlphaAsync(1));
+        StartCoroutine(_FadeAlphaAsync(1, callback));
     }
 
-    public void FadeOut() 
+    public void FadeOut(UnityEvent callback = null) 
     {
-        StartCoroutine(_FadeAlphaAsync(0));
+        StartCoroutine(_FadeAlphaAsync(0, callback));
     }
 
-    IEnumerator _FadeAlphaAsync(float destination)
+    IEnumerator _FadeAlphaAsync(float destination, UnityEvent callback)
     {
         Color startValue = image.color;
         float elapsed = 0;
@@ -48,13 +44,10 @@ public class FadeTransition : MonoBehaviour
             image.color = newColor;
             yield return null;
         }
-        if (destination > 0) 
-        {
-            onFadeIn?.Invoke();
-        } else
+        if (destination <= 0) 
         {
             image.raycastTarget = false;
-            onFadeOut?.Invoke();
         }
+        callback?.Invoke();
     }
 }

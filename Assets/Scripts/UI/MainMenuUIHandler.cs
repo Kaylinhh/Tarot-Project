@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class MainMenuUIHandler : MonoBehaviour
 {
     [SerializeField] FadeTransition fade;
+    [SerializeField] UnityEvent onStart;
 
     public void Start()
     {
@@ -27,5 +29,10 @@ public class MainMenuUIHandler : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void LaunchGame()
+    {
+        fade.FadeIn(onStart);
     }
 }

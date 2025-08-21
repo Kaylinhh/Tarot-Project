@@ -10,6 +10,7 @@ public class GameSceneManager : MonoBehaviour
 {
     [SerializeField] bool startStory;
     [SerializeField] string firstScene;
+    [SerializeField] List<string> restrictedScenes;
     [SerializeField]  StoryReader storyReader;
     [SerializeField] UnityEvent onSceneChange;
     Scene currentScene;
@@ -36,8 +37,20 @@ public class GameSceneManager : MonoBehaviour
 
     public void ChangeScene(string sceneName) 
     {
-        if (currentScene != null) {
+        UnityEvent callback = new UnityEvent();
+        callback.AddListener(() => TryChangeScene(sceneName));
+        fade.FadeIn(callback);
+    }
+
+    private void TryChangeScene(string sceneName)
+    {
+        if (currentScene != null && !restrictedScenes.Contains(sceneName))
+        {
             StartCoroutine(_ChangeSceneAsync(sceneName));
+        }
+        else
+        {
+            GoToScene(sceneName);
         }
     }
 
