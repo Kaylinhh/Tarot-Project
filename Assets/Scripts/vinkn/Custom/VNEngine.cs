@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 namespace vinkn
 {
@@ -11,7 +14,11 @@ namespace vinkn
         [SerializeField] List<SOCharacter> charactersDefinitions;
         [SerializeField] List<EDisplayable> backgrounds;
         [SerializeField] List<DisplayAnchor> anchors;
+        [SerializeField] List<CharacterData> allCharactersData;
+        private DailySummaryUI dailySummaryUI;
+
         GameSceneManager gameSceneManager;
+        StoryReader reader;
 
         protected EDisplayable currentBg { get; set; }
 
@@ -20,6 +27,8 @@ namespace vinkn
         {
             currentBg = null;
             gameSceneManager = FindAnyObjectByType<GameSceneManager>();
+            dailySummaryUI = FindAnyObjectByType<DailySummaryUI>();
+
         }
 
         public void Add(DisplayAnchor a)
@@ -164,6 +173,60 @@ namespace vinkn
         public void ChangeScene(string sceneName) 
         {
             gameSceneManager.ChangeScene(sceneName);
+        }
+
+        public void MeetCharacter(string characterName)
+        {
+            // Cherche le CharacterData correspondant au nom
+            var characterData = allCharactersData.FirstOrDefault(c => c.characterName == characterName);
+            if (characterData != null)
+            {
+                characterData.hasMetToday = true;
+                Debug.Log($"{characterName} a été rencontré(e) aujourd'hui.");
+            }
+            else
+            {
+                Debug.LogWarning($"Aucun CharacterData trouvé pour le nom : {characterName}");
+            }
+        }
+
+        public void EndDay()
+        {
+            foreach (var c in allCharactersData)
+            {
+                Debug.Log($"{c.characterName} - hasMetToday: {c.hasMetToday}");
+            }
+
+            // On récupère les persos rencontrés aujourd’hui
+            List<CharacterData> charactersOfTheDay = new List<CharacterData>();
+
+            string names = string.Join(", ", charactersOfTheDay.ConvertAll(c => c.characterName));
+            Debug.Log("1 : " + names);
+
+            foreach (var c in allCharactersData)
+            {
+                if (c.hasMetToday)
+                    charactersOfTheDay.Add(c);
+            }
+
+            foreach (var c in charactersOfTheDay)
+            {
+                Debug.Log($"{c.characterName} - characters of the day: {c.characterName}");
+            }
+
+            if (DayDataManager.Instance != null)
+            {
+                DayDataManager.Instance.charactersOfTheDay = new List<CharacterData>(charactersOfTheDay);
+                Debug.Log("Stored " + charactersOfTheDay.Count + " characters in DayDataManager");
+            }
+            else
+            {
+                Debug.LogError("No DayDataManager found!");
+            }
+
+                // On reset pour le lendemain
+                foreach (var c in allCharactersData)
+                c.hasMetToday = false;
         }
     }
 }

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BarView.unity
     guid: 76e2874a8dd258c438cb49fc279d008d
+  - enabled: 1
+    path: Assets/Scenes/CardReading.unity
+    guid: 09192c1719b0b1046a5992a68fde3501
   m_configObjects: {}

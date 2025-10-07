@@ -7,7 +7,14 @@ public class CharacterData : ScriptableObject
 {
     public string characterName;
     public Sprite portrait;
+    public string arcanaName;
+    public Sprite arcanaSprite;
     [TextArea] public string description;
     public int friendshipLevel;
     public string[] traits;
+    [HideInInspector] public bool hasMetToday = false;
+
+    public string GetDailySummary()
+    {  return description; }
+
 }

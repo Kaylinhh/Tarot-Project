@@ -444,6 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 499690588}
+  charNameTextBox: {fileID: 0}
   storyDisplay: {fileID: 1513316692}
   choices: {fileID: 1336845872}
 --- !u!1 &388994886
@@ -667,7 +668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &499690585
 RectTransform:
   m_ObjectHideFlags: 0
@@ -907,7 +908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &666865475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1104,7 +1105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1336845871
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1341,7 +1342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1513316693
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1492,6 +1493,9 @@ MonoBehaviour:
   charactersDefinitions: []
   backgrounds: []
   anchors: []
+  allCharactersData:
+  - {fileID: 11400000, guid: 22939acdea1d6dd4bbb6802625d3828e, type: 2}
+  - {fileID: 11400000, guid: f2600e8f421ac364ab9518bb96a309f9, type: 2}
 --- !u!4 &1550250787
 Transform:
   m_ObjectHideFlags: 0

@@ -1,8 +1,10 @@
 INCLUDE 2d_api.ink
 
 ~ changeBg("Mountain")
+~ meetCharacter("Nova")
 ~ show("Nova")
 Nova:Bienvenue !
+~ meetCharacter("Mei")
 ~ show("Mei")
 Mei:Bonjour...
 
@@ -22,4 +24,6 @@ Mei:Salut...
 *Oui
 *Non
 - 
-Bon bah d'accord.
+Bon bah d'accord. C'est fini.
+~ endDay()
+~ changeScene("CardReading")

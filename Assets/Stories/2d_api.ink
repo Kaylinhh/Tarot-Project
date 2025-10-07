@@ -42,3 +42,9 @@ EXTERNAL rotate(a,b)
 
 === function changeScene(name)
 EXTERNAL changeScene(name)
+
+=== function meetCharacter(characterName)
+EXTERNAL meetCharacter(characterName)
+
+=== function endDay()
+EXTERNAL endDay()
