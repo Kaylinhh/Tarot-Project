@@ -1496,6 +1496,7 @@ MonoBehaviour:
   allCharactersData:
   - {fileID: 11400000, guid: 22939acdea1d6dd4bbb6802625d3828e, type: 2}
   - {fileID: 11400000, guid: f2600e8f421ac364ab9518bb96a309f9, type: 2}
+  - {fileID: 11400000, guid: f3930eaf0a530924aa9276513edf0be1, type: 2}
 --- !u!4 &1550250787
 Transform:
   m_ObjectHideFlags: 0

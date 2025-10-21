@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DayDataManager : MonoBehaviour
+public class DataManager : MonoBehaviour
 {
-    public static DayDataManager Instance { get; private set; }
+    public static DataManager Instance { get; private set; }
 
     public List<CharacterData> charactersOfTheDay = new List<CharacterData>();
 

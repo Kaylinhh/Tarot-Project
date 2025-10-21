@@ -15,6 +15,6 @@ public class CharacterData : ScriptableObject
     [HideInInspector] public bool hasMetToday = false;
 
     public string GetDailySummary()
-    {  return description; }
+    {  return "This is the daily summary (WIP)."; }
 
 }

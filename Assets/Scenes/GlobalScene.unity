@@ -1066,6 +1066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 5680252577893203962, guid: 86ed73e33f338c245bb3588aef7ee096, type: 3}
   cardContainer: {fileID: 351204231}
+  deckButton: {fileID: 0}
 --- !u!1 &470290791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,7 +1499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 907, y: -295}
+  m_AnchoredPosition: {x: 957, y: -288}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &578370637

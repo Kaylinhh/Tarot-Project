@@ -5,6 +5,7 @@ INCLUDE 2d_api.ink
 ~ show("Nova")
 Nova:Bienvenue !
 ~ meetCharacter("Mei")
+~ meetCharacter("Ex")
 ~ show("Mei")
 Mei:Bonjour...
 

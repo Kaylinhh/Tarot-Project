@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bab0c5e07520b54da9355dd52135763, type: 3}
-  m_Name: NovaG
+  m_Name: ExampleG
   m_EditorClassIdentifier: 
-  characterName: Nova
+  characterName: Ex
   portrait: {fileID: 21300000, guid: 044d1b10fc929c34d83d5117ea7c96c9, type: 3}
   arcanaName: The Fool
   arcanaSprite: {fileID: 21300000, guid: 0d2fee8f1f48b224e820e4106d1e71fc, type: 3}

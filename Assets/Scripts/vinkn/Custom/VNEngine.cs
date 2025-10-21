@@ -214,9 +214,9 @@ namespace vinkn
                 Debug.Log($"{c.characterName} - characters of the day: {c.characterName}");
             }
 
-            if (DayDataManager.Instance != null)
+            if (DataManager.Instance != null)
             {
-                DayDataManager.Instance.charactersOfTheDay = new List<CharacterData>(charactersOfTheDay);
+                DataManager.Instance.charactersOfTheDay = new List<CharacterData>(charactersOfTheDay);
                 Debug.Log("Stored " + charactersOfTheDay.Count + " characters in DayDataManager");
             }
             else
