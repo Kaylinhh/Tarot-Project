@@ -30,7 +30,7 @@ namespace vinkn
             currentBg = null;
             gameSceneManager = FindAnyObjectByType<GameSceneManager>();
             dailySummaryUI = FindAnyObjectByType<DailySummaryUI>();
-
+            allCharactersData = DataManager.Instance.GetCharacters();
         }
 
         public void Add(DisplayAnchor a)
@@ -186,6 +186,7 @@ namespace vinkn
             {
                 characterData.hasMetToday = true;
                 Debug.Log($"{characterName} a été rencontré(e) aujourd'hui.");
+                DataManager.Instance.NotifyCharacterDiscovered();
             }
             else
             {
