@@ -1152,10 +1152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0dc7cb98307aef4a9cfd9dacb5966fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataList:
-  - {fileID: 11400000, guid: 22939acdea1d6dd4bbb6802625d3828e, type: 2}
-  - {fileID: 11400000, guid: f2600e8f421ac364ab9518bb96a309f9, type: 2}
-  - {fileID: 11400000, guid: f3930eaf0a530924aa9276513edf0be1, type: 2}
   pagePrefab: {fileID: 2246730679298274947, guid: 4114c3a9f01e330419e1d099717e2ed9, type: 3}
   leftPageParent: {fileID: 1342758955}
   rightPageParent: {fileID: 334679305}
@@ -2368,7 +2364,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c0958a87783fc4da77057fcaa34072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soCharacters:
+  - {fileID: 11400000, guid: f2600e8f421ac364ab9518bb96a309f9, type: 2}
+  - {fileID: 11400000, guid: 22939acdea1d6dd4bbb6802625d3828e, type: 2}
+  - {fileID: 11400000, guid: f3930eaf0a530924aa9276513edf0be1, type: 2}
+  soRecipes:
+  - {fileID: 11400000, guid: 2e234af288694ff4bba5b5063a3794fe, type: 2}
+  - {fileID: 11400000, guid: 497c2c4b946c6a54097131e94a0e853a, type: 2}
+  - {fileID: 11400000, guid: a595fe6e7255d8948ab91ad025f36542, type: 2}
   charactersOfTheDay: []
+  characterIsDiscovered: 0
 --- !u!4 &1162209475
 Transform:
   m_ObjectHideFlags: 0
@@ -3094,10 +3099,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f76fb6db6101a941a014b2e16dd7907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataList:
-  - {fileID: 11400000, guid: 2e234af288694ff4bba5b5063a3794fe, type: 2}
-  - {fileID: 11400000, guid: 497c2c4b946c6a54097131e94a0e853a, type: 2}
-  - {fileID: 11400000, guid: a595fe6e7255d8948ab91ad025f36542, type: 2}
   pagePrefab: {fileID: 2246730679298274947, guid: 43c1464306cbf6846a263727db75e91f, type: 3}
   leftPageParent: {fileID: 282385591}
   rightPageParent: {fileID: 1728671716}
