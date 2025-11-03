@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 namespace vinkn
 {
@@ -10,6 +14,13 @@ namespace vinkn
         [SerializeField] List<SOCharacter> charactersDefinitions;
         [SerializeField] List<EDisplayable> backgrounds;
         [SerializeField] List<DisplayAnchor> anchors;
+        [SerializeField] List<CharacterData> allCharactersData;
+
+        private DailySummaryUI dailySummaryUI;
+
+        GameSceneManager gameSceneManager;
+
+        StoryReader reader;
 
         protected EDisplayable currentBg { get; set; }
 
@@ -17,6 +28,9 @@ namespace vinkn
         void Awake()
         {
             currentBg = null;
+            gameSceneManager = FindAnyObjectByType<GameSceneManager>();
+            dailySummaryUI = FindAnyObjectByType<DailySummaryUI>();
+
         }
 
         public void Add(DisplayAnchor a)
@@ -156,6 +170,99 @@ namespace vinkn
                 c.Move(a.transform.position, duration);
             else
                 c.transform.position = a.transform.position;
+        }
+
+        public void ChangeScene(string sceneName) 
+        {
+            gameSceneManager.ChangeScene(sceneName);
+        }
+
+        public void MeetCharacter(string characterName)
+        {
+            // Cherche le CharacterData correspondant au nom
+            var characterData = allCharactersData.FirstOrDefault(c => c.characterName == characterName);
+
+            if (characterData != null)
+            {
+                characterData.hasMetToday = true;
+                Debug.Log($"{characterName} a été rencontré(e) aujourd'hui.");
+            }
+            else
+            {
+                Debug.LogWarning($"Aucun CharacterData trouvé pour le nom : {characterName}");
+            }
+
+            if (characterData.isDiscovered == false)
+            {
+                characterData.isDiscovered = true;
+
+                if (DataManager.Instance != null)
+                {
+                    DataManager.Instance.characterIsDiscovered = true;
+                    Debug.Log("Stored " + characterData.isDiscovered + " in DayDataManager");
+                }
+                else
+                {
+                    Debug.LogError("No DayDataManager found!");
+                }
+
+            }
+
+        }
+
+        public void GainAffinity(string characterName, int quantity)
+        {
+            var characterData = allCharactersData.FirstOrDefault(c => c.characterName == characterName);
+            if (characterData != null)
+            {
+                characterData.friendshipLevel += 1;
+
+                Debug.Log($"L'affinité de {characterName} a augmenté de 1.");
+            }
+            else
+            {
+                Debug.LogWarning($"Aucun CharacterData trouvé pour le nom : {characterName}");
+            }
+
+        }
+
+        public void EndDay()
+        {
+            foreach (var c in allCharactersData)
+            {
+                Debug.Log($"{c.characterName} - hasMetToday: {c.hasMetToday}");
+            }
+
+            // On récupère les persos rencontrés aujourd’hui
+            List<CharacterData> charactersOfTheDay = new List<CharacterData>();
+
+            string names = string.Join(", ", charactersOfTheDay.ConvertAll(c => c.characterName));
+            Debug.Log("1 : " + names);
+
+            foreach (var c in allCharactersData)
+            {
+                if (c.hasMetToday)
+                    charactersOfTheDay.Add(c);
+            }
+
+            foreach (var c in charactersOfTheDay)
+            {
+                Debug.Log($"{c.characterName} - characters of the day: {c.characterName}");
+            }
+
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.charactersOfTheDay = new List<CharacterData>(charactersOfTheDay);
+                Debug.Log("Stored " + charactersOfTheDay.Count + " characters in DayDataManager");
+            }
+            else
+            {
+                Debug.LogError("No DayDataManager found!");
+            }
+
+                // On reset pour le lendemain
+                foreach (var c in allCharactersData)
+                c.hasMetToday = false;
         }
     }
 }

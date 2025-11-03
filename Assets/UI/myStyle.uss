@@ -1,0 +1,8 @@
+.field {
+    flex-direction: row;
+}
+
+.field Label {
+    color: rgb(200, 0, 0);
+    -unity-text-align: middle-center;
+}

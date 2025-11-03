@@ -27,6 +27,11 @@ public class StoryParser : MonoBehaviour
         OnCharacterChange?.Invoke(null);
     }
 
+    public void Load()
+    {
+        engine = GameObjectUtility.FindObjectOfType<VNEngine>();
+    }
+
     public void Parse(string line, List<string> tags)
     {
         content = line;
