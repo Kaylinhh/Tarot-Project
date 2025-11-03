@@ -17,6 +17,8 @@ MonoBehaviour:
   arcanaName: The High Priestess
   arcanaSprite: {fileID: 21300000, guid: 0d2fee8f1f48b224e820e4106d1e71fc, type: 3}
   description: The High Priestess
-  friendshipLevel: 0
+  friendshipLevel: 5
   traits:
   - Spiritual
+  hasMetToday: 1
+  isDiscovered: 1

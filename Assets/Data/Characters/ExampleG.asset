@@ -20,4 +20,5 @@ MonoBehaviour:
   friendshipLevel: 0
   traits:
   - Energetic
-  hasMetToday: 0
+  hasMetToday: 1
+  isDiscovered: 1

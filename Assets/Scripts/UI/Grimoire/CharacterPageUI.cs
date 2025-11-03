@@ -4,11 +4,18 @@ using UnityEngine.UI;
 
 public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
 {
-    public TextMeshProUGUI nameText;
-    public Image portraitImage;
-    public TextMeshProUGUI descriptionText;
-    public TextMeshProUGUI traitsText;
-    public TextMeshProUGUI friendshipText;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private Image portraitImage;
+    [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private TextMeshProUGUI traitsText;
+    [SerializeField] private TextMeshProUGUI friendshipText;
+
+    [Header("Locked Placeholder")]
+    [SerializeField] private string lockedName = "???";
+    [SerializeField] private Sprite lockedPortrait;
+    [SerializeField] private string lockedDescription = "You haven't met this person yet.";
+    [SerializeField] private string lockedTraits = "???";
+    [SerializeField] private string lockedFriendship = "???";
 
     private void Start()
     {
@@ -17,17 +24,26 @@ public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
 
     public void FillPage(CharacterData character)
     {
-        nameText.text = character.characterName;
-        portraitImage.sprite = character.portrait;
-        descriptionText.text = character.description;
 
-        // Exemple simple : afficher les traits séparés par des virgules
-        traitsText.text = "Traits: " + string.Join(", ", character.traits);
+        Debug.Log("character page got instantiated");
 
-        // Exemple de stat : niveau d’amitié
-        friendshipText.text = "Friendship: " + character.friendshipLevel;
+        if (character.isDiscovered == true)
+        {
+            nameText.text = character.characterName;
+            portraitImage.sprite = character.portrait;
+            descriptionText.text = character.description;
+            traitsText.text = "Traits: " + string.Join(", ", character.traits);
+            friendshipText.text = "Friendship: " + character.friendshipLevel;
+        }
+        else
+        {
+            nameText.text = lockedName;
+            portraitImage.sprite = lockedPortrait;
+            descriptionText.text = lockedDescription;
+            traitsText.text = "Traits: " + lockedTraits;
+            friendshipText.text = "Friendship: " + lockedFriendship;
+        }
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
-
     }
 }

@@ -15,9 +15,11 @@ namespace vinkn
         [SerializeField] List<EDisplayable> backgrounds;
         [SerializeField] List<DisplayAnchor> anchors;
         [SerializeField] List<CharacterData> allCharactersData;
+
         private DailySummaryUI dailySummaryUI;
 
         GameSceneManager gameSceneManager;
+
         StoryReader reader;
 
         protected EDisplayable currentBg { get; set; }
@@ -179,6 +181,7 @@ namespace vinkn
         {
             // Cherche le CharacterData correspondant au nom
             var characterData = allCharactersData.FirstOrDefault(c => c.characterName == characterName);
+
             if (characterData != null)
             {
                 characterData.hasMetToday = true;
@@ -188,6 +191,39 @@ namespace vinkn
             {
                 Debug.LogWarning($"Aucun CharacterData trouvé pour le nom : {characterName}");
             }
+
+            if (characterData.isDiscovered == false)
+            {
+                characterData.isDiscovered = true;
+
+                if (DataManager.Instance != null)
+                {
+                    DataManager.Instance.characterIsDiscovered = true;
+                    Debug.Log("Stored " + characterData.isDiscovered + " in DayDataManager");
+                }
+                else
+                {
+                    Debug.LogError("No DayDataManager found!");
+                }
+
+            }
+
+        }
+
+        public void GainAffinity(string characterName, int quantity)
+        {
+            var characterData = allCharactersData.FirstOrDefault(c => c.characterName == characterName);
+            if (characterData != null)
+            {
+                characterData.friendshipLevel += 1;
+
+                Debug.Log($"L'affinité de {characterName} a augmenté de 1.");
+            }
+            else
+            {
+                Debug.LogWarning($"Aucun CharacterData trouvé pour le nom : {characterName}");
+            }
+
         }
 
         public void EndDay()

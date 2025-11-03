@@ -46,5 +46,8 @@ EXTERNAL changeScene(name)
 === function meetCharacter(characterName)
 EXTERNAL meetCharacter(characterName)
 
+=== function gainAffinity(characterName, quantity)
+EXTERNAL gainAffinity(characterName, quantity)
+
 === function endDay()
 EXTERNAL endDay()

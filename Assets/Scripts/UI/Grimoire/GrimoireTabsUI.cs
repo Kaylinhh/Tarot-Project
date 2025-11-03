@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GrimoireTabsUI : MonoBehaviour
@@ -5,6 +6,7 @@ public class GrimoireTabsUI : MonoBehaviour
     [Header("Tabs Content")]
     public PagedTabUI<RecipeData> recipesContent;
     public PagedTabUI<CharacterData> charactersContent;
+    CharacterPagedTabUI characterPagedTabUI;
 
     public void ShowRecipes()
     {
@@ -16,5 +18,6 @@ public class GrimoireTabsUI : MonoBehaviour
     {
         charactersContent.Show();
         recipesContent.Hide();
+
     }
 }

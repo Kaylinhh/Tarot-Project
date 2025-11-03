@@ -85,6 +85,11 @@ MonoBehaviour:
   descriptionText: {fileID: 6562386863780512443}
   traitsText: {fileID: 4447493469885182224}
   friendshipText: {fileID: 5284494431380369205}
+  lockedName: ???
+  lockedPortrait: {fileID: 21300000, guid: 8ad9fa177d8f09549b63f75489ce57be, type: 3}
+  lockedDescription: You haven't met this person yet.
+  lockedTraits: ???
+  lockedFriendship: ???
 --- !u!1 &3275662893784722762
 GameObject:
   m_ObjectHideFlags: 0

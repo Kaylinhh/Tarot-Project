@@ -12,18 +12,6 @@ public class Glass : MonoBehaviour
     [SerializeField] GameObject serveButton;
     private List<IngredientData> currentIngredients = new List<IngredientData>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AddIngredient(IngredientData newIngredient)
     {
         currentIngredients.Add(newIngredient);
@@ -64,6 +52,7 @@ public class Glass : MonoBehaviour
         if (recipe.ingredients.Length != currentIngredients.Count)
             return false;
 
+
         //Temporary copy to avoid false positives doubles 
         var tempList = new List<IngredientData>(currentIngredients);
 
@@ -73,6 +62,10 @@ public class Glass : MonoBehaviour
                 return false;
             tempList.Remove(ingredient);
         }
+        
+        if (recipe.isDiscovered == false)
+            recipe.isDiscovered = true;
+
         return true;
     }
 

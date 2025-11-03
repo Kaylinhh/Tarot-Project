@@ -10,6 +10,7 @@ public class RecipeData : ScriptableObject
     public Sprite recipeImage;
     public IngredientData[] ingredients;
     [TextArea] public string description;
+    public bool isDiscovered = false;
 
 }
 

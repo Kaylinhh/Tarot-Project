@@ -10,11 +10,12 @@ public class CharacterData : ScriptableObject
     public string arcanaName;
     public Sprite arcanaSprite;
     [TextArea] public string description;
-    public int friendshipLevel;
+    public int friendshipLevel = 0;
     public string[] traits;
     [HideInInspector] public bool hasMetToday = false;
+    public bool isDiscovered = false;
 
     public string GetDailySummary()
     {  return "This is the daily summary (WIP)."; }
-
+    
 }

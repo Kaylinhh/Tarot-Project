@@ -70,7 +70,7 @@ public class PagedTabUI<T> : MonoBehaviour where T : ScriptableObject
         }
     }
 
-    private void UpdatePages()
+    public void UpdatePages()
     {
         // On cache tout
         foreach (var page in instantiatedPages)

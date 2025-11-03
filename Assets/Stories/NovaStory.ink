@@ -1,13 +1,14 @@
 INCLUDE 2d_api.ink
 
 ~ changeBg("Mountain")
-~ meetCharacter("Nova")
 ~ show("Nova")
 Nova:Bienvenue !
-~ meetCharacter("Mei")
+~ meetCharacter("Nova")
 ~ meetCharacter("Ex")
 ~ show("Mei")
+~ meetCharacter("Mei")
 Mei:Bonjour...
+~ gainAffinity("Mei", 1)
 
 *Oui
 *Non
