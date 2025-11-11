@@ -83,6 +83,10 @@ MonoBehaviour:
   recipeImage: {fileID: 3891957489525521525}
   descriptionText: {fileID: 6562386863780512443}
   ingredientsText: {fileID: 5284494431380369205}
+  lockedName: ???
+  lockedImage: {fileID: 21300000, guid: 72a7698853851b645bfeaa042015a1fc, type: 3}
+  lockedDescription: You haven't discovered this drink yet.
+  lockedIngredients: ???
 --- !u!1 &3275662893784722762
 GameObject:
   m_ObjectHideFlags: 0

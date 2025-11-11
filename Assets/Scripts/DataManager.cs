@@ -17,7 +17,7 @@ public class DataManager : MonoBehaviour
 
     public List<CharacterData> charactersOfTheDay = new List<CharacterData>();
     public bool characterIsDiscovered;
-
+    public bool recipeIsDiscovered;
     public event Action OnCharacterDiscovered;
     public event Action OnRecipeDiscovered;
 
