@@ -15,6 +15,8 @@ namespace vinkn
         [SerializeField] List<EDisplayable> backgrounds;
         [SerializeField] List<DisplayAnchor> anchors;
         [SerializeField] List<CharacterData> allCharactersData;
+        [SerializeField] List<RecipeData> allRecipesData;
+
 
         private DailySummaryUI dailySummaryUI;
 
@@ -31,6 +33,7 @@ namespace vinkn
             gameSceneManager = FindAnyObjectByType<GameSceneManager>();
             dailySummaryUI = FindAnyObjectByType<DailySummaryUI>();
             allCharactersData = DataManager.Instance.GetCharacters();
+            allRecipesData = DataManager.Instance.GetRecipes();
         }
 
         public void Add(DisplayAnchor a)
@@ -201,6 +204,39 @@ namespace vinkn
                 {
                     DataManager.Instance.characterIsDiscovered = true;
                     Debug.Log("Stored " + characterData.isDiscovered + " in DayDataManager");
+                }
+                else
+                {
+                    Debug.LogError("No DayDataManager found!");
+                }
+
+            }
+
+        }
+
+        public void DiscoverRecipe(string recipeName)
+        {
+            var recipeData = allRecipesData.FirstOrDefault(c => c.recipeName == recipeName);
+
+            if (recipeData != null)
+            {
+                recipeData.isDiscovered = true;
+                Debug.Log($"La recette suivante a été découverte : {recipeName}.");
+                DataManager.Instance.NotifyRecipeDiscovered();
+            }
+            else
+            {
+                Debug.LogWarning($"Aucun RecipeData trouvé pour le nom : {recipeName}.");
+            }
+
+            if (recipeData.isDiscovered == false)
+            {
+                recipeData.isDiscovered = true;
+
+                if (DataManager.Instance != null)
+                {
+                    DataManager.Instance.recipeIsDiscovered = true;
+                    Debug.Log("Stored " + recipeData.isDiscovered + " in DayDataManager");
                 }
                 else
                 {

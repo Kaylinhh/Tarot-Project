@@ -62,6 +62,11 @@ public class PagedTabUI<T> : MonoBehaviour where T : ScriptableObject
         }
     }
 
+    public void ResetToFirstPage()
+    {
+        currentIndex = 0;
+        UpdatePages();
+    }
 
     // Rafraîchit les pages sans tout détruire.
     // Met à jour le contenu si des données changent.
