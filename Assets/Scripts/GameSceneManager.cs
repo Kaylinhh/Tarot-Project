@@ -19,7 +19,6 @@ public class GameSceneManager : MonoBehaviour
     FadeTransition fade;
     string nextScene;
     private string previousScene = "";
-    private Scene? previousSceneObject = null;
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +88,7 @@ public class GameSceneManager : MonoBehaviour
 
     IEnumerator _StartStoryAsync()
     {
+        yield return null;
         yield return null;
 
         string current = currentScene.name;

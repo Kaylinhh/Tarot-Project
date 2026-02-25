@@ -411,7 +411,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 22939acdea1d6dd4bbb6802625d3828e, type: 2}
   - {fileID: 11400000, guid: f2600e8f421ac364ab9518bb96a309f9, type: 2}
   - {fileID: 11400000, guid: f3930eaf0a530924aa9276513edf0be1, type: 2}
-  allRecipesData: []
+  allRecipesData:
+  - {fileID: 11400000, guid: 2e234af288694ff4bba5b5063a3794fe, type: 2}
+  - {fileID: 11400000, guid: 497c2c4b946c6a54097131e94a0e853a, type: 2}
+  - {fileID: 11400000, guid: a595fe6e7255d8948ab91ad025f36542, type: 2}
 --- !u!4 &148124626
 Transform:
   m_ObjectHideFlags: 0
@@ -2120,6 +2123,7 @@ MonoBehaviour:
   OnStoryEnd:
     m_PersistentCalls:
       m_Calls: []
+  isPaused: 0
 --- !u!4 &1008967462
 Transform:
   m_ObjectHideFlags: 0

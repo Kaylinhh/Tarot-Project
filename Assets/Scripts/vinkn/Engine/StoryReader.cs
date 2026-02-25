@@ -12,6 +12,7 @@ namespace vinkn
 
         [System.Serializable] public class StoryEventTrigger : UnityEvent<StoryReader, object[]> { }
         [System.Serializable] public class VariableEventTrigger : UnityEvent<string, object> { }
+
         [System.Serializable]
         public class EventLink
         {
@@ -25,6 +26,7 @@ namespace vinkn
             public string variableName;
             public VariableEventTrigger onTrigger;
         }
+
         public Story story { get; private set; }
 
         [Header("Configuration")]
@@ -39,13 +41,12 @@ namespace vinkn
         [SerializeField] UnityEvent OnStoryEnd;
 
         public StoryReadState state { get; private set; }
-       
         public bool isPaused = false;
 
-        // Start is called before the first frame update
+        NovelCanvas novelCanvas;
+
         void Awake()
         {
-
             if (storyAsset == null)
             {
                 gameObject.SetActive(false);
@@ -54,27 +55,23 @@ namespace vinkn
 
             story = new Story(storyAsset.text);
             state = StoryReadState.READ;
+
             foreach (EventLink e in eventList)
             {
-                story.BindExternalFunctionGeneral(e.eventName, (object[] args) => { e.onTrigger?.Invoke(this, args); return null; }, false);
+                story.BindExternalFunctionGeneral(e.eventName, (object[] args) =>
+                {
+                    e.onTrigger?.Invoke(this, args);
+                    return null;
+                }, false);
             }
 
             foreach (VariableLink v in variableList)
             {
-                story.ObserveVariable(v.variableName, (string varName, object varValue) => v.onTrigger?.Invoke(varName, varValue));
+                story.ObserveVariable(v.variableName, (string varName, object varValue) =>
+                    v.onTrigger?.Invoke(varName, varValue));
             }
 
-            // storyDisplay.engine = engine;
-            // storyDisplay.ReadTags(story.globalTags, true);
-
-        }
-
-        private void OnEnable()
-        {
-        }
-
-        private void OnDisable()
-        {
+            novelCanvas = FindAnyObjectByType<NovelCanvas>();
         }
 
         protected virtual IEnumerator Start()
@@ -83,7 +80,6 @@ namespace vinkn
 
             if (startOnAwake)
                 Next();
-
         }
 
         public virtual void Next()
@@ -93,7 +89,7 @@ namespace vinkn
             if (isPaused)
             {
                 Debug.Log("Story is paused");
-                return; 
+                return;
             }
 
             if (story.canContinue)
@@ -103,16 +99,39 @@ namespace vinkn
                 Debug.Log($"Story content: '{content}'");
                 Debug.Log($"Current tags: {string.Join(", ", story.currentTags)}");
 
+                // PAUSE pour changement de scène
                 if (story.currentTags.Contains("PAUSE"))
                 {
-                    Debug.Log("Story PAUSED by tag");
+                    Debug.Log("Story PAUSED (scene change)");
                     isPaused = true;
-                    return;
-                }
+
                     if (string.IsNullOrEmpty(content))
+                    {
+                        return;
+                    }
+                }
+
+                if (story.currentTags.Contains("PAUSE_MINIGAME"))
+                {
+                    Debug.Log("Story PAUSED (minigame)");
+                    isPaused = true;
+
+                    NovelCanvas canvas = FindAnyObjectByType<NovelCanvas>();
+                    if (canvas != null)
+                    {
+                        canvas.DisplayUI(false);
+                        Debug.Log("[SR] UI hidden for minigame");
+                    }
+
+                    if (string.IsNullOrEmpty(content))
+                    {
+                        return;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(content))
                 {
                     Debug.Log("Empty content, calling Next() again");
-
                     Next();
                     return;
                 }
@@ -131,10 +150,19 @@ namespace vinkn
             }
         }
 
-        public void Resume() 
+        public void Resume()
         {
-            Debug.Log("RESUME CALLED - isPaused BEFORE: {isPaused}");
+            Debug.Log($"RESUME CALLED - isPaused BEFORE: {isPaused}");
             isPaused = false;
+
+            // Réaffiche l'UI
+            NovelCanvas canvas = FindAnyObjectByType<NovelCanvas>();
+            if (canvas != null)
+            {
+                canvas.DisplayStory(true);
+                Debug.Log("[SR] UI shown on Resume");
+            }
+
             Debug.Log($"isPaused NOW: {isPaused}");
             Next();
         }
@@ -163,6 +191,5 @@ namespace vinkn
             storyAsset = asset;
             story = new Story(asset.text);
         }
-
     }
 }
