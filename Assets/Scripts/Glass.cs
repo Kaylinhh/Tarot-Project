@@ -11,6 +11,7 @@ public class Glass : MonoBehaviour
     [SerializeField] GameObject shakeButton;
     [SerializeField] GameObject serveButton;
     private List<IngredientData> currentIngredients = new List<IngredientData>();
+    private RecipeData currentRecipe = null;
 
     public void AddIngredient(IngredientData newIngredient)
     {
@@ -75,6 +76,30 @@ public class Glass : MonoBehaviour
         {
             shakeButton.SetActive(false);
             serveButton.SetActive(true);
+        }
+    }
+
+    public string GetCurrentCocktailName()
+    {
+        if (currentRecipe != null)
+        {
+            return currentRecipe.recipeName;
+        }
+        return "Unknown"; 
+    }
+
+    public void OnServeButtonClick()
+    {
+        string cocktailName = GetCurrentCocktailName();
+
+        GameSceneManager gsm = FindFirstObjectByType<GameSceneManager>();
+        if (gsm != null)
+        {
+            gsm.ChangeSceneFromBar(cocktailName);
+        }
+        else
+        {
+            Debug.LogError("GameSceneManager not found!");
         }
     }
 }

@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 namespace vinkn
 {
@@ -16,24 +14,116 @@ namespace vinkn
         [SerializeField] List<DisplayAnchor> anchors;
         [SerializeField] List<CharacterData> allCharactersData;
         [SerializeField] List<RecipeData> allRecipesData;
-
-
-        private DailySummaryUI dailySummaryUI;
-
+        NovelCanvas novelCanvas;
         GameSceneManager gameSceneManager;
-
-        StoryReader reader;
+       // public GameObject storyReader;
 
         protected EDisplayable currentBg { get; set; }
 
         // Start is called before the first frame update
         void Awake()
         {
-            currentBg = null;
-            gameSceneManager = FindAnyObjectByType<GameSceneManager>();
-            dailySummaryUI = FindAnyObjectByType<DailySummaryUI>();
-            allCharactersData = DataManager.Instance.GetCharacters();
-            allRecipesData = DataManager.Instance.GetRecipes();
+            Debug.Log("[VNE] ===== AWAKE START =====");
+
+            try
+            {
+                currentBg = null;
+                gameSceneManager = FindAnyObjectByType<GameSceneManager>();
+                novelCanvas = FindAnyObjectByType<NovelCanvas>();
+
+                // NE PAS get ici, juste initialiser vide
+                allCharactersData = new List<CharacterData>();
+                allRecipesData = new List<RecipeData>();
+
+                Debug.Log("[VNE] ===== AWAKE COMPLETE =====");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[VNE] EXCEPTION IN AWAKE: {e.Message}");
+            }
+        }
+
+        void Start()
+        {
+            Debug.Log("[VNE] START CALLED");
+
+            // GET ICI (Start s'exécute après tous les Awake)
+            if (DataManager.Instance != null)
+            {
+                allCharactersData = DataManager.Instance.GetCharacters();
+                allRecipesData = DataManager.Instance.GetRecipes();
+                Debug.Log($"[VNE] Loaded {allCharactersData.Count} characters, {allRecipesData.Count} recipes from DataManager");
+            }
+            else
+            {
+                Debug.LogError("[VNE] DataManager.Instance still NULL in Start!");
+            }
+        }
+
+        void OnEnable()
+        {
+            Debug.Log("[VNE] OnEnable - Subscribing to sceneLoaded");
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        void OnDisable()
+        {
+            Debug.Log("[VNE] OnDisable - Unsubscribing from sceneLoaded");
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            Debug.Log($"[VNE] OnSceneLoaded called - Scene: {scene.name}, Mode: {mode}");
+
+            if (scene.name == "Main")
+            {
+                Debug.Log($"[VNE] Main detected! Current lists BEFORE clear: {characters.Count} chars, {backgrounds.Count} bgs");
+                RegisterSceneObjects();
+            }
+            else
+            {
+                Debug.Log($"[VNE] Scene {scene.name} loaded but not Main, skipping registration");
+            }
+        }
+
+        private void RegisterSceneObjects()
+        {
+            Debug.Log("[VNE] CLEARING old references...");
+            characters.Clear();
+            backgrounds.Clear();
+            anchors.Clear();
+
+            Debug.Log("[VNE] Finding objects in scene...");
+
+            Character[] foundCharacters = FindObjectsOfType<Character>();
+            Debug.Log($"[VNE] FindObjectsOfType<Character> found: {foundCharacters.Length}");
+
+            foreach (var c in foundCharacters)
+            {
+                Debug.Log($"[VNE]   - Found character: {c.name} (tagID: {c.tagID}) in scene {c.gameObject.scene.name}");
+                AddCharacter(c);
+            }
+
+            EDisplayable[] foundBackgrounds = FindObjectsOfType<EDisplayable>();
+            Debug.Log($"[VNE] FindObjectsOfType<EDisplayable> found: {foundBackgrounds.Length}");
+
+            foreach (var bg in foundBackgrounds)
+            {
+                Debug.Log($"[VNE]   - Found background: {bg.name} (tagID: {bg.tagID}) in scene {bg.gameObject.scene.name}");
+                AddBackground(bg);
+            }
+
+            DisplayAnchor[] foundAnchors = FindObjectsOfType<DisplayAnchor>();
+            Debug.Log($"[VNE] FindObjectsOfType<DisplayAnchor> found: {foundAnchors.Length}");
+
+            foreach (var a in foundAnchors)
+            {
+                Debug.Log($"[VNE]   - Found anchor: {a.name} (tagID: {a.tagID}) in scene {a.gameObject.scene.name}");
+                Add(a);
+            }
+
+            Debug.Log($"[VNE] AFTER registration: {characters.Count} characters, {backgrounds.Count} backgrounds, {anchors.Count} anchors");
         }
 
         public void Add(DisplayAnchor a)
@@ -117,13 +207,25 @@ namespace vinkn
 
         public virtual void FadeToBackground(string name, float duration)
         {
-            if (currentBg != null)
+            try
             {
-                currentBg.Fade(0, duration);
-            }
+                Debug.Log($"[VNE] FadeToBackground called: {name}");
 
-            currentBg = FindBackground(name);
-            currentBg.Fade(1, duration);
+                if (currentBg != null)
+                {
+                    currentBg.Fade(0, duration);
+                }
+
+                currentBg = FindBackground(name);
+                currentBg.Fade(1, duration);
+
+                Debug.Log($"[VNE] Background changed to {name}");
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning($"[VNE] Could not change background to '{name}': {e.Message}");
+                // Ne pas planter, juste skip
+            }
         }
 
         public virtual void FlipXChar(string item)
@@ -174,12 +276,17 @@ namespace vinkn
             else
                 c.transform.position = a.transform.position;
         }
-
-        public void ChangeScene(string sceneName) 
+        public void ChangeScene(string sceneName)
         {
+            // Cache l'UI AVANT de changer de scène
+            if (novelCanvas != null)
+            {
+                novelCanvas.DisplayUI(false);
+                Debug.Log("[VNE] UI hidden before scene change");
+            }
+
             gameSceneManager.ChangeScene(sceneName);
         }
-
         public void MeetCharacter(string characterName)
         {
             // Cherche le CharacterData correspondant au nom
