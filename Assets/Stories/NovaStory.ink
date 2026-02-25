@@ -14,9 +14,18 @@ Mei:Bonjour...
 *Non
 - 
 Bon bah d'accord.
+// Point de pause clair
+-> pause_for_barview
+
+=== pause_for_barview ===
+# PAUSE
 ~ changeScene("BarView")
-A
-A
+-> barview_tutorial
+
+=== barview_tutorial ===
+Nova: Ceci est le début du tuto !
+Nova: Puis la suite !
+# PAUSE
 ~ changeBg("Mountain")
 ~ show("Nova")
 Nova:Bonsoir !
@@ -29,3 +38,4 @@ Mei:Salut...
 Bon bah d'accord. C'est fini.
 ~ endDay()
 ~ changeScene("CardReading")
+-> DONE

@@ -39,6 +39,8 @@ namespace vinkn
         [SerializeField] UnityEvent OnStoryEnd;
 
         public StoryReadState state { get; private set; }
+       
+        public bool isPaused = false;
 
         // Start is called before the first frame update
         void Awake()
@@ -86,12 +88,31 @@ namespace vinkn
 
         public virtual void Next()
         {
+            Debug.Log($"Next() called - isPaused: {isPaused}, canContinue: {story.canContinue}");
+
+            if (isPaused)
+            {
+                Debug.Log("Story is paused");
+                return; 
+            }
+
             if (story.canContinue)
             {
                 string content = story.Continue().Trim();
 
-                if (string.IsNullOrEmpty(content))
+                Debug.Log($"Story content: '{content}'");
+                Debug.Log($"Current tags: {string.Join(", ", story.currentTags)}");
+
+                if (story.currentTags.Contains("PAUSE"))
                 {
+                    Debug.Log("Story PAUSED by tag");
+                    isPaused = true;
+                    return;
+                }
+                    if (string.IsNullOrEmpty(content))
+                {
+                    Debug.Log("Empty content, calling Next() again");
+
                     Next();
                     return;
                 }
@@ -100,12 +121,22 @@ namespace vinkn
             }
             else if (story.currentChoices?.Count > 0)
             {
+                Debug.Log($"Choices available: {story.currentChoices.Count}");
                 OnChoices?.Invoke(story.currentChoices);
             }
             else
             {
+                Debug.Log("Story ended");
                 OnStoryEnd?.Invoke();
             }
+        }
+
+        public void Resume() 
+        {
+            Debug.Log("RESUME CALLED - isPaused BEFORE: {isPaused}");
+            isPaused = false;
+            Debug.Log($"isPaused NOW: {isPaused}");
+            Next();
         }
 
         public virtual void SelectChoice(Choice choice)

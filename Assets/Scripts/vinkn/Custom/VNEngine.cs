@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 namespace vinkn
 {
@@ -16,13 +13,9 @@ namespace vinkn
         [SerializeField] List<DisplayAnchor> anchors;
         [SerializeField] List<CharacterData> allCharactersData;
         [SerializeField] List<RecipeData> allRecipesData;
-
-
-        private DailySummaryUI dailySummaryUI;
-
+        NovelCanvas novelCanvas;
         GameSceneManager gameSceneManager;
-
-        StoryReader reader;
+       // public GameObject storyReader;
 
         protected EDisplayable currentBg { get; set; }
 
@@ -31,9 +24,57 @@ namespace vinkn
         {
             currentBg = null;
             gameSceneManager = FindAnyObjectByType<GameSceneManager>();
-            dailySummaryUI = FindAnyObjectByType<DailySummaryUI>();
+            novelCanvas = FindAnyObjectByType<NovelCanvas>();
             allCharactersData = DataManager.Instance.GetCharacters();
             allRecipesData = DataManager.Instance.GetRecipes();
+        }
+
+        void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // Quand une scène se charge, re-trouve les objets de cette scène
+            if (scene.name == "Main")
+            {
+                RegisterSceneObjects();
+            }
+        }
+
+        private void RegisterSceneObjects()
+        {
+            // Clear les anciennes références
+            characters.Clear();
+            backgrounds.Clear();
+            anchors.Clear();
+
+            // Trouve tous les objets de la scène Main
+            Character[] foundCharacters = FindObjectsOfType<Character>();
+            foreach (var c in foundCharacters)
+            {
+                AddCharacter(c);
+            }
+
+            EDisplayable[] foundBackgrounds = FindObjectsOfType<EDisplayable>();
+            foreach (var bg in foundBackgrounds)
+            {
+                AddBackground(bg);
+            }
+
+            DisplayAnchor[] foundAnchors = FindObjectsOfType<DisplayAnchor>();
+            foreach (var a in foundAnchors)
+            {
+                Add(a);
+            }
+
+            Debug.Log($"Registered {characters.Count} characters, {backgrounds.Count} backgrounds, {anchors.Count} anchors");
         }
 
         public void Add(DisplayAnchor a)
@@ -114,6 +155,13 @@ namespace vinkn
 
             return c;
         }
+
+/*        public void HideUI()
+        {
+            novelCanvas.DisplayUI(false);
+            storyReader.SetActive(false);
+
+        }*/
 
         public virtual void FadeToBackground(string name, float duration)
         {

@@ -37,7 +37,7 @@ namespace vinkn
             reader.story.BindExternalFunction("discoverRecipe", (string recipeName) => engine.DiscoverRecipe(recipeName));
             reader.story.BindExternalFunction("gainAffinity", (string characterName, int quantity) => engine.GainAffinity(characterName, quantity));
             reader.story.BindExternalFunction("endDay", () => engine.EndDay());
-
+            //reader.story.BindExternalFunction("hideUI", () => engine.HideUI());
 
         }
 
