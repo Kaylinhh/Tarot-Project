@@ -2075,7 +2075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startOnAwake: 0
-  storyAsset: {fileID: 4900000, guid: afe269715d957a542bbc2643304bf78a, type: 3}
+  storyAsset: {fileID: 4900000, guid: e76e1102cedb23546ae8bcde843f62b7, type: 3}
   eventList: []
   variableList: []
   OnNextLine:
@@ -2430,6 +2430,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f2600e8f421ac364ab9518bb96a309f9, type: 2}
   - {fileID: 11400000, guid: 22939acdea1d6dd4bbb6802625d3828e, type: 2}
   - {fileID: 11400000, guid: f3930eaf0a530924aa9276513edf0be1, type: 2}
+  - {fileID: 11400000, guid: 0ed4d3d30265ff145b6b68de16848ae6, type: 2}
   soRecipes:
   - {fileID: 11400000, guid: 2e234af288694ff4bba5b5063a3794fe, type: 2}
   - {fileID: 11400000, guid: 497c2c4b946c6a54097131e94a0e853a, type: 2}

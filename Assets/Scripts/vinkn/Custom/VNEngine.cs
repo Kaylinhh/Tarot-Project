@@ -356,12 +356,15 @@ namespace vinkn
 
         public void GainAffinity(string characterName, int quantity)
         {
+            Debug.Log($"[VNE] GainAffinity called with: '{characterName}'");
+            Debug.Log($"[VNE] Available characters: {string.Join(", ", allCharactersData.ConvertAll(c => $"'{c.characterName}'"))}");
+
             var characterData = allCharactersData.FirstOrDefault(c => c.characterName == characterName);
+
             if (characterData != null)
             {
-                characterData.friendshipLevel += 1;
-
-                Debug.Log($"L'affinité de {characterName} a augmenté de 1.");
+                characterData.friendshipLevel += quantity;
+                Debug.Log($"L'affinité de {characterName} a augmenté de {quantity}.");
             }
             else
             {

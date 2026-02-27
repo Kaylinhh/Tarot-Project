@@ -51,6 +51,3 @@ EXTERNAL gainAffinity(characterName, quantity)
 
 === function endDay()
 EXTERNAL endDay()
-
-/*=== function hideUI()
-EXTERNAL hideUI()*/
