@@ -9,7 +9,7 @@ public class NovelCanvas : MonoBehaviour
     [SerializeField] GameObject charNameTextBox;
     [SerializeField] GameObject storyDisplay;
     [SerializeField] ChoiceDisplay choices;
-    // Start is called before the first frame update
+
     void Start()
     {
         
@@ -42,6 +42,7 @@ public class NovelCanvas : MonoBehaviour
         {
             storyDisplay.SetActive(active);
             choices.gameObject.SetActive(!active);
+            ToggleDragging(!active);
         }
     }
 
@@ -51,6 +52,18 @@ public class NovelCanvas : MonoBehaviour
         {
             storyDisplay.SetActive(active);
             choices.gameObject.SetActive(active);
+            ToggleDragging(!active);
+        }
+    }
+
+    private void ToggleDragging(bool allowDragging)
+    {
+        DragAndDrop[] draggables = FindObjectsOfType<DragAndDrop>();
+        Debug.Log($"[NovelCanvas] Found {draggables.Length} DragAndDrop, allowDragging={allowDragging}");
+
+        foreach (var drag in draggables)
+        {
+            drag.enabled = allowDragging;
         }
     }
 }

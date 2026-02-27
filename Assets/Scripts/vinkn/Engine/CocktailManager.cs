@@ -45,13 +45,14 @@ public class CocktailManager : MonoBehaviour
             {
                 Debug.Log("FOUND" + recipe.recipeName);
                 recipeText.text = "You created: " + recipe.recipeName;
+                currentRecipe = recipe;
                 ShowServeButton();
                 return;
             }
         }
 
         Debug.Log("No match");
-        recipeText.text = "Unknown recipe";
+        recipeText.text = "Unknown recipe! You can't serve that.";
 
     }
 
@@ -89,6 +90,7 @@ public class CocktailManager : MonoBehaviour
         {
             return currentRecipe.recipeName;
         }
+        Debug.LogError("no current recipe found");
         return "Unknown";
     }
 

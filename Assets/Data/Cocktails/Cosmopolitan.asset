@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30f80929ce34614489bc12bcae5ba583, type: 3}
-  m_Name: Caipirinha
+  m_Name: Cosmopolitan
   m_EditorClassIdentifier: 
-  recipeName: Caipi
+  recipeName: Cosmopolitan
   recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
   ingredients:
-  - {fileID: 11400000, guid: 4ec87689f63ef784c868c594f124b14f, type: 2}
-  - {fileID: 11400000, guid: b1cdd97212c9cb54cb4bf92b190ab893, type: 2}
-  - {fileID: 11400000, guid: 74f7c53e527cb16499240349578d8015, type: 2}
-  description: A short drink that packs quite the punch.
+  - {fileID: 11400000, guid: 98d7e7635a1bfab4cbbb6c2dfa02a677, type: 2}
+  - {fileID: 11400000, guid: 36baa9756596e514780ad1abd6436261, type: 2}
+  - {fileID: 11400000, guid: 12f316b413f9eed41abfb94899085095, type: 2}
+  - {fileID: 11400000, guid: 5bb2cd735cf16574a9210d45f57dd61f, type: 2}
+  description: A classic, sweet, pink cocktail.
+  isDiscovered: 0

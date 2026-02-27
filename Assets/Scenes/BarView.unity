@@ -532,7 +532,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1056,7 +1056,7 @@ PrefabInstance:
     - target: {fileID: 9011309917414041941, guid: f1db3c65cf7e5c54093cc47b98146a31, type: 3}
       propertyPath: ingredient
       value: 
-      objectReference: {fileID: 11400000, guid: 4ec87689f63ef784c868c594f124b14f, type: 2}
+      objectReference: {fileID: 11400000, guid: d9975a0c87233ae44a425019976cc1e1, type: 2}
     - target: {fileID: 9110398877022199319, guid: f1db3c65cf7e5c54093cc47b98146a31, type: 3}
       propertyPath: m_Name
       value: Sugar
@@ -1247,6 +1247,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2e234af288694ff4bba5b5063a3794fe, type: 2}
   - {fileID: 11400000, guid: 497c2c4b946c6a54097131e94a0e853a, type: 2}
   - {fileID: 11400000, guid: a595fe6e7255d8948ab91ad025f36542, type: 2}
+  - {fileID: 11400000, guid: 2ed56409c729112429186b21ccc478e7, type: 2}
+  - {fileID: 11400000, guid: 29844c69929ad1c4c94e5dca4c5341f2, type: 2}
+  - {fileID: 11400000, guid: 323080e5327a66147bd28c80f1bf5297, type: 2}
+  - {fileID: 11400000, guid: 5cc8ee2f2bed19449837b7700be08e90, type: 2}
+  - {fileID: 11400000, guid: cd899a4b99069a245990eebf17183a3c, type: 2}
   shakeButton: {fileID: 940337046}
   serveButton: {fileID: 1509612576}
 --- !u!114 &1838059859
@@ -1613,7 +1618,7 @@ PrefabInstance:
     - target: {fileID: 9011309917414041941, guid: f1db3c65cf7e5c54093cc47b98146a31, type: 3}
       propertyPath: ingredient
       value: 
-      objectReference: {fileID: 11400000, guid: d9975a0c87233ae44a425019976cc1e1, type: 2}
+      objectReference: {fileID: 11400000, guid: b1cdd97212c9cb54cb4bf92b190ab893, type: 2}
     - target: {fileID: 9110398877022199319, guid: f1db3c65cf7e5c54093cc47b98146a31, type: 3}
       propertyPath: m_Name
       value: Rum

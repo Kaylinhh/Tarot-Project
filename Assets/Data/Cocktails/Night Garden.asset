@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30f80929ce34614489bc12bcae5ba583, type: 3}
-  m_Name: Mojito
+  m_Name: Night Garden
   m_EditorClassIdentifier: 
-  recipeName: Mojito
+  recipeName: Night Garden
   recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
   ingredients:
-  - {fileID: 11400000, guid: 4ec87689f63ef784c868c594f124b14f, type: 2}
-  - {fileID: 11400000, guid: d9975a0c87233ae44a425019976cc1e1, type: 2}
-  - {fileID: 11400000, guid: 74f7c53e527cb16499240349578d8015, type: 2}
-  - {fileID: 11400000, guid: 00e3ae92f2b96de4299ea9ad0c93c21a, type: 2}
-  - {fileID: 11400000, guid: 54a257722cdbad64f9f29190d4800154, type: 2}
-  description: A refreshing summer classic.
+  - {fileID: 11400000, guid: 98d7e7635a1bfab4cbbb6c2dfa02a677, type: 2}
+  - {fileID: 11400000, guid: ae102652519cb0c4d8a0374bf228491a, type: 2}
+  - {fileID: 11400000, guid: 293bb278d7b787146a0559aa37eb9914, type: 2}
+  - {fileID: 11400000, guid: c10f78c076902eb459bbd77c05e3dd69, type: 2}
+  description: An earthy, mystical drink that reminds you of moonless nights.
+  isDiscovered: 0
