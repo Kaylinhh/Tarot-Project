@@ -1,55 +1,81 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
-    [SerializeField] IngredientData ingredient;
-    [SerializeField] Collider2D dropTarget;
+    [SerializeField] IngredientData ingredient; // Optionnel (null pour le verre)
+
     private Vector3 offset;
     private Vector3 oldPos;
     private bool dragging = false;
 
+    // NOUVEAU - Pour identifier si c'est le verre
+    private CocktailManager cocktailManager;
 
     void Start()
     {
+        // Check si cet objet EST le verre
+        cocktailManager = GetComponent<CocktailManager>();
     }
 
     private void Update()
     {
         if (dragging)
         {
-            //Move object, taking into account original offest
             transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
     }
 
-    private Vector3 GetMousePos()
-    {
-        return Camera.main.WorldToScreenPoint(transform.position);
-    }
-
     private void OnMouseDown()
     {
-        //Record the difference between the objects centre, and the clicked point on the camera plane.
         offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Get the position before dragging
         oldPos = transform.position;
         dragging = true;
     }
 
     private void OnMouseUp()
     {
-        //stop dragging
         dragging = false;
 
-        if (dropTarget != null && dropTarget.OverlapPoint(transform.position))
+        Collider2D[] hits = Physics2D.OverlapPointAll(transform.position);
+
+        foreach (var hit in hits)
         {
-            dropTarget.GetComponent<Glass>().AddIngredient(ingredient);
+            // SI C'EST LE VERRE qui est draggé
+            if (cocktailManager != null)
+            {
+                // Check seulement la poubelle
+                Bin bin = hit.GetComponent<Bin>();
+                if (bin != null)
+                {
+                    bin.DeleteIngredients();
+                    transform.position = oldPos;
+                    return;
+                }
+            }
+            // SI C'EST UN INGRÉDIENT qui est draggé
+            else if (ingredient != null)
+            {
+                // Check le verre
+                CocktailManager glass = hit.GetComponent<CocktailManager>();
+                if (glass != null)
+                {
+                    glass.AddIngredient(ingredient);
+                    transform.position = oldPos;
+                    return;
+                }
+
+                // Check la poubelle
+                Bin bin = hit.GetComponent<Bin>();
+                if (bin != null)
+                {
+                    bin.DeleteIngredients();
+                    transform.position = oldPos;
+                    return;
+                }
+            }
         }
-        //Go back to old pos
+
+        // Retour position
         transform.position = oldPos;
     }
-
 }

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Glass : MonoBehaviour
+public class CocktailManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI recipeText;
     [SerializeField] List<RecipeData> allRecipes;
@@ -17,13 +17,18 @@ public class Glass : MonoBehaviour
     {
         currentIngredients.Add(newIngredient);
         UpdateRecipeText();
-        
+
     }
 
     private void UpdateRecipeText()
     {
+        if (currentIngredients == null) 
+        {
+            recipeText.text = "";
+        }
+
         recipeText.text = "Recipe:\n";
-        foreach(var ingredient in currentIngredients)
+        foreach (var ingredient in currentIngredients)
         {
             recipeText.text += "- " + ingredient.ingredientName + "\n";
         }
@@ -31,20 +36,23 @@ public class Glass : MonoBehaviour
 
     public void CheckForRecipe()
     {
+
+        Debug.Log("Button clicked");
+
         foreach (var recipe in allRecipes)
         {
             if (MatchRecipe(recipe))
             {
                 Debug.Log("FOUND" + recipe.recipeName);
                 recipeText.text = "You created: " + recipe.recipeName;
-                ServeDrink(recipe);
-                return; 
+                ShowServeButton();
+                return;
             }
         }
 
         Debug.Log("No match");
         recipeText.text = "Unknown recipe";
-        
+
     }
 
 
@@ -53,30 +61,26 @@ public class Glass : MonoBehaviour
         if (recipe.ingredients.Length != currentIngredients.Count)
             return false;
 
-
         //Temporary copy to avoid false positives doubles 
         var tempList = new List<IngredientData>(currentIngredients);
 
-        foreach(var ingredient in recipe.ingredients)
+        foreach (var ingredient in recipe.ingredients)
         {
             if (!tempList.Contains(ingredient))
                 return false;
             tempList.Remove(ingredient);
         }
-        
+
         if (recipe.isDiscovered == false)
             recipe.isDiscovered = true;
 
         return true;
     }
 
-    public void ServeDrink(RecipeData recipe)
+    public void ShowServeButton()
     {
-        if (MatchRecipe(recipe))
-        {
             shakeButton.SetActive(false);
             serveButton.SetActive(true);
-        }
     }
 
     public string GetCurrentCocktailName()
@@ -85,7 +89,7 @@ public class Glass : MonoBehaviour
         {
             return currentRecipe.recipeName;
         }
-        return "Unknown"; 
+        return "Unknown";
     }
 
     public void OnServeButtonClick()
@@ -101,5 +105,11 @@ public class Glass : MonoBehaviour
         {
             Debug.LogError("GameSceneManager not found!");
         }
+    }
+
+    public void ResetCocktail()
+    {
+        currentIngredients.Clear();
+        UpdateRecipeText();
     }
 }
