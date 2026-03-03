@@ -16,6 +16,7 @@ public class CocktailManager : MonoBehaviour
     public void AddIngredient(IngredientData newIngredient)
     {
         currentIngredients.Add(newIngredient);
+        Debug.Log("added ingredient" + newIngredient.name);
         UpdateRecipeText();
 
     }
@@ -52,7 +53,7 @@ public class CocktailManager : MonoBehaviour
         }
 
         Debug.Log("No match");
-        recipeText.text = "Unknown recipe! You can't serve that.";
+        recipeText.text = "Unknown recipe! You can't serve that, toss it in the bin.";
 
     }
 

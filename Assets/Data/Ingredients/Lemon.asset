@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Lemon
   m_EditorClassIdentifier: 
   ingredientName: Lemon
-  icon: {fileID: 21300000, guid: d58dbdf0c11b5c74e8b87007914ad517, type: 3}
-  isDiscovered: 0
+  sprite: {fileID: 21300000, guid: 9e14a7ae1af002c488ac7111c03f8343, type: 3}
+  category: 1

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Maple Syrup
   m_EditorClassIdentifier: 
   ingredientName: Maple Syrup
-  icon: {fileID: 21300000, guid: d58dbdf0c11b5c74e8b87007914ad517, type: 3}
-  isDiscovered: 0
+  sprite: {fileID: 21300000, guid: e08e2215cacca224fbb2b6360581a5d0, type: 3}
+  category: 6

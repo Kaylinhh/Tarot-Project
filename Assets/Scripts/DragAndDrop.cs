@@ -1,81 +1,141 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
-public class DragAndDrop : MonoBehaviour
+public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    [SerializeField] IngredientData ingredient; // Optionnel (null pour le verre)
+    private IngredientData ingredient;
 
-    private Vector3 offset;
     private Vector3 oldPos;
     private bool dragging = false;
 
-    // NOUVEAU - Pour identifier si c'est le verre
-    private CocktailManager cocktailManager;
+    private Canvas canvas;
+    private RectTransform rectTransform;
 
-    void Start()
+    void Awake()
     {
-        // Check si cet objet EST le verre
-        cocktailManager = GetComponent<CocktailManager>();
+        Debug.Log($"[DragDrop] Awake on {gameObject.name}");
+
+        rectTransform = GetComponent<RectTransform>();
+        canvas = GetComponentInParent<Canvas>();
+
+        if (rectTransform == null)
+            Debug.LogError($"[DragDrop] NO RectTransform!");
+
+        if (canvas == null)
+            Debug.LogError($"[DragDrop] NO Canvas found!");
+        else
+            Debug.Log($"[DragDrop] Canvas found: {canvas.name}");
     }
 
-    private void Update()
+    public void SetIngredient(IngredientData data)
     {
-        if (dragging)
+        ingredient = data;
+        Debug.Log($"[DragDrop] Ingredient set: {(data != null ? data.ingredientName : "NULL")}");
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // if no ingredients, then it's the glass:
+        if (ingredient == null)
         {
-            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
         }
-    }
 
-    private void OnMouseDown()
-    {
-        offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        oldPos = transform.position;
+        oldPos = rectTransform.anchoredPosition;
         dragging = true;
     }
 
-    private void OnMouseUp()
+    public void OnDrag(PointerEventData eventData)
     {
+        if (!dragging)
+        {
+            return;
+        }
+
+        if (canvas == null || rectTransform == null)
+        {
+            return;
+        }
+
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rectTransform.parent as RectTransform, 
+            eventData.position,
+            eventData.pressEventCamera,
+            out localPoint
+        );
+
+        rectTransform.anchoredPosition = localPoint;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Debug.Log($"[DragDrop] OnPointerUp");
+
         dragging = false;
 
-        Collider2D[] hits = Physics2D.OverlapPointAll(transform.position);
-
-        foreach (var hit in hits)
+        if (ingredient == null)
         {
-            // SI C'EST LE VERRE qui est draggé
-            if (cocktailManager != null)
-            {
-                // Check seulement la poubelle
-                Bin bin = hit.GetComponent<Bin>();
-                if (bin != null)
-                {
-                    bin.DeleteIngredients();
-                    transform.position = oldPos;
-                    return;
-                }
-            }
-            // SI C'EST UN INGRÉDIENT qui est draggé
-            else if (ingredient != null)
-            {
-                // Check le verre
-                CocktailManager glass = hit.GetComponent<CocktailManager>();
-                if (glass != null)
-                {
-                    glass.AddIngredient(ingredient);
-                    transform.position = oldPos;
-                    return;
-                }
+            // C'est le verre qui est draggé
+            CheckForBin(eventData);
+            rectTransform.anchoredPosition = oldPos;
+            return;
+        }
 
-                // Check la poubelle
-                Bin bin = hit.GetComponent<Bin>();
-                if (bin != null)
-                {
-                    bin.DeleteIngredients();
-                    transform.position = oldPos;
-                    return;
-                }
+        // C'est un ingrédient
+        CheckForGlassOrBin(eventData);
+
+        // Retour position
+        rectTransform.anchoredPosition = oldPos;
+    }
+
+    void CheckForGlassOrBin(PointerEventData eventData)
+    {
+        // Raycast UI pour trouver ce qui est sous la souris
+        var results = new System.Collections.Generic.List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        Debug.Log($"[DragDrop] Found {results.Count} UI elements under pointer");
+
+        foreach (var result in results)
+        {
+            Debug.Log($"[DragDrop] Hit: {result.gameObject.name}");
+
+            // Check verre
+            CocktailManager glass = result.gameObject.GetComponent<CocktailManager>();
+            if (glass != null)
+            {
+                Debug.Log($"[DragDrop] Adding ingredient to glass");
+                glass.AddIngredient(ingredient);
+                return;
+            }
+
+            // Check poubelle
+            Bin bin = result.gameObject.GetComponent<Bin>();
+            if (bin != null)
+            {
+                Debug.Log($"[DragDrop] Deleting ingredients");
+                bin.DeleteIngredients();
+                return;
             }
         }
 
-        // Retour position
-        transform.position = oldPos;
+        Debug.Log("[DragDrop] No valid drop target found");
+    }
+
+    void CheckForBin(PointerEventData eventData)
+    {
+        var results = new System.Collections.Generic.List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (var result in results)
+        {
+            Bin bin = result.gameObject.GetComponent<Bin>();
+            if (bin != null)
+            {
+                bin.DeleteIngredients();
+                return;
+            }
+        }
     }
 }

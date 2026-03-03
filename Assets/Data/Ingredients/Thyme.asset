@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Thyme
   m_EditorClassIdentifier: 
   ingredientName: Thyme
-  icon: {fileID: 21300000, guid: 2dde88c2bd4871545a7a52a84956fef0, type: 3}
-  isDiscovered: 0
+  sprite: {fileID: 21300000, guid: cf193e735388d2f4ea7109218fc07aeb, type: 3}
+  category: 2

@@ -1,12 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Grimoire/Ingredient")]
+[CreateAssetMenu(fileName = "Ingredient", menuName = "Data/Ingredient")]
 public class IngredientData : ScriptableObject
 {
     public string ingredientName;
-    public Sprite icon;
-    public bool isDiscovered = false;
+    public Sprite sprite;
+
+    [Header("Category")]
+    public IngredientCategory category;
 }
 
+public enum IngredientCategory
+{
+    Alcohol,
+    Fruit,
+    Herb,
+    Liquor,
+    Mixer,
+    Other,
+    Syrup
+}

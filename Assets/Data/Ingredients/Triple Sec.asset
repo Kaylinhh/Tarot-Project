@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba17cedfc10d0a04b99825bdfe4d9d1a, type: 3}
   m_Name: Triple Sec
   m_EditorClassIdentifier: 
-  ingredientName: Vodka
-  icon: {fileID: 21300000, guid: d58dbdf0c11b5c74e8b87007914ad517, type: 3}
-  isDiscovered: 0
+  ingredientName: Triple Sec
+  sprite: {fileID: 21300000, guid: 429bb83c1b732194f817c1cfce4ef707, type: 3}
+  category: 3

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Blueberry
   m_EditorClassIdentifier: 
   ingredientName: Blueberry
-  icon: {fileID: 21300000, guid: d58dbdf0c11b5c74e8b87007914ad517, type: 3}
-  isDiscovered: 0
+  sprite: {fileID: 21300000, guid: 223db6f12f1566c4991ff716b6a9e2fc, type: 3}
+  category: 1

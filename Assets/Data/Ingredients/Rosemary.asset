@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Rosemary
   m_EditorClassIdentifier: 
   ingredientName: Rosemary
-  icon: {fileID: 21300000, guid: d58dbdf0c11b5c74e8b87007914ad517, type: 3}
-  isDiscovered: 0
+  sprite: {fileID: 21300000, guid: 78e3c7fc622cde84691cefd06a1c5e92, type: 3}
+  category: 2
