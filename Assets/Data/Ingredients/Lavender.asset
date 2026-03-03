@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Lavender
   m_EditorClassIdentifier: 
   ingredientName: Lavender
-  icon: {fileID: 21300000, guid: d58dbdf0c11b5c74e8b87007914ad517, type: 3}
-  isDiscovered: 0
+  sprite: {fileID: 21300000, guid: bf20614e1eb67fe4b8165b2dcce818a2, type: 3}
+  category: 2

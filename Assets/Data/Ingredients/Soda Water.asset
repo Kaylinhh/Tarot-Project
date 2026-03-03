@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Soda Water
   m_EditorClassIdentifier: 
   ingredientName: Soda water
-  icon: {fileID: 21300000, guid: 2dde88c2bd4871545a7a52a84956fef0, type: 3}
+  sprite: {fileID: 21300000, guid: 09b2f977565fdf64e8c05e498fdd8019, type: 3}
+  category: 4
