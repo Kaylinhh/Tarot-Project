@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GrimoireUI : MonoBehaviour
 {
-    [SerializeField] private GameObject grimoirePanel;
+    [SerializeField] private GameObject grimoireOverlay;
 
     public void ToggleGrimoire()
     {
-        grimoirePanel.SetActive(!grimoirePanel.activeSelf);
+        grimoireOverlay.SetActive(!grimoireOverlay.activeSelf);
     }
 
     void Update()
@@ -17,3 +18,4 @@ public class GrimoireUI : MonoBehaviour
             ToggleGrimoire();
     }
 }
+

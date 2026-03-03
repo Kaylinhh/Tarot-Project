@@ -81,6 +81,10 @@ MonoBehaviour:
   recipeImage: {fileID: 3891957489525521525}
   descriptionText: {fileID: 0}
   ingredientsText: {fileID: 5284494431380369205}
+  lockedName: ???
+  lockedImage: {fileID: 0}
+  lockedDescription: You haven't discovered this drink yet.
+  lockedIngredients: ???
 --- !u!1 &4051809617675702252
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +235,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
