@@ -8,7 +8,7 @@ namespace vinkn
 {
     public class VNEngine : MonoBehaviour
     {
-        [SerializeField] List<Character> characters;
+        [SerializeField] public List<Character> characters;
         [SerializeField] List<SOCharacter> charactersDefinitions;
         [SerializeField] List<EDisplayable> backgrounds;
         [SerializeField] List<DisplayAnchor> anchors;

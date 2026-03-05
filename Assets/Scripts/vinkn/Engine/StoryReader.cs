@@ -96,15 +96,10 @@ namespace vinkn
             {
                 string content = story.Continue().Trim();
 
-                Debug.Log($"Story content: '{content}'");
-                Debug.Log($"Current tags: {string.Join(", ", story.currentTags)}");
-
-                // PAUSE pour changement de scène
+                // PAUSE to change scene
                 if (story.currentTags.Contains("PAUSE"))
                 {
-                    Debug.Log("Story PAUSED (scene change)");
                     isPaused = true;
-
                     if (string.IsNullOrEmpty(content))
                     {
                         return;
@@ -113,22 +108,19 @@ namespace vinkn
 
                 if (story.currentTags.Contains("PAUSE_MINIGAME"))
                 {
-                    Debug.Log("Story PAUSED (minigame)");
                     isPaused = true;
-
                     NovelCanvas canvas = FindAnyObjectByType<NovelCanvas>();
                     if (canvas != null)
                     {
                         canvas.DisplayUI(false);
-                        Debug.Log("[SR] UI hidden for minigame");
                     }
-
                     if (string.IsNullOrEmpty(content))
                     {
                         return;
                     }
                 }
 
+                // Si content vide, skip et rappelle Next()
                 if (string.IsNullOrEmpty(content))
                 {
                     Debug.Log("Empty content, calling Next() again");
@@ -136,6 +128,13 @@ namespace vinkn
                     return;
                 }
 
+                // LOG HISTORY (seulement si content existe)
+                if (DialogueHistory.Instance != null)
+                {
+                    DialogueHistory.Instance.AddEntry(content, story.currentTags);
+                }
+
+                // INVOKE UNE SEULE FOIS
                 OnNextLine?.Invoke(content, story.currentTags);
             }
             else if (story.currentChoices?.Count > 0)

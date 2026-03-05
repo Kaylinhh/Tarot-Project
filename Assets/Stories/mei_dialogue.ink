@@ -12,14 +12,14 @@ Nova: Hello, welcome!
 Nova: Yes! Freshly open. You're my second customer!
 
 ???: Oh, so you're new… 
-It might be too soon to ask but- how do you find the neighborhood so far?
+???: It might be too soon to ask but- how do you find the neighborhood so far?
 
 Nova: It's really cool, I've only met nice people since I moved! 
 Nova: I'm really happy to have opened my bar here! 
 Nova: Do you live here?
 
-???: Right, um. (fidgets) 
-Actually, I saw this place for rent down the street…
+???: Right, um. 
+???: (fidgets) Actually, I saw this place for rent down the street…
 
 Nova: (excited) 
 Nova: Yes I see which one! Oh my god, you wanna open your own shop? 
@@ -27,34 +27,33 @@ Nova: We'd be neighbors! It could be fun!
 Nova: So what kind of place were you thinking about?
 
 ???: I don't know, I was just… (pause) 
-I was thinking about some sort of… 
-(whispers) esoteric shop maybe? 
-I know it sounds stupid, right? 
-Nevermind. You don't have to say anything.
+???: I was thinking about some sort of… 
+???: (whispers) esoteric shop maybe? 
+???: I know it sounds stupid, right? 
+???: Nevermind. You don't have to say anything.
 
 Nova: Are you kidding? That sounds awesome! I LOVE the idea! 
 Nova: I could get stuff from your place to freshen up the bar's decorations! 
 Nova: I love switching up things from time to time.
 
 ???: (surprised) Oh, right… Your place does have some subtle esoteric elements. 
-I love the big moon displayed here. And the small touch of plants and bottles. 
-Maybe that's why I felt attracted to it.
+???: I love the big moon displayed here. And the small touch of plants and bottles. 
+???: Maybe that's why I felt attracted to it.
 
 Nova: I don't know much about it, but I love the vibes! 
 Nova: You could totally teach me stuff!
 
 ???: Oh, I'm not good enough to teach anyone… 
-I just find it fascinating. Comforting.
+???: I just find it fascinating. Comforting.
 
 Nova: Well, if you're passionate about it, I think you should give it a go.
 
 ???: No, I don't know…
-I don't know anything about businesses. 
-And what would people think…
-I mean, crystals and tarot aren't exactly… mainstream. 
-What if nobody comes? 
-What if I fail, what if- 
-sorry, I'm spiraling. I do that sometimes.
+???: I don't know anything about businesses. 
+???: And what would people think…
+???: I mean, crystals and tarot aren't exactly… mainstream. 
+???: What if nobody comes? 
+???: What if I fail, what if- sorry, I'm spiraling. I do that sometimes.
 
 Nova: Hey, listen. I'm new to this too. 
 Nova: And yet I'm very happy about giving this a try! 
@@ -77,15 +76,13 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
 
 {
 - drinkServed == "Moonlight":
-    ???: (sighs, relaxed) This is… really nice. 
-    Exactly what I wanted. Thank you.
+    ???: (sighs, relaxed) This is… really nice. Exactly what I wanted. Thank you.
     ~ gainAffinity("Mei", 1)
     
 - drinkServed == "Third Eye":
     ???: Oh. Not what I expected, but… I like it. A lot. 
-    I feel… Awake? Is that weird? 
-    It's not coffee, is it? (laughs) 
-    Thank you, I think… I think I needed this.
+    ???: I feel… Awake? Is that weird? It's not coffee, is it? (laughs) 
+    ???: Thank you, I think… I think I needed this.
     ~ gainAffinity("Mei", 2)
     
 - drinkServed == "Tequila Shot":
@@ -93,8 +90,7 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
     ~ gainAffinity("Mei", -2)
     
 - drinkServed == "Old Fashioned" or drinkServed == "Cosmopolitan":
-    ???: Um, I'm sorry but this isn't to my liking…
-    But I'm sure other people would like it!
+    ???: Um, I'm sorry but this isn't to my liking… But I'm sure other people would like it!
     ~ gainAffinity("Mei", -1)
     
 - else:
@@ -105,9 +101,8 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
 -
 
 ???: To be honest…
-I just FEEL like this shop is calling me. 
-Like this spot is meant for me. 
-It's just… I'm just scared.
+???: I just FEEL like this shop is calling me. Like this spot is meant for me. 
+???: It's just… I'm just scared.
 
 // === NOVA'S RESPONSE CHOICES ===
 * [Share your own experience]
@@ -127,7 +122,7 @@ It's just… I'm just scared.
 * [Practical encouragement]
     Nova: Scared is normal. But you've thought about this. You found the space, you're here asking questions… Clearly that means something.
     ???: I guess… I have been doing research. And planning. 
-    (smiles) I guess you're right.
+    ???: (smiles) I guess you're right.
     ~ gainAffinity("Mei", 1)
 
 // === REALIZATION ===
@@ -138,8 +133,8 @@ It's just… I'm just scared.
 Nova: Sounds like it to me.
 
 ???: I keep waiting to feel… ready. 
-But what if that never happens? 
-What if I just have to… decide?
+???: But what if that never happens? 
+???: What if I just have to… decide?
 
 Nova: (smiles) Now you're getting it.
 
@@ -148,7 +143,7 @@ Nova: (smiles) Now you're getting it.
 Nova: Yeah. But you're gonna do it anyway, aren't you?
 
 ???: … You know what? I think I am. 
-I... I should try. This is something I want. Thank you.
+???: I... I should try. This is something I want. Thank you.
 
 Nova: I'm so happy to hear that. 
 Nova: So what's your name, future neighbor? I'm Nova.
