@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Moonlight
   m_EditorClassIdentifier: 
   recipeName: Moonlight
-  recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
+  recipeImage: {fileID: 21300000, guid: 7f64bd29bfabef44381d5c2a5451736d, type: 3}
   ingredients:
   - {fileID: 11400000, guid: 98d7e7635a1bfab4cbbb6c2dfa02a677, type: 2}
   - {fileID: 11400000, guid: e1f7fc2448f84bf4aacf83b768781bcf, type: 2}

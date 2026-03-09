@@ -32,6 +32,7 @@ Tariq: (gives in) UGH fine. But make it quick. I'm busy.
 // === TRANSITION TO BARVIEW ===
 # PAUSE
 ~ changeScene("BarView")
+~ discoverRecipe("Green Peace")
 
 // === NOVA MONOLOGUE (IN BARVIEW) ===
 Nova: Okay, Tariq definitely seems like the fancy drink type. 
@@ -105,7 +106,6 @@ Tariq: You were WHAT? I-
 Tariq: (rubs temples, gives up) Forget it. I'm not nice. This is self-preservation. 
 Tariq: If you fail, I lose a tenant. I'll check in again. Try not to burn this place down.
 
-~ meetCharacter("Tariq")
 ~ hide("Tariq")
 
 -> after_tariq

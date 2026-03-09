@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Green Peace
   m_EditorClassIdentifier: 
   recipeName: Green Peace
-  recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
+  recipeImage: {fileID: 21300000, guid: 9f2a91cc75a6faf4fa849e3272aa78b6, type: 3}
   ingredients:
   - {fileID: 11400000, guid: 00e3ae92f2b96de4299ea9ad0c93c21a, type: 2}
   - {fileID: 11400000, guid: dfe7c7467605eab47bd667f9f88ab47f, type: 2}

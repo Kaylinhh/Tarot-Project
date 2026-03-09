@@ -49,5 +49,8 @@ EXTERNAL meetCharacter(characterName)
 === function gainAffinity(characterName, quantity)
 EXTERNAL gainAffinity(characterName, quantity)
 
+=== function discoverRecipe(recipeName)
+EXTERNAL discoverRecipe(recipeName)
+
 === function endDay()
 EXTERNAL endDay()

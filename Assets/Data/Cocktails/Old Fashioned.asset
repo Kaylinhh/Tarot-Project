@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Old Fashioned
   m_EditorClassIdentifier: 
   recipeName: Old Fashioned
-  recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
+  recipeImage: {fileID: 21300000, guid: f608e0f185e99524cae3f800aac2afec, type: 3}
   ingredients:
   - {fileID: 11400000, guid: be710e731d5a9c141899c3fdfc3aa4ed, type: 2}
   - {fileID: 11400000, guid: 4ec87689f63ef784c868c594f124b14f, type: 2}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tequila Shot
   m_EditorClassIdentifier: 
   recipeName: Tequila Shot
-  recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
+  recipeImage: {fileID: 21300000, guid: 97a24f23224350746a57b41a38517ee6, type: 3}
   ingredients:
   - {fileID: 11400000, guid: b1cdd97212c9cb54cb4bf92b190ab893, type: 2}
   - {fileID: 11400000, guid: 74f7c53e527cb16499240349578d8015, type: 2}

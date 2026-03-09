@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Phoenix Rising
   m_EditorClassIdentifier: 
   recipeName: Phoenix Rising
-  recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
+  recipeImage: {fileID: 21300000, guid: 5c0ff2ce8a1b81042ad404834865a8dc, type: 3}
   ingredients:
   - {fileID: 11400000, guid: be710e731d5a9c141899c3fdfc3aa4ed, type: 2}
   - {fileID: 11400000, guid: 6b4014d913a498047be96a7b2eec51d6, type: 2}

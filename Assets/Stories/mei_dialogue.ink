@@ -60,6 +60,11 @@ Nova: And yet I'm very happy about giving this a try!
 Nova: I feel so accomplished looking at my little cozy bar, and serving little drinks to make people happy. 
 Nova: How about that? I'll whip you up one to make you feel better.
 
+~ discoverRecipe("Moonlight")
+~ discoverRecipe("Third Eye")
+~ discoverRecipe("Old Fashioned")
+~ discoverRecipe("Night Garden")
+
 // === TRANSITION TO BARVIEW ===
 # PAUSE
 ~ changeScene("BarView")
@@ -75,7 +80,7 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
 ~ show("Mei")
 
 {
-- drinkServed == "Moonlight":
+- drinkServed == "Moonlight" or drinkServed == "Night Garden":
     ???: (sighs, relaxed) This is… really nice. Exactly what I wanted. Thank you.
     ~ gainAffinity("Mei", 1)
     
@@ -160,6 +165,9 @@ Mei: Nice to meet you, Nova. Thanks again.
 ~ moveTo("Tariq", "Left", 1)
 
 Tariq: Nova? You here? We need to talk about- (notices Mei) 
+
+~ meetCharacter("Tariq")
+
 Tariq: Oh. Didn't realize you were with someone.
 
 Mei: (startles) Oh! Um, I was just, I was just leaving. 

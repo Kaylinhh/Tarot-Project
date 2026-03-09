@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Night Garden
   m_EditorClassIdentifier: 
   recipeName: Night Garden
-  recipeImage: {fileID: 21300000, guid: 340ac3fb586cac94285f65215d2bf6e7, type: 3}
+  recipeImage: {fileID: 21300000, guid: c1b8e255a496da145a4acc54dd66af7d, type: 3}
   ingredients:
   - {fileID: 11400000, guid: 98d7e7635a1bfab4cbbb6c2dfa02a677, type: 2}
   - {fileID: 11400000, guid: ae102652519cb0c4d8a0374bf228491a, type: 2}
