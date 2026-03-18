@@ -8,12 +8,12 @@ public class RecipePageUI : MonoBehaviour, IPageFiller<RecipeData>
     [Header("UI References")]
     public TMP_Text recipeNameText;
     public Image recipeImage;
+    public Image recipeImageLocked;
     public TMP_Text descriptionText;
     public TMP_Text ingredientsText;
 
     [Header("Locked Placeholder")]
     [SerializeField] private string lockedName = "???";
-    [SerializeField] private Sprite lockedImage;
     [SerializeField] private string lockedDescription = "You haven't discovered this drink yet.";
     [SerializeField] private string lockedIngredients = "???";
 
@@ -39,7 +39,7 @@ public class RecipePageUI : MonoBehaviour, IPageFiller<RecipeData>
         else
         {
             recipeNameText.text = lockedName;
-            recipeImage.sprite = lockedImage;
+            recipeImage.sprite = recipe.recipeImageLocked;
             descriptionText.text = lockedDescription;
             ingredientsText.text = lockedIngredients;
         }

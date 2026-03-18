@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: NeoG
   m_EditorClassIdentifier: 
   characterName: Neo
-  portrait: {fileID: 21300000, guid: 044d1b10fc929c34d83d5117ea7c96c9, type: 3}
-  arcanaName: The Fool
-  arcanaSprite: {fileID: 21300000, guid: 0d2fee8f1f48b224e820e4106d1e71fc, type: 3}
-  description: The Fool
+  portrait: {fileID: 21300000, guid: 8e4a00b3a7f15bf479bbc7ca5393d6ce, type: 3}
+  portraitLocked: {fileID: 21300000, guid: 1aa940c2bbf4cb843830220ea6d393ce, type: 3}
+  arcanaName: The Tower
+  arcanaSprite: {fileID: 21300000, guid: 38e237ae3a416c246b5207ca9fb59bab, type: 3}
+  description: The Tower
   friendshipLevel: 0
-  traits:
-  - Energetic
   hasMetToday: 1
   isDiscovered: 0

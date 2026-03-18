@@ -6,13 +6,13 @@ public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private Image portraitImage;
+    [SerializeField] private Image portraitLocked;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI traitsText;
     [SerializeField] private TextMeshProUGUI friendshipText;
 
     [Header("Locked Placeholder")]
     [SerializeField] private string lockedName = "???";
-    [SerializeField] private Sprite lockedPortrait;
     [SerializeField] private string lockedDescription = "You haven't met this person yet.";
     [SerializeField] private string lockedTraits = "???";
     [SerializeField] private string lockedFriendship = "???";
@@ -32,13 +32,12 @@ public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
             nameText.text = character.characterName;
             portraitImage.sprite = character.portrait;
             descriptionText.text = character.description;
-            traitsText.text = "Traits: " + string.Join(", ", character.traits);
             friendshipText.text = "Friendship: " + character.friendshipLevel;
         }
         else
         {
             nameText.text = lockedName;
-            portraitImage.sprite = lockedPortrait;
+            portraitImage.sprite = character.portraitLocked;
             descriptionText.text = lockedDescription;
             traitsText.text = "Traits: " + lockedTraits;
             friendshipText.text = "Friendship: " + lockedFriendship;

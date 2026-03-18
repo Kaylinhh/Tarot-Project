@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: MeiG
   m_EditorClassIdentifier: 
   characterName: Mei
-  portrait: {fileID: 21300000, guid: 382ad073c6757f74dbd8fa8c0471b1e2, type: 3}
+  portrait: {fileID: 21300000, guid: f92e4a537e5567a4dbf52caa0c535ef5, type: 3}
+  portraitLocked: {fileID: 21300000, guid: 0ccd7ee8dd2fccf43a2a76be5c567683, type: 3}
   arcanaName: The High Priestess
-  arcanaSprite: {fileID: 21300000, guid: 0d2fee8f1f48b224e820e4106d1e71fc, type: 3}
+  arcanaSprite: {fileID: 21300000, guid: 2637b261a60b6364cb25932f6c7dc3b4, type: 3}
   description: The High Priestess
   friendshipLevel: 0
-  traits:
-  - Spiritual
   hasMetToday: 1
   isDiscovered: 0

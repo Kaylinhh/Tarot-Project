@@ -18,8 +18,8 @@ MonoBehaviour:
   defaultExpression: base
   expressions:
   - expressionName: base
-    expressionSprite: {fileID: 21300000, guid: 382ad073c6757f74dbd8fa8c0471b1e2, type: 3}
+    expressionSprite: {fileID: 21300000, guid: 1a23a6a51e4cbf747b6340cb41bfb1c4, type: 3}
   - expressionName: happy
-    expressionSprite: {fileID: 21300000, guid: b431d296cce88bf4abac1a8f10367d34, type: 3}
-  - expressionName: angry
-    expressionSprite: {fileID: 21300000, guid: e8651bb37c85520478cfc34c370cf606, type: 3}
+    expressionSprite: {fileID: 21300000, guid: 04d58cdc43d818c4cb7c552b5194f191, type: 3}
+  - expressionName: upset
+    expressionSprite: {fileID: 21300000, guid: 2e1f65df4dbaa174f866191d30aedf92, type: 3}

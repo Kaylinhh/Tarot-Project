@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Third Eye
   recipeImage: {fileID: 21300000, guid: b038c24c24aae2a4f86bb84e881fc4e6, type: 3}
+  recipeImageLocked: {fileID: 21300000, guid: 276dcf1958174184c907f1c98ee2edce, type: 3}
   ingredients:
   - {fileID: 11400000, guid: 00e3ae92f2b96de4299ea9ad0c93c21a, type: 2}
   - {fileID: 11400000, guid: 7d8193c3d10a81c4bb12fc2290d0b878, type: 2}

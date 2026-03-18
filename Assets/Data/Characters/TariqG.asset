@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: TariqG
   m_EditorClassIdentifier: 
   characterName: Tariq
-  portrait: {fileID: 21300000, guid: 044d1b10fc929c34d83d5117ea7c96c9, type: 3}
-  arcanaName: The Fool
-  arcanaSprite: {fileID: 21300000, guid: 0d2fee8f1f48b224e820e4106d1e71fc, type: 3}
-  description: The Fool
+  portrait: {fileID: 21300000, guid: bfcee999552814d4db67ff7a72d692d6, type: 3}
+  portraitLocked: {fileID: 21300000, guid: 88caf83dca5271b4db8b51854e4135d6, type: 3}
+  arcanaName: The Magician
+  arcanaSprite: {fileID: 21300000, guid: 6a9251f5edf1fac48aad33ee02c933a2, type: 3}
+  description: The Magician
   friendshipLevel: 0
-  traits:
-  - Energetic
   hasMetToday: 1
   isDiscovered: 0

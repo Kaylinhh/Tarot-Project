@@ -7,11 +7,11 @@ public class CharacterData : ScriptableObject
 {
     public string characterName;
     public Sprite portrait;
+    public Sprite portraitLocked;
     public string arcanaName;
     public Sprite arcanaSprite;
     [TextArea] public string description;
     public int friendshipLevel = 0;
-    public string[] traits;
     [HideInInspector] public bool hasMetToday = false;
     public bool isDiscovered = false;
 

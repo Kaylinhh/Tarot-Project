@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeName: Phoenix Rising
   recipeImage: {fileID: 21300000, guid: 5c0ff2ce8a1b81042ad404834865a8dc, type: 3}
+  recipeImageLocked: {fileID: 21300000, guid: 6c76f4a163f866742b1450e5253927d6, type: 3}
   ingredients:
   - {fileID: 11400000, guid: be710e731d5a9c141899c3fdfc3aa4ed, type: 2}
   - {fileID: 11400000, guid: 6b4014d913a498047be96a7b2eec51d6, type: 2}
   - {fileID: 11400000, guid: 5bb2cd735cf16574a9210d45f57dd61f, type: 2}
   - {fileID: 11400000, guid: 30ebb6876f5eb744e92ea6f6a25c0638, type: 2}
-  description: A drink that combines the fire of the ginger and the fierceness of
-    whisky, perfect for someone who needs a kickstart.
+  description: 'A drink that combines the fire of the ginger and the fierceness of
+    whisky, perfect for someone who needs a kickstart. '
   isDiscovered: 0

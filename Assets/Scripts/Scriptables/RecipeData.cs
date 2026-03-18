@@ -8,6 +8,7 @@ public class RecipeData : ScriptableObject
 {
     public string recipeName;
     public Sprite recipeImage;
+    public Sprite recipeImageLocked;
     public IngredientData[] ingredients;
     [TextArea] public string description;
     public bool isDiscovered = false;
