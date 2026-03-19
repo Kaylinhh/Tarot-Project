@@ -10,6 +10,7 @@ public class DailySummaryUI : MonoBehaviour
     private List<GameObject> instantiatedCards = new List<GameObject>();
     private bool isRevealing = false;
     private GameObject grimoireIcon;
+    private GameObject historyLogButton;
 
     void Start()
     {
@@ -27,6 +28,8 @@ public class DailySummaryUI : MonoBehaviour
 
         grimoireIcon = GameObject.Find("IconGrimoireButton");
         grimoireIcon.SetActive(false);
+        historyLogButton = GameObject.Find("HistoryLogButton");
+        historyLogButton.SetActive(false);
 
     }
 

@@ -1,17 +1,48 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Bin : MonoBehaviour
+public class Bin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [Header("Sprites")]
+    [SerializeField] private Sprite binClosed;
+    [SerializeField] private Sprite binOpen;
+
+    private Image binImage;
     private CocktailManager cocktailManager;
 
     void Start()
     {
-        // Trouve le CocktailManager dans la scène
         cocktailManager = FindFirstObjectByType<CocktailManager>();
+        binImage = GetComponent<Image>();
 
-        if (cocktailManager == null)
+        if (binImage == null)
         {
-            Debug.LogError("CocktailManager not found!");
+            Debug.LogError("[Bin] No Image component found!");
+        }
+
+        // Set closed par défaut
+        if (binClosed != null)
+        {
+            binImage.sprite = binClosed;
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // Ouvre le couvercle au hover
+        if (binOpen != null && binImage != null)
+        {
+            binImage.sprite = binOpen;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // Ferme le couvercle
+        if (binClosed != null && binImage != null)
+        {
+            binImage.sprite = binClosed;
         }
     }
 
@@ -20,7 +51,6 @@ public class Bin : MonoBehaviour
         if (cocktailManager != null)
         {
             cocktailManager.ResetCocktail();
-            Debug.Log("Cocktail reset!");
         }
     }
 }

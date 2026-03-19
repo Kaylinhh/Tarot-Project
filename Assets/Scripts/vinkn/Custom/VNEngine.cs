@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace vinkn
 {
@@ -323,13 +324,16 @@ namespace vinkn
 
         public void DiscoverRecipe(string recipeName)
         {
+            //TODO check which rebuild is doing the work
             var recipeData = allRecipesData.FirstOrDefault(c => c.recipeName == recipeName);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 
             if (recipeData != null)
             {
                 recipeData.isDiscovered = true;
                 Debug.Log($"La recette suivante a été découverte : {recipeName}.");
                 DataManager.Instance.NotifyRecipeDiscovered();
+                LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
             }
             else
             {
@@ -343,15 +347,15 @@ namespace vinkn
                 if (DataManager.Instance != null)
                 {
                     DataManager.Instance.recipeIsDiscovered = true;
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
+
                     Debug.Log("Stored " + recipeData.isDiscovered + " in DayDataManager");
                 }
                 else
                 {
                     Debug.LogError("No DayDataManager found!");
                 }
-
             }
-
         }
 
         public void GainAffinity(string characterName, int quantity)

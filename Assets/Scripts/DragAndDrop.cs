@@ -1,31 +1,52 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     private IngredientData ingredient;
 
-    private Vector3 oldPos;
+    private Transform originalParent;
+    private int originalSiblingIndex;
+    private Canvas rootCanvas;
+    private Vector2 savedAnchoredPosition;
+
+    private Vector2 oldPos;
     private bool dragging = false;
+    private Vector2 dragOffset;
 
     private Canvas canvas;
     private RectTransform rectTransform;
 
     void Awake()
     {
-        Debug.Log($"[DragDrop] Awake on {gameObject.name}");
-
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
 
-        if (rectTransform == null)
-            Debug.LogError($"[DragDrop] NO RectTransform!");
+        rootCanvas = GetComponentInParent<Canvas>();
+        rectTransform = GetComponent<RectTransform>();
+    }
 
-        if (canvas == null)
-            Debug.LogError($"[DragDrop] NO Canvas found!");
-        else
-            Debug.Log($"[DragDrop] Canvas found: {canvas.name}");
+    void Update()
+    {
+        if (dragging)
+        {
+            // Utilise le bon parent selon si ingrédient ou verre
+            RectTransform parentRect = ingredient != null
+                ? rootCanvas.GetComponent<RectTransform>()
+                : rectTransform.parent as RectTransform;
+
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentRect,
+                Input.mousePosition,
+                canvas.worldCamera,
+                out localPoint
+            );
+
+            rectTransform.anchoredPosition = localPoint + dragOffset;
+        }
     }
 
     public void SetIngredient(IngredientData data)
@@ -36,13 +57,57 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // if no ingredients, then it's the glass:
-        if (ingredient == null)
-        {
-        }
+        Debug.Log($"[DragDrop] ===== OnPointerDown on {gameObject.name} =====");
+        Debug.Log($"[DragDrop] ingredient: {(ingredient != null ? ingredient.ingredientName : "NULL")}");
+        Debug.Log($"[DragDrop] oldPos BEFORE: {rectTransform.anchoredPosition}");
 
         oldPos = rectTransform.anchoredPosition;
         dragging = true;
+
+        Debug.Log($"[DragDrop] oldPos SAVED: {oldPos}");
+        Debug.Log($"[DragDrop] dragging set to TRUE");
+
+        // SI C'EST UN INGRÉDIENT, reparent au Canvas root
+        if (ingredient != null)
+        {
+            // SAVE state
+            originalParent = transform.parent;
+            originalSiblingIndex = transform.GetSiblingIndex();
+
+            // SAVE world position AVANT reparent
+            Vector3 worldPosBefore = rectTransform.position;
+
+            // REPARENT
+            transform.SetParent(rootCanvas.transform);
+            transform.SetAsLastSibling();
+
+            // RESTORE world position
+            rectTransform.position = worldPosBefore;
+
+            // CALCULE l'offset (dans le système du Canvas root)
+            Vector2 localPointerPos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rootCanvas.GetComponent<RectTransform>(),
+                eventData.position,
+                rootCanvas.worldCamera,
+                out localPointerPos
+            );
+
+            dragOffset = rectTransform.anchoredPosition - localPointerPos;
+        }
+        else
+        {
+            // C'EST LE VERRE - pas de reparent, juste calcule offset dans son parent
+            Vector2 localPointerPos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rectTransform.parent as RectTransform,
+                eventData.position,
+                canvas.worldCamera,
+                out localPointerPos
+            );
+
+            dragOffset = rectTransform.anchoredPosition - localPointerPos;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -57,35 +122,43 @@ public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             return;
         }
 
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            rectTransform.parent as RectTransform, 
-            eventData.position,
-            eventData.pressEventCamera,
-            out localPoint
-        );
+        if (dragging)
+        {
+            Canvas canvas = GetComponentInParent<Canvas>();
 
-        rectTransform.anchoredPosition = localPoint;
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rectTransform.parent as RectTransform,
+                Input.mousePosition,
+                canvas.worldCamera,
+                out localPoint
+            );
+
+            // add offset
+            rectTransform.anchoredPosition = localPoint + dragOffset;
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log($"[DragDrop] OnPointerUp");
+        Debug.Log($"[DragDrop] ===== OnPointerUp on {gameObject.name} =====");
 
         dragging = false;
 
         if (ingredient == null)
         {
-            // C'est le verre qui est draggé
+            // C'est le verre - pas de reparent à restore
             CheckForBin(eventData);
             rectTransform.anchoredPosition = oldPos;
             return;
         }
 
-        // C'est un ingrédient
+        // C'est un ingrédient - restore le parent
         CheckForGlassOrBin(eventData);
 
-        // Retour position
+        transform.SetParent(originalParent);
+        transform.SetSiblingIndex(originalSiblingIndex);
+
         rectTransform.anchoredPosition = oldPos;
     }
 

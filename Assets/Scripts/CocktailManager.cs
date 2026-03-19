@@ -13,6 +13,10 @@ public class CocktailManager : MonoBehaviour
     private List<IngredientData> currentIngredients = new List<IngredientData>();
     private RecipeData currentRecipe = null;
 
+    [Header("Animation")]
+    [SerializeField] private RectTransform shakerTransform; // shaker
+    [SerializeField] private CocktailRevealPanel revealPanel;
+
     public void AddIngredient(IngredientData newIngredient)
     {
         currentIngredients.Add(newIngredient);
@@ -38,8 +42,6 @@ public class CocktailManager : MonoBehaviour
     public void CheckForRecipe()
     {
 
-        Debug.Log("Button clicked");
-
         foreach (var recipe in allRecipes)
         {
             if (MatchRecipe(recipe))
@@ -47,6 +49,12 @@ public class CocktailManager : MonoBehaviour
                 Debug.Log("FOUND" + recipe.recipeName);
                 recipeText.text = "You created: " + recipe.recipeName;
                 currentRecipe = recipe;
+
+                if (revealPanel != null)
+                {
+                    revealPanel.Show(recipe);
+                }
+
                 ShowServeButton();
                 return;
             }
@@ -115,4 +123,41 @@ public class CocktailManager : MonoBehaviour
         currentIngredients.Clear();
         UpdateRecipeText();
     }
+
+    public void OnShakeButtonClick()
+    {
+        StartCoroutine(ShakeAnimation());
+
+        // Check recipe après l'animation
+        Invoke(nameof(CheckForRecipe), 0.5f);
+    }
+
+    IEnumerator ShakeAnimation()
+    {
+        Vector3 originalPos = shakerTransform.anchoredPosition;
+        Quaternion originalRot = shakerTransform.localRotation;
+
+        float duration = 0.5f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            // Shake horizontal + rotation
+            float shakeX = Random.Range(-10f, 10f);
+            float shakeY = Random.Range(-5f, 5f);
+            float rotationZ = Mathf.Sin(elapsed * 40f) * 15f; // Rotation rapide
+
+            shakerTransform.anchoredPosition = originalPos + new Vector3(shakeX, shakeY, 0);
+            shakerTransform.localRotation = Quaternion.Euler(0, 0, rotationZ);
+
+            yield return null;
+        }
+
+        // Retour position
+        shakerTransform.anchoredPosition = originalPos;
+        shakerTransform.localRotation = originalRot;
+    }
+
 }
