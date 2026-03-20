@@ -7,6 +7,7 @@ Tariq: We need to talk about the rent.
 Nova: Alright, but I already paid the first two weeks, didn't I?
 
 Tariq: Obviously. But I'm worried about the next one. 
+~ face("Tariq", "exasperated")
 Tariq: This (gestures at the bar with a grimace) isn't exactly… conventional.
 
 Nova: Excuse you, do you not like the vibes? 
@@ -27,6 +28,7 @@ Nova: So how about letting me work my magic and relax?
 Nova: I'll make you a drink. It's on the house.
 
 Tariq: (scoffs) Relax? You little… 
+~ face("Tariq", "base")
 Tariq: (gives in) UGH fine. But make it quick. I'm busy.
 
 // === TRANSITION TO BARVIEW ===
@@ -47,16 +49,19 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
 {
 - drinkServed == "Old Fashioned":
     Tariq: (twirls drink)  I guess you know how to read your customers well… 
+    ~ face("Tariq", "happy")
     Tariq: Maybe this place isn't doomed after all.
     Nova: Thank… You?
     ~ gainAffinity("Tariq", 1)
     
 - drinkServed == "Green Peace":
+    ~ face("Tariq", "exasperated")
     Tariq: (stares at drink) What is this?
     Nova: Green Peace.
     Tariq: Do I look like someone who's into Green Peace?
     Nova: (exasperated) Just give it a go!
     Tariq: You should work on your cocktail names. (drinks reluctantly) 
+    ~ face("Tariq", "happy")
     Tariq: … (relaxes visibly)
     Nova: How is it? Are you speechless because you have nothing mean to say anymore?
     Tariq: (rolls eyes) This isn't something I would usually drink.
@@ -65,6 +70,7 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
     ~ gainAffinity("Tariq", 2)
     
 - drinkServed == "Cosmopolitan":
+    ~ face("Tariq", "exasperated")
     Tariq: (stares at drink suspiciously) What is this supposed to be? 
     Tariq: (takes a sip, face immediately sours) No. Absolutely not. 
     Tariq: (pushes glass away) I expected incompetence, but this is impressive in its own terrible way. 
@@ -72,6 +78,7 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
     ~ gainAffinity("Tariq", -2)
     
 - drinkServed == "Tequila Shot":
+    ~ face("Tariq", "exasperated")
     Tariq: (doesn't even touch the drink) … Seriously? What am I, a teenager?
     ~ gainAffinity("Tariq", -2)
     
@@ -84,24 +91,24 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
 
 // === UNSOLICITED ADVICE (GATHER) ===
 -
-
+~ face("Tariq", "base")
 Tariq: You know you can't survive by giving free drinks to everyone, right? (pauses) 
 Tariq: Also you're not a therapist, you're a bartender. 
 Tariq: I saw you with that girl earlier.
 Tariq: Be like that to every customer and you'll burn out before making rent.
 
 Nova: … Are you… worried about me?
-
+~ face("Tariq", "exasperated")
 Tariq: (defensive) No. I don't care about you, I care about rent. There's a difference.
 
 Nova: (hands up) Yes, of course.
-
+~ face("Tariq", "base")
 Tariq: Alright, I need to go. I have actual work to do. (pauses, pulls out business card) 
 Tariq: … Take this. Supplier contact. You'll need it.
 
 Nova: Oh thank you! To be honest, I was buying from the supermarket… 
 Nova: See, you can be nice!
-
+~ face("Tariq", "exasperated")
 Tariq: You were WHAT? I-  
 Tariq: (rubs temples, gives up) Forget it. I'm not nice. This is self-preservation. 
 Tariq: If you fail, I lose a tenant. I'll check in again. Try not to burn this place down.

@@ -126,6 +126,7 @@ public class CocktailManager : MonoBehaviour
 
     public void OnShakeButtonClick()
     {
+        AudioManager.instance.PlayShakeSound();
         StartCoroutine(ShakeAnimation());
 
         // Check recipe après l'animation
@@ -158,6 +159,8 @@ public class CocktailManager : MonoBehaviour
         // Retour position
         shakerTransform.anchoredPosition = originalPos;
         shakerTransform.localRotation = originalRot;
+
+        AudioManager.instance.PlaySparkleSound();
     }
 
 }

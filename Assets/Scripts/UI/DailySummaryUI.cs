@@ -7,6 +7,9 @@ public class DailySummaryUI : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;      // ton prefab CardUI
     [SerializeField] private Transform cardContainer;    // le container avec layout group
     [SerializeField] private GameObject deckButton;
+    [SerializeField] private GameObject tutorialText;
+    [SerializeField] private GameObject endText;
+
     private List<GameObject> instantiatedCards = new List<GameObject>();
     private bool isRevealing = false;
     private GameObject grimoireIcon;
@@ -61,9 +64,12 @@ public class DailySummaryUI : MonoBehaviour
     public void OnClickDeck()
     {
         deckButton.SetActive(false);
+        tutorialText.SetActive(false);
 
         if (!isRevealing)
             StartCoroutine(RevealCardsCoroutine());
+
+        endText.SetActive(true);
     }
 
     private IEnumerator RevealCardsCoroutine()

@@ -360,21 +360,19 @@ namespace vinkn
 
         public void GainAffinity(string characterName, int quantity)
         {
-            Debug.Log($"[VNE] GainAffinity called with: '{characterName}'");
-            Debug.Log($"[VNE] Available characters: {string.Join(", ", allCharactersData.ConvertAll(c => $"'{c.characterName}'"))}");
-
             var characterData = allCharactersData.FirstOrDefault(c => c.characterName == characterName);
 
             if (characterData != null)
             {
                 characterData.friendshipLevel += quantity;
-                Debug.Log($"L'affinité de {characterName} a augmenté de {quantity}.");
+                characterData.affinityGainedToday += quantity; // TRACK le gain du jour
+
+                Debug.Log($"Affinité de {characterName} +{quantity}. Total aujourd'hui: {characterData.affinityGainedToday}");
             }
             else
             {
-                Debug.LogWarning($"Aucun CharacterData trouvé pour le nom : {characterName}");
+                Debug.LogWarning($"Character {characterName} not found!");
             }
-
         }
 
         public void EndDay()

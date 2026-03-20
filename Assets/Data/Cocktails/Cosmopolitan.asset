@@ -21,4 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 12f316b413f9eed41abfb94899085095, type: 2}
   - {fileID: 11400000, guid: 74f7c53e527cb16499240349578d8015, type: 2}
   description: A classic, sweet, pink cocktail.
-  isDiscovered: 0
+  isDiscovered: 1

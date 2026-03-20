@@ -19,6 +19,7 @@ Nova: I'm really happy to have opened my bar here!
 Nova: Do you live here?
 
 Mei: Right, um. 
+~ face("Mei", "shy")
 Mei: (fidgets) Actually, I saw this place for rent down the street…
 
 Nova: (excited) 
@@ -35,21 +36,21 @@ Mei: Nevermind. You don't have to say anything.
 Nova: Are you kidding? That sounds awesome! I LOVE the idea! 
 Nova: I could get stuff from your place to freshen up the bar's decorations! 
 Nova: I love switching up things from time to time.
-
+~ face("Mei", "base")
 Mei: (surprised) Oh, right… Your place does have some subtle esoteric elements. 
 Mei: I love the big moon displayed here. And the small touch of plants and bottles. 
 Mei: Maybe that's why I felt attracted to it.
 
 Nova: I don't know much about it, but I love the vibes! 
 Nova: You could totally teach me stuff!
-
+~ face("Mei", "shy")
 Mei: Oh, I'm not good enough to teach anyone… 
 Mei: I just find it fascinating. Comforting.
 
 Nova: Well, if you're passionate about it, I think you should give it a go.
-
 Mei: No, I don't know…
 Mei: I don't know anything about businesses. 
+~ face("Mei", "panic")
 Mei: And what would people think…
 Mei: I mean, crystals and tarot aren't exactly… mainstream. 
 Mei: What if nobody comes? 
@@ -91,10 +92,12 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
     ~ gainAffinity("Mei", 2)
     
 - drinkServed == "Tequila Shot":
+    ~ face("Mei", "shy")
     Mei: Um, is this a prank by any chance?
     ~ gainAffinity("Mei", -2)
     
 - drinkServed == "Old Fashioned" or drinkServed == "Cosmopolitan":
+    ~ face("Mei", "shy")
     Mei: Um, I'm sorry but this isn't to my liking… But I'm sure other people would like it!
     ~ gainAffinity("Mei", -1)
     
@@ -136,7 +139,7 @@ Mei: It's just… I'm just scared.
 Mei: Maybe I'm more ready than I think?
 
 Nova: Sounds like it to me.
-
+~ face("Mei", "shy")
 Mei: I keep waiting to feel… ready. 
 Mei: But what if that never happens? 
 Mei: What if I just have to… decide?
@@ -146,13 +149,13 @@ Nova: (smiles) Now you're getting it.
 Mei: (nervous laugh) That's scary.
 
 Nova: Yeah. But you're gonna do it anyway, aren't you?
-
+~ face("Mei", "base")
 Mei: … You know what? I think I am. 
 Mei: I... I should try. This is something I want. Thank you.
 
 Nova: I'm so happy to hear that. 
 Nova: So what's your name, future neighbor? I'm Nova.
-
+~ face("Mei", "shy")
 Mei: Oh, um right, I'm Mei… 
 Mei: Nice to meet you, Nova. Thanks again.
 
@@ -177,6 +180,7 @@ Nova: No, it's totally fine! That's what I'm here for! Don't worry about it, you
 
 Mei: Yes! Yes. Sorry. (pauses) 
 Mei: And thank you again Nova. Really. I'll think about what you said. 
+~ face("Mei", "base")
 Mei: Bye. (smiles and leaves)
 
 ~ hide("Mei")

@@ -20,7 +20,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dfe7c7467605eab47bd667f9f88ab47f, type: 2}
   - {fileID: 11400000, guid: a954b210670fb5744a4b9cfc53c9954a, type: 2}
   - {fileID: 11400000, guid: 74f7c53e527cb16499240349578d8015, type: 2}
-  description: A sophisticated cocktail that will make you sigh of with relief. It
-    has nothing to do with the non-profit organization. It's literally just green
-    and gives you some peace (please don't sue me).
+  - {fileID: 11400000, guid: 54a257722cdbad64f9f29190d4800154, type: 2}
+  description: A sophisticated cocktail that will make you sigh with relief. It has
+    nothing to do with the non-profit organization. It's literally just green and
+    gives you some peace (please don't sue me).
   isDiscovered: 0

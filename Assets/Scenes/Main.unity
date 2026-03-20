@@ -260,7 +260,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  definition: {fileID: 11400000, guid: a1eccbc7e715a2d4bae3189c7afe1239, type: 2}
+  definition: {fileID: 11400000, guid: 00fdb1d614f4cb1498b0b1e79086a07a, type: 2}
 --- !u!114 &139811671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9a5492af615f21d4485a973e4b2403da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}

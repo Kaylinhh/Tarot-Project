@@ -22,4 +22,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 30ebb6876f5eb744e92ea6f6a25c0638, type: 2}
   description: 'A drink that combines the fire of the ginger and the fierceness of
     whisky, perfect for someone who needs a kickstart. '
-  isDiscovered: 0
+  isDiscovered: 1
