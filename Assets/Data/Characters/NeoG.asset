@@ -19,5 +19,15 @@ MonoBehaviour:
   arcanaSprite: {fileID: 21300000, guid: 38e237ae3a416c246b5207ca9fb59bab, type: 3}
   description: The Tower
   friendshipLevel: 0
-  hasMetToday: 1
   isDiscovered: 0
+  hasMetToday: 1
+  summaries:
+    lowAffinitySummary: Neo left still wound tight, frustration simmering beneath
+      the surface. Your drink didn't reach him tonight. The Tower card flickers dimly
+      - chaos unresolved, transformation delayed.
+    mediumAffinitySummary: Neo seemed lighter when he left, even if just a little.
+      Your drink helped take the edge off. The Tower card glows softly - the first
+      crack in the walls he's built around himself.
+    highAffinitySummary: Neo lingered a moment before leaving, something close to
+      peace in his eyes. You offered exactly what he needed. The Tower card burns
+      bright - you're helping him find solid ground in the rubble.

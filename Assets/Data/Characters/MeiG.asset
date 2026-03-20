@@ -19,5 +19,15 @@ MonoBehaviour:
   arcanaSprite: {fileID: 21300000, guid: 2637b261a60b6364cb25932f6c7dc3b4, type: 3}
   description: The High Priestess
   friendshipLevel: 0
-  hasMetToday: 1
   isDiscovered: 0
+  hasMetToday: 1
+  summaries:
+    lowAffinitySummary: Mei hurried out, still uncertain, still scared. Your drink
+      didn't give her the courage she needed. The High Priestess card remains veiled
+      - intuition unheard, potential untapped.
+    mediumAffinitySummary: Mei left with a small, hopeful smile. Your drink gave
+      her a moment of clarity. The High Priestess card shimmers gently - she's starting
+      to trust her inner voice.
+    highAffinitySummary: Mei's eyes shone with quiet determination as she left. You
+      helped her see what she already knew. The High Priestess card radiates luminous
+      energy - she's ready to listen to herself.

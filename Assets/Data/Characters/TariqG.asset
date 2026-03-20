@@ -19,5 +19,15 @@ MonoBehaviour:
   arcanaSprite: {fileID: 21300000, guid: 6a9251f5edf1fac48aad33ee02c933a2, type: 3}
   description: The Magician
   friendshipLevel: 0
-  hasMetToday: 1
   isDiscovered: 0
+  hasMetToday: 1
+  summaries:
+    lowAffinitySummary: Tariq left with a sharp comment and sharper footsteps. Your
+      drink disappointed him. The Magician card dims - potential wasted, connection
+      missed.
+    mediumAffinitySummary: Tariq's shoulders were less rigid when he left, even if
+      his words stayed cold. The Magician card flickers - perhaps there's more beneath
+      that exterior.
+    highAffinitySummary: Tariq paused at the door, something like approval in his
+      gaze. Your drink impressed him, though he'd never admit it. The Magician card
+      glows - you've earned a sliver of respect.

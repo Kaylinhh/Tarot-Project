@@ -87,7 +87,7 @@ Nova: (prepares the shaker) # PAUSE_MINIGAME
 
 Tariq: You know you can't survive by giving free drinks to everyone, right? (pauses) 
 Tariq: Also you're not a therapist, you're a bartender. 
-Tariq: I saw you with that girl earlier—too much time, too much care. 
+Tariq: I saw you with that girl earlier.
 Tariq: Be like that to every customer and you'll burn out before making rent.
 
 Nova: … Are you… worried about me?
