@@ -3,7 +3,6 @@
 // === ARRIVAL ===
 ~ show("Neo")
 Neo: Hello? You open? I NEED your strongest drink, like now. I mean, please.
-
 Nova: Well hello there! The strongest of the drinks coming right up. Did someone have a rough day?
 
 ~ face("Neo", "upset")

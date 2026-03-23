@@ -3,6 +3,7 @@
 ~ show("Mei")
 
 // === ARRIVAL ===
+
 Mei: …
 
 Nova: Hello, welcome!
@@ -40,12 +41,15 @@ Nova: I love switching up things from time to time.
 Mei: (surprised) Oh, right… Your place does have some subtle esoteric elements. 
 Mei: I love the big moon displayed here. And the small touch of plants and bottles. 
 Mei: Maybe that's why I felt attracted to it.
+~ discoverRecipe("Old Fashioned")
 
 Nova: I don't know much about it, but I love the vibes! 
 Nova: You could totally teach me stuff!
 ~ face("Mei", "shy")
 Mei: Oh, I'm not good enough to teach anyone… 
 Mei: I just find it fascinating. Comforting.
+
+~ discoverRecipe("Moonlight")
 
 Nova: Well, if you're passionate about it, I think you should give it a go.
 Mei: No, I don't know…
@@ -56,15 +60,16 @@ Mei: I mean, crystals and tarot aren't exactly… mainstream.
 Mei: What if nobody comes? 
 Mei: What if I fail, what if- sorry, I'm spiraling. I do that sometimes.
 
+~ discoverRecipe("Night Garden")
+
 Nova: Hey, listen. I'm new to this too. 
 Nova: And yet I'm very happy about giving this a try! 
 Nova: I feel so accomplished looking at my little cozy bar, and serving little drinks to make people happy. 
+
+~ discoverRecipe("Third Eye")
+
 Nova: How about that? I'll whip you up one to make you feel better.
 
-~ discoverRecipe("Moonlight")
-~ discoverRecipe("Third Eye")
-~ discoverRecipe("Old Fashioned")
-~ discoverRecipe("Night Garden")
 
 // === TRANSITION TO BARVIEW ===
 # PAUSE

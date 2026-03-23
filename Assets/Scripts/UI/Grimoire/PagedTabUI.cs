@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PagedTabUI<T> : MonoBehaviour where T : ScriptableObject
 {
@@ -126,12 +127,26 @@ public class PagedTabUI<T> : MonoBehaviour where T : ScriptableObject
         {
             instantiatedPages[currentIndex].SetActive(true);
             instantiatedPages[currentIndex].transform.SetParent(leftPageParent, false);
+
+            // REBUILD la page gauche
+            RectTransform leftRT = instantiatedPages[currentIndex].GetComponent<RectTransform>();
+            if (leftRT != null)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(leftRT);
+            }
         }
 
         if (currentIndex + 1 < instantiatedPages.Count)
         {
             instantiatedPages[currentIndex + 1].SetActive(true);
             instantiatedPages[currentIndex + 1].transform.SetParent(rightPageParent, false);
+
+            // REBUILD la page droite
+            RectTransform rightRT = instantiatedPages[currentIndex + 1].GetComponent<RectTransform>();
+            if (rightRT != null)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(rightRT);
+            }
         }
     }
 }

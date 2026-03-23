@@ -9,19 +9,20 @@ namespace vinkn
 {
     public class VNEngine : MonoBehaviour
     {
+        public static event System.Action OnRecipeDiscovered;
+
         [SerializeField] List<Character> characters;
         [SerializeField] List<SOCharacter> charactersDefinitions;
         [SerializeField] List<EDisplayable> backgrounds;
         [SerializeField] List<DisplayAnchor> anchors;
         [SerializeField] List<CharacterData> allCharactersData;
         [SerializeField] List<RecipeData> allRecipesData;
+
         NovelCanvas novelCanvas;
         GameSceneManager gameSceneManager;
-       // public GameObject storyReader;
 
         protected EDisplayable currentBg { get; set; }
 
-        // Start is called before the first frame update
         void Awake()
         {
             Debug.Log("[VNE] ===== AWAKE START =====");
@@ -31,8 +32,8 @@ namespace vinkn
                 currentBg = null;
                 gameSceneManager = FindAnyObjectByType<GameSceneManager>();
                 novelCanvas = FindAnyObjectByType<NovelCanvas>();
-
-                // NE PAS get ici, juste initialiser vide
+                
+                //no get, setting up empty
                 allCharactersData = new List<CharacterData>();
                 allRecipesData = new List<RecipeData>();
 
@@ -46,9 +47,7 @@ namespace vinkn
 
         void Start()
         {
-            Debug.Log("[VNE] START CALLED");
-
-            // GET ICI (Start s'exécute après tous les Awake)
+            // getting data
             if (DataManager.Instance != null)
             {
                 allCharactersData = DataManager.Instance.GetCharacters();
@@ -63,64 +62,44 @@ namespace vinkn
 
         void OnEnable()
         {
-            Debug.Log("[VNE] OnEnable - Subscribing to sceneLoaded");
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         void OnDisable()
         {
-            Debug.Log("[VNE] OnDisable - Unsubscribing from sceneLoaded");
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log($"[VNE] OnSceneLoaded called - Scene: {scene.name}, Mode: {mode}");
-
             if (scene.name == "Main")
-            {
-                Debug.Log($"[VNE] Main detected! Current lists BEFORE clear: {characters.Count} chars, {backgrounds.Count} bgs");
                 RegisterSceneObjects();
-            }
-            else
-            {
-                Debug.Log($"[VNE] Scene {scene.name} loaded but not Main, skipping registration");
-            }
         }
 
         private void RegisterSceneObjects()
         {
-            Debug.Log("[VNE] CLEARING old references...");
             characters.Clear();
             backgrounds.Clear();
             anchors.Clear();
 
-            Debug.Log("[VNE] Finding objects in scene...");
-
             Character[] foundCharacters = FindObjectsOfType<Character>();
-            Debug.Log($"[VNE] FindObjectsOfType<Character> found: {foundCharacters.Length}");
 
             foreach (var c in foundCharacters)
             {
-                Debug.Log($"[VNE]   - Found character: {c.name} (tagID: {c.tagID}) in scene {c.gameObject.scene.name}");
                 AddCharacter(c);
             }
 
             EDisplayable[] foundBackgrounds = FindObjectsOfType<EDisplayable>();
-            Debug.Log($"[VNE] FindObjectsOfType<EDisplayable> found: {foundBackgrounds.Length}");
 
             foreach (var bg in foundBackgrounds)
             {
-                Debug.Log($"[VNE]   - Found background: {bg.name} (tagID: {bg.tagID}) in scene {bg.gameObject.scene.name}");
                 AddBackground(bg);
             }
 
             DisplayAnchor[] foundAnchors = FindObjectsOfType<DisplayAnchor>();
-            Debug.Log($"[VNE] FindObjectsOfType<DisplayAnchor> found: {foundAnchors.Length}");
 
             foreach (var a in foundAnchors)
             {
-                Debug.Log($"[VNE]   - Found anchor: {a.name} (tagID: {a.tagID}) in scene {a.gameObject.scene.name}");
                 Add(a);
             }
 
@@ -138,7 +117,7 @@ namespace vinkn
             if (c != null && !characters.Contains(c))
             {
                 if (c.details != null)
-                    charactersDefinitions.Add(c.details);
+                    charactersDefinitions.Add(c.details); //also adding SOCharacter
                 else
                     Debug.LogError("Details not found for '" + c.name + "'");
 
@@ -210,8 +189,6 @@ namespace vinkn
         {
             try
             {
-                Debug.Log($"[VNE] FadeToBackground called: {name}");
-
                 if (currentBg != null)
                 {
                     currentBg.Fade(0, duration);
@@ -219,13 +196,10 @@ namespace vinkn
 
                 currentBg = FindBackground(name);
                 currentBg.Fade(1, duration);
-
-                Debug.Log($"[VNE] Background changed to {name}");
             }
             catch (System.Exception e)
             {
                 Debug.LogWarning($"[VNE] Could not change background to '{name}': {e.Message}");
-                // Ne pas planter, juste skip
             }
         }
 
@@ -279,25 +253,24 @@ namespace vinkn
         }
         public void ChangeScene(string sceneName)
         {
-            // Cache l'UI AVANT de changer de scène
+            // Hide UI before changing scene to avoid visual bugs
             if (novelCanvas != null)
             {
                 novelCanvas.DisplayUI(false);
-                Debug.Log("[VNE] UI hidden before scene change");
             }
 
             gameSceneManager.ChangeScene(sceneName);
         }
+
         public void MeetCharacter(string characterName)
         {
-            // Cherche le CharacterData correspondant au nom
+            // look for characterData
             var characterData = allCharactersData.FirstOrDefault(c => c.characterName == characterName);
 
             if (characterData != null)
             {
                 characterData.hasMetToday = true;
-                Debug.Log($"{characterName} a été rencontré(e) aujourd'hui.");
-                DataManager.Instance.NotifyCharacterDiscovered();
+                DataManager.Instance.NotifyCharacterDiscovered(); //trigger event for the grimoire
             }
             else
             {
@@ -311,50 +284,31 @@ namespace vinkn
                 if (DataManager.Instance != null)
                 {
                     DataManager.Instance.characterIsDiscovered = true;
-                    Debug.Log("Stored " + characterData.isDiscovered + " in DayDataManager");
                 }
                 else
                 {
                     Debug.LogError("No DayDataManager found!");
                 }
-
             }
-
         }
+
 
         public void DiscoverRecipe(string recipeName)
         {
-            //TODO check which rebuild is doing the work
             var recipeData = allRecipesData.FirstOrDefault(c => c.recipeName == recipeName);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
 
             if (recipeData != null)
-            {
-                recipeData.isDiscovered = true;
-                Debug.Log($"La recette suivante a été découverte : {recipeName}.");
-                DataManager.Instance.NotifyRecipeDiscovered();
-                LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
-            }
-            else
-            {
-                Debug.LogWarning($"Aucun RecipeData trouvé pour le nom : {recipeName}.");
-            }
-
-            if (recipeData.isDiscovered == false)
             {
                 recipeData.isDiscovered = true;
 
                 if (DataManager.Instance != null)
                 {
-                    DataManager.Instance.recipeIsDiscovered = true;
-                    LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
-
-                    Debug.Log("Stored " + recipeData.isDiscovered + " in DayDataManager");
+                    DataManager.Instance.NotifyRecipeDiscovered();
                 }
-                else
-                {
-                    Debug.LogError("No DayDataManager found!");
-                }
+            }
+            else
+            {
+                Debug.LogWarning($"Aucun RecipeData trouvé pour le nom : {recipeName}.");
             }
         }
 
@@ -365,9 +319,7 @@ namespace vinkn
             if (characterData != null)
             {
                 characterData.friendshipLevel += quantity;
-                characterData.affinityGainedToday += quantity; // TRACK le gain du jour
-
-                Debug.Log($"Affinité de {characterName} +{quantity}. Total aujourd'hui: {characterData.affinityGainedToday}");
+                characterData.affinityGainedToday += quantity;
             }
             else
             {
@@ -377,26 +329,13 @@ namespace vinkn
 
         public void EndDay()
         {
-            foreach (var c in allCharactersData)
-            {
-                Debug.Log($"{c.characterName} - hasMetToday: {c.hasMetToday}");
-            }
-
-            // On récupère les persos rencontrés aujourd’hui
             List<CharacterData> charactersOfTheDay = new List<CharacterData>();
-
             string names = string.Join(", ", charactersOfTheDay.ConvertAll(c => c.characterName));
-            Debug.Log("1 : " + names);
 
             foreach (var c in allCharactersData)
             {
                 if (c.hasMetToday)
                     charactersOfTheDay.Add(c);
-            }
-
-            foreach (var c in charactersOfTheDay)
-            {
-                Debug.Log($"{c.characterName} - characters of the day: {c.characterName}");
             }
 
             if (DataManager.Instance != null)
@@ -409,8 +348,8 @@ namespace vinkn
                 Debug.LogError("No DayDataManager found!");
             }
 
-                // On reset pour le lendemain
-                foreach (var c in allCharactersData)
+            // reset for the day after
+            foreach (var c in allCharactersData)
                 c.hasMetToday = false;
         }
     }

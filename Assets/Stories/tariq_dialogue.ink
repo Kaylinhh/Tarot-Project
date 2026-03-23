@@ -27,6 +27,8 @@ Nova: If you agreed to rent me this place, I'm pretty sure you believe in me in 
 Nova: So how about letting me work my magic and relax? 
 Nova: I'll make you a drink. It's on the house.
 
+~ discoverRecipe("Green Peace")
+
 Tariq: (scoffs) Relax? You little… 
 ~ face("Tariq", "base")
 Tariq: (gives in) UGH fine. But make it quick. I'm busy.
@@ -34,7 +36,6 @@ Tariq: (gives in) UGH fine. But make it quick. I'm busy.
 // === TRANSITION TO BARVIEW ===
 # PAUSE
 ~ changeScene("BarView")
-~ discoverRecipe("Green Peace")
 
 // === NOVA MONOLOGUE (IN BARVIEW) ===
 Nova: Okay, Tariq definitely seems like the fancy drink type. 
