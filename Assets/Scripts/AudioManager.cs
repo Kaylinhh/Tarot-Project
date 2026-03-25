@@ -5,22 +5,27 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
+    // ===== AUDIO SOURCES =====
     [Header("Audio Sources")]
     public AudioSource musicSource;
     public AudioSource sfxSource;
 
+    // ===== MUSIC PLAYLIST =====
     [Header("Music Playlist")]
     public AudioClip[] musicPlaylist;
     public bool loopPlaylist = true;
     public bool shufflePlaylist = true;
 
+    // ===== SOUND EFFECTS =====
     [Header("Sound Effects")]
     public AudioClip shakeSound;
     public AudioClip buttonClickSound;
     public AudioClip sparkleSound;
 
+    // ===== STATE =====
     private int currentTrackIndex = 0;
 
+    // ===== SINGLETON SETUP =====
     void Awake()
     {
         if (instance == null)
@@ -37,14 +42,11 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        // Démarre la playlist au lancement
         if (musicPlaylist.Length > 0)
         {
             PlayPlaylist();
         }
     }
-
-    // ========== MUSIC ==========
 
     public void PlayPlaylist()
     {
@@ -69,16 +71,13 @@ public class AudioManager : MonoBehaviour
         musicSource.clip = musicPlaylist[currentTrackIndex];
         musicSource.Play();
 
-        // Lance la coroutine pour détecter la fin du morceau
         StartCoroutine(WaitForTrackEnd());
     }
 
     IEnumerator WaitForTrackEnd()
     {
-        // Attend que le morceau se termine
         yield return new WaitForSeconds(musicSource.clip.length);
 
-        // Passe au suivant
         NextTrack();
     }
 
@@ -96,11 +95,11 @@ public class AudioManager : MonoBehaviour
             {
                 if (loopPlaylist)
                 {
-                    currentTrackIndex = 0; // Recommence la playlist
+                    currentTrackIndex = 0; 
                 }
                 else
                 {
-                    return; // Arrête la musique
+                    return; 
                 }
             }
         }
@@ -110,7 +109,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(AudioClip clip)
     {
-        StopAllCoroutines(); // Arrête la playlist
+        StopAllCoroutines();
         musicSource.clip = clip;
         musicSource.Play();
     }
@@ -131,19 +130,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Helpers pour les sons spécifiques
-    public void PlayShakeSound()
-    {
-        PlaySFX(shakeSound);
-    }
-
-    public void PlaySparkleSound()
-    {
-        PlaySFX(sparkleSound);
-    }
-
-    public void PlayButtonClickSound()
-    {
-        PlaySFX(buttonClickSound);
-    }
+    // Helpers for specific sounds
+    public void PlayShakeSound() => PlaySFX(shakeSound);
+    public void PlaySparkleSound() => PlaySFX(sparkleSound);
+    public void PlayButtonClickSound() => PlaySFX(buttonClickSound);
 }

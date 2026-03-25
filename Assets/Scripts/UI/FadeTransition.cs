@@ -1,33 +1,35 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class FadeTransition : MonoBehaviour
 {
+    public static FadeTransition Instance { get; private set; }
+
     [SerializeField] Image image;
     [SerializeField] AnimationCurve fadeCurve;
     [SerializeField] float fadeDuration;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void FadeIn(UnityEvent callback = null) 
+    public void FadeIn(UnityEvent callback = null)
     {
         StartCoroutine(_FadeAlphaAsync(1, callback));
     }
 
-    public void FadeOut(UnityEvent callback = null) 
+    public void FadeOut(UnityEvent callback = null)
     {
         StartCoroutine(_FadeAlphaAsync(0, callback));
     }
@@ -37,17 +39,23 @@ public class FadeTransition : MonoBehaviour
         Color startValue = image.color;
         float elapsed = 0;
         image.raycastTarget = true;
-        while (elapsed < fadeDuration) 
+
+        while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
-            Color newColor = new Color(startValue.r, startValue.g, startValue.b, Mathf.Lerp(startValue.a, destination, fadeCurve.Evaluate(elapsed/fadeDuration)));
+            float t = fadeCurve.Evaluate(elapsed / fadeDuration);
+            Color newColor = new Color(startValue.r, startValue.g, startValue.b, Mathf.Lerp(startValue.a, destination, t));
             image.color = newColor;
             yield return null;
         }
-        if (destination <= 0) 
+
+        image.color = new Color(startValue.r, startValue.g, startValue.b, destination);
+
+        if (destination <= 0)
         {
             image.raycastTarget = false;
         }
+
         callback?.Invoke();
     }
 }

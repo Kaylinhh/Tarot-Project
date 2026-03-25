@@ -35,4 +35,10 @@ public class MainMenuUIHandler : MonoBehaviour
     {
         fade.FadeIn(onStart);
     }
+
+    public void OnArcadeModeClick()
+    {
+        GameModeManager.Instance.StartArcadeMode();
+        SceneManager.LoadScene("BarView");
+    }
 }

@@ -2,27 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class CocktailManager : MonoBehaviour
 {
+    // ===== UI =====
     [SerializeField] TextMeshProUGUI recipeText;
-    [SerializeField] List<RecipeData> allRecipes;
     [SerializeField] GameObject shakeButton;
     [SerializeField] GameObject serveButton;
+    [SerializeField] GameObject resetButton;
+    [SerializeField] GameObject backButton;
+
+    // ===== DATA =====
+    [SerializeField] List<RecipeData> allRecipes;
     private List<IngredientData> currentIngredients = new List<IngredientData>();
     private RecipeData currentRecipe = null;
 
+    // ===== ANIMATION =====
     [Header("Animation")]
-    [SerializeField] private RectTransform shakerTransform; // shaker
+    [SerializeField] private RectTransform shakerTransform; 
     [SerializeField] private CocktailRevealPanel revealPanel;
+
+    void Start()
+    {
+        if (GameModeManager.Instance.IsArcadeMode)
+        {
+            backButton.SetActive(true);
+        }
+        else
+        {
+            backButton.SetActive(false);
+        }
+    }
 
     public void AddIngredient(IngredientData newIngredient)
     {
         currentIngredients.Add(newIngredient);
-        Debug.Log("added ingredient" + newIngredient.name);
         UpdateRecipeText();
-
     }
 
     private void UpdateRecipeText()
@@ -41,28 +58,27 @@ public class CocktailManager : MonoBehaviour
 
     public void CheckForRecipe()
     {
-
         foreach (var recipe in allRecipes)
         {
             if (MatchRecipe(recipe))
             {
-                Debug.Log("FOUND" + recipe.recipeName);
-                recipeText.text = "You created: " + recipe.recipeName;
+                recipeText.text = $"You created: {recipe.recipeName}";
                 currentRecipe = recipe;
 
-                if (revealPanel != null)
+                revealPanel.Show(recipe);
+                AudioManager.instance.PlaySparkleSound();
+                // only in story mode
+                if (!GameModeManager.Instance.IsArcadeMode && recipe.isDiscovered)
                 {
-                    revealPanel.Show(recipe);
+                    DataManager.Instance?.NotifyRecipeDiscovered();
                 }
 
-                ShowServeButton();
+                ShowActionButton();
                 return;
             }
         }
 
-        Debug.Log("No match");
-        recipeText.text = "Unknown recipe! You can't serve that, toss it in the bin.";
-
+        recipeText.text = "Unknown recipe! Try again or toss it.";
     }
 
 
@@ -71,7 +87,7 @@ public class CocktailManager : MonoBehaviour
         if (recipe.ingredients.Length != currentIngredients.Count)
             return false;
 
-        //Temporary copy to avoid false positives doubles 
+        //Temporary copy to avoid false positive doubles 
         var tempList = new List<IngredientData>(currentIngredients);
 
         foreach (var ingredient in recipe.ingredients)
@@ -87,10 +103,20 @@ public class CocktailManager : MonoBehaviour
         return true;
     }
 
-    public void ShowServeButton()
+    void ShowActionButton()
     {
-            shakeButton.SetActive(false);
+        shakeButton.SetActive(false);
+
+        if (GameModeManager.Instance.IsArcadeMode)
+        {
+            // arcade mode: reset button
+            resetButton.SetActive(true); 
+        }
+        else
+        {
+            // story mode : serve button
             serveButton.SetActive(true);
+        }
     }
 
     public string GetCurrentCocktailName()
@@ -99,6 +125,7 @@ public class CocktailManager : MonoBehaviour
         {
             return currentRecipe.recipeName;
         }
+
         Debug.LogError("no current recipe found");
         return "Unknown";
     }
@@ -118,6 +145,21 @@ public class CocktailManager : MonoBehaviour
         }
     }
 
+    public void OnBackButtonClick()
+    {
+        SceneManager.LoadScene("MainMenu");
+    } 
+
+    public void OnResetButtonClick()
+    {
+        ResetCocktail();
+        currentRecipe = null;
+
+        resetButton.SetActive(false);
+        shakeButton.SetActive(true);
+        revealPanel.gameObject.SetActive(false);
+    }
+
     public void ResetCocktail()
     {
         currentIngredients.Clear();
@@ -129,7 +171,7 @@ public class CocktailManager : MonoBehaviour
         AudioManager.instance.PlayShakeSound();
         StartCoroutine(ShakeAnimation());
 
-        // Check recipe après l'animation
+        // Check recipe after the animation
         Invoke(nameof(CheckForRecipe), 0.5f);
     }
 
@@ -145,22 +187,19 @@ public class CocktailManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
 
-            // Shake horizontal + rotation
+            // horizontal & vertical shake + rotation
             float shakeX = Random.Range(-10f, 10f);
             float shakeY = Random.Range(-5f, 5f);
-            float rotationZ = Mathf.Sin(elapsed * 40f) * 15f; // Rotation rapide
-
+            float rotationZ = Mathf.Sin(elapsed * 40f) * 15f; 
             shakerTransform.anchoredPosition = originalPos + new Vector3(shakeX, shakeY, 0);
             shakerTransform.localRotation = Quaternion.Euler(0, 0, rotationZ);
 
             yield return null;
         }
 
-        // Retour position
+        // Return to position
         shakerTransform.anchoredPosition = originalPos;
         shakerTransform.localRotation = originalRot;
 
-        AudioManager.instance.PlaySparkleSound();
     }
-
 }

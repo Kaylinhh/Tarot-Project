@@ -1,5 +1,4 @@
 using Ink.Runtime;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +8,6 @@ public class ChoiceDisplay : MonoBehaviour
     [SerializeField] ButtonDisplay buttonPrefab;
     [SerializeField] UnityEvent<Choice> OnChoiceSelected;
 
-    // Start is called before the first frame update
     void Start()
     {
         Clear();

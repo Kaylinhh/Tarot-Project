@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace vinkn
@@ -18,12 +17,12 @@ namespace vinkn
 
         public static IEnumerator TimedCall<T>(T start, T final, float duration, Action<T, T, float> callback)
         {
-            float ellapsed = 0;
+            float elapsed = 0;
 
-            while(ellapsed < duration)
+            while(elapsed < duration)
             {
-                ellapsed += Time.deltaTime;
-                callback?.Invoke(start, final, ellapsed / duration);
+                elapsed += Time.deltaTime;
+                callback?.Invoke(start, final, elapsed / duration);
                 yield return null;
             }
 

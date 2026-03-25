@@ -4,10 +4,12 @@ using UnityEngine.EventSystems;
 
 public class Bin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    // ===== SPRITES =====
     [Header("Sprites")]
     [SerializeField] private Sprite binClosed;
     [SerializeField] private Sprite binOpen;
 
+    // ===== COMPONENTS =====
     private Image binImage;
     private CocktailManager cocktailManager;
 
@@ -21,7 +23,6 @@ public class Bin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Debug.LogError("[Bin] No Image component found!");
         }
 
-        // Set closed par défaut
         if (binClosed != null)
         {
             binImage.sprite = binClosed;
@@ -30,7 +31,6 @@ public class Bin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Ouvre le couvercle au hover
         if (binOpen != null && binImage != null)
         {
             binImage.sprite = binOpen;
@@ -39,7 +39,6 @@ public class Bin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Ferme le couvercle
         if (binClosed != null && binImage != null)
         {
             binImage.sprite = binClosed;

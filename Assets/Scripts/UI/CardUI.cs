@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour
 {
+    // ====== UI ELEMENTS ======
     [SerializeField] private Image cardImage;
     [SerializeField] private TMP_Text characterNameText;
     [SerializeField] private TMP_Text summaryText;
@@ -14,5 +15,4 @@ public class CardUI : MonoBehaviour
         characterNameText.text = character.characterName;
         summaryText.text = character.GetDailySummary();
     }
-
 }

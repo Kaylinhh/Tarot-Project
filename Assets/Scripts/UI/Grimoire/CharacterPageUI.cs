@@ -4,15 +4,17 @@ using UnityEngine.UI;
 
 public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
 {
+    // ===== UI ELEMENTS =====
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private Image portraitImage;
-    [SerializeField] private Image portraitLocked;
     [SerializeField] private TextMeshProUGUI descriptionText;
     [SerializeField] private TextMeshProUGUI traitsText;
     [SerializeField] private TextMeshProUGUI friendshipText;
 
+    // ===== LOCKED PLACEHOLDERS =====
     [Header("Locked Placeholder")]
     [SerializeField] private string lockedName = "???";
+    [SerializeField] private Image portraitLocked;
     [SerializeField] private string lockedDescription = "You haven't met this person yet.";
     [SerializeField] private string lockedTraits = "???";
     [SerializeField] private string lockedFriendship = "???";
@@ -24,9 +26,6 @@ public class CharacterPageUI : MonoBehaviour, IPageFiller<CharacterData>
 
     public void FillPage(CharacterData character)
     {
-
-        Debug.Log("character page got instantiated");
-
         if (character.isDiscovered == true)
         {
             nameText.text = character.characterName;

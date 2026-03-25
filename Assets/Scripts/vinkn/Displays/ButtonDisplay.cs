@@ -1,7 +1,5 @@
 using Ink.Runtime;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +11,6 @@ public class ButtonDisplay : MonoBehaviour
     Choice buttonChoice;
     Button btn;
 
-    // Start is called before the first frame update
     void Awake()
     {
         btn = GetComponent<Button>();
@@ -26,6 +23,5 @@ public class ButtonDisplay : MonoBehaviour
 
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(() => callback.Invoke(buttonChoice));
-
     }
 }

@@ -5,15 +5,17 @@ using System.Linq;
 
 public class RecipePageUI : MonoBehaviour, IPageFiller<RecipeData>
 {
+    // ===== UI ELEMENTS =====
     [Header("UI References")]
-    public TMP_Text recipeNameText;
-    public Image recipeImage;
-    public Image recipeImageLocked;
-    public TMP_Text descriptionText;
-    public TMP_Text ingredientsText;
+    [SerializeField] private TMP_Text recipeNameText;
+    [SerializeField] private Image recipeImage;
+    [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private TMP_Text ingredientsText;
 
+    // ===== LOCKED PLACEHOLDERS =====
     [Header("Locked Placeholder")]
     [SerializeField] private string lockedName = "???";
+    [SerializeField] private Image recipeImageLocked;
     [SerializeField] private string lockedDescription = "You haven't discovered this drink yet.";
     [SerializeField] private string lockedIngredients = "???";
 
@@ -26,14 +28,9 @@ public class RecipePageUI : MonoBehaviour, IPageFiller<RecipeData>
     {
         if (recipe.isDiscovered == true)
         {
-            // Nom et image du cocktail
             recipeNameText.text = recipe.recipeName;
             recipeImage.sprite = recipe.recipeImage;
-
-            // Description
             descriptionText.text = recipe.description;
-
-            // Liste des ingrédients sous forme de texte
             ingredientsText.text = "Ingredients: " + string.Join(", ", recipe.ingredients.Select(i => i.ingredientName));
         }
         else
@@ -46,6 +43,4 @@ public class RecipePageUI : MonoBehaviour, IPageFiller<RecipeData>
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
     }
-
-
 }

@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class DailySummaryUI : MonoBehaviour
 {
-    [SerializeField] private GameObject cardPrefab;      // ton prefab CardUI
-    [SerializeField] private Transform cardContainer;    // le container avec layout group
+    // ===== CONFIGURATION =====
+    [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private Transform cardContainer;
     [SerializeField] private GameObject deckButton;
-    [SerializeField] private GameObject tutorialText;
     [SerializeField] private GameObject endText;
 
+    // ===== STATE =====
     private List<GameObject> instantiatedCards = new List<GameObject>();
     private bool isRevealing = false;
+
+    // ===== UI BUTTONS TO HIDE =====
     private GameObject grimoireIcon;
     private GameObject historyLogButton;
 
@@ -21,30 +24,28 @@ public class DailySummaryUI : MonoBehaviour
         {
             List<CharacterData> todaysCharacters = DataManager.Instance.charactersOfTheDay;
             Setup(todaysCharacters.ToArray());
-            Debug.Log("Todays characters count: " + todaysCharacters.Count);
-
         }
         else
         {
-            Debug.LogError("DayDataManager not found in CardReading scene!");
+            Debug.LogError("DataManager not found in CardReading scene!");
         }
 
         grimoireIcon = GameObject.Find("IconGrimoireButton");
-        grimoireIcon.SetActive(false);
+        grimoireIcon?.SetActive(false);
         historyLogButton = GameObject.Find("HistoryLogButton");
-        historyLogButton.SetActive(false);
+        historyLogButton?.SetActive(false);
 
     }
 
     public void Setup(CharacterData[] charactersOfTheDay)
     {
-        // Nettoyer d'anciennes cartes
+        // clean up any existing cards
         foreach (Transform child in cardContainer)
             Destroy(child.gameObject);
 
         instantiatedCards.Clear();
 
-        // Créer une carte pour chaque personnage du jour
+        // create a card for each character and set it up
         foreach (var character in charactersOfTheDay)
         {
             GameObject cardGO = Instantiate(cardPrefab, cardContainer);
@@ -57,19 +58,15 @@ public class DailySummaryUI : MonoBehaviour
 
             cardGO.GetComponent<CardUI>().Setup(character);
             instantiatedCards.Add(cardGO);
-
         }
     }
 
     public void OnClickDeck()
     {
         deckButton.SetActive(false);
-        tutorialText.SetActive(false);
 
         if (!isRevealing)
             StartCoroutine(RevealCardsCoroutine());
-
-        endText.SetActive(true);
     }
 
     private IEnumerator RevealCardsCoroutine()

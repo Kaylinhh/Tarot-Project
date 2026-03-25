@@ -10,7 +10,6 @@ public class Simple2DDisplay : MonoBehaviour
     SpriteRenderer spr;
     Character chara;
 
-    // Start is called before the first frame update
     void Awake()
     {
         spr = GetComponent<SpriteRenderer>();
@@ -73,6 +72,7 @@ public class Simple2DDisplay : MonoBehaviour
     {
         StartCoroutine(GameObjectUtility.TimedCall(transform.position, worldPos, duration, ChangePos));
     }
+
     private void ChangePos(Vector3 start, Vector3 final, float t)
     {
         transform.position = Vector3.Lerp(start, final, t);

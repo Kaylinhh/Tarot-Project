@@ -1,16 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace vinkn
 {
     public class VNEngine : MonoBehaviour
     {
-        public static event System.Action OnRecipeDiscovered;
+        // ===== SINGLETON =====
+        public static VNEngine Instance { get; private set; }
 
+        // ===== EVENTS =====
+        public static event System.Action OnSceneChanging;
+        public static event System.Action OnDialogueMode;
+        public static event System.Action OnMinigameMode;
+
+        // ===== SERIALIZED FIELDS =====
         [SerializeField] List<Character> characters;
         [SerializeField] List<SOCharacter> charactersDefinitions;
         [SerializeField] List<EDisplayable> backgrounds;
@@ -18,26 +23,32 @@ namespace vinkn
         [SerializeField] List<CharacterData> allCharactersData;
         [SerializeField] List<RecipeData> allRecipesData;
 
-        NovelCanvas novelCanvas;
+        // ===== PRIVATE FIELDS =====
         GameSceneManager gameSceneManager;
-
         protected EDisplayable currentBg { get; set; }
 
         void Awake()
         {
-            Debug.Log("[VNE] ===== AWAKE START =====");
+            // ===== SINGLETON SETUP =====
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+                return; 
+            }
 
+            // ===== INITIALIZATION =====
             try
             {
                 currentBg = null;
                 gameSceneManager = FindAnyObjectByType<GameSceneManager>();
-                novelCanvas = FindAnyObjectByType<NovelCanvas>();
-                
-                //no get, setting up empty
+
                 allCharactersData = new List<CharacterData>();
                 allRecipesData = new List<RecipeData>();
-
-                Debug.Log("[VNE] ===== AWAKE COMPLETE =====");
             }
             catch (System.Exception e)
             {
@@ -45,6 +56,7 @@ namespace vinkn
             }
         }
 
+        // ===== UNITY LIFECYCLE =====
         void Start()
         {
             // getting data
@@ -70,6 +82,15 @@ namespace vinkn
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
 
+        void OnDestroy()
+        {
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+        }
+
+        //SCENE MANAGEMENT =====
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name == "Main")
@@ -106,6 +127,19 @@ namespace vinkn
             Debug.Log($"[VNE] AFTER registration: {characters.Count} characters, {backgrounds.Count} backgrounds, {anchors.Count} anchors");
         }
 
+        public void ChangeScene(string sceneName)
+        {
+            if (sceneName == "BarView")
+                OnMinigameMode?.Invoke();
+            else
+                OnDialogueMode?.Invoke();
+
+            OnSceneChanging?.Invoke();
+            gameSceneManager.ChangeScene(sceneName);
+        }
+
+
+        // ===== ADD METHODS =====
         public void Add(DisplayAnchor a)
         {
             if (a && !anchors.Contains(a))
@@ -146,6 +180,7 @@ namespace vinkn
             }
         }
 
+        // ===== FIND METHODS =====
         public DisplayAnchor FindAnchor(string objName)
         {
             objName = objName.ToLower();
@@ -168,6 +203,18 @@ namespace vinkn
             return bgObj;
         }
 
+        // ===== GETTERS =====
+        public static SOCharacter GetCharacterDefinition(string id)
+        {
+            if (Instance == null)
+            {
+                Debug.LogError("[VNEngine] Instance is null! Cannot get character definition.");
+                return null;
+            }
+
+            return Instance.FindCharacterDefinition(id);
+        }
+
         public SOCharacter FindCharacterDefinition(string id)
         {
             id = id.ToLower();
@@ -185,6 +232,7 @@ namespace vinkn
             return c;
         }
 
+        // ===== BG CONTROL =====
         public virtual void FadeToBackground(string name, float duration)
         {
             try
@@ -203,6 +251,7 @@ namespace vinkn
             }
         }
 
+        // ===== CHARACTER CONTROL =====
         public virtual void FlipXChar(string item)
         {
             Character c = FindCharacter(item);
@@ -251,17 +300,8 @@ namespace vinkn
             else
                 c.transform.position = a.transform.position;
         }
-        public void ChangeScene(string sceneName)
-        {
-            // Hide UI before changing scene to avoid visual bugs
-            if (novelCanvas != null)
-            {
-                novelCanvas.DisplayUI(false);
-            }
 
-            gameSceneManager.ChangeScene(sceneName);
-        }
-
+        // ===== GAME PROGRESSION =====
         public void MeetCharacter(string characterName)
         {
             // look for characterData
@@ -280,18 +320,8 @@ namespace vinkn
             if (characterData.isDiscovered == false)
             {
                 characterData.isDiscovered = true;
-
-                if (DataManager.Instance != null)
-                {
-                    DataManager.Instance.characterIsDiscovered = true;
-                }
-                else
-                {
-                    Debug.LogError("No DayDataManager found!");
-                }
             }
         }
-
 
         public void DiscoverRecipe(string recipeName)
         {
@@ -308,7 +338,7 @@ namespace vinkn
             }
             else
             {
-                Debug.LogWarning($"Aucun RecipeData trouvé pour le nom : {recipeName}.");
+                Debug.LogWarning($"No RecipeData found for {recipeName}.");
             }
         }
 
@@ -341,11 +371,11 @@ namespace vinkn
             if (DataManager.Instance != null)
             {
                 DataManager.Instance.charactersOfTheDay = new List<CharacterData>(charactersOfTheDay);
-                Debug.Log("Stored " + charactersOfTheDay.Count + " characters in DayDataManager");
+                Debug.Log("Stored " + charactersOfTheDay.Count + " characters in DataManager");
             }
             else
             {
-                Debug.LogError("No DayDataManager found!");
+                Debug.LogError("No DataManager found!");
             }
 
             // reset for the day after

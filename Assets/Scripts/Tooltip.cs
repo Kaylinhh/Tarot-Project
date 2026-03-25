@@ -19,14 +19,12 @@ public class SimpleTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             {
                 tooltipTextComponent = tooltipPanel.GetComponentInChildren<TextMeshProUGUI>();
 
-                // FORCE anchor à Top-Left
                 RectTransform rect = tooltipPanel.GetComponent<RectTransform>();
-                rect.anchorMin = new Vector2(0, 1); // Top-Left
-                rect.anchorMax = new Vector2(0, 1); // Top-Left
-                rect.pivot = new Vector2(0, 1);     // Top-Left
+                rect.anchorMin = new Vector2(0, 1);
+                rect.anchorMax = new Vector2(0, 1);
+                rect.pivot = new Vector2(0, 1);
 
                 tooltipPanel.SetActive(false);
-                Debug.Log("[Tooltip] TooltipPanel found, configured, and hidden");
             }
         }
     }
@@ -42,14 +40,21 @@ public class SimpleTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 tooltipTextComponent.text = tooltipText;
             }
 
-            // Position près de la souris
             UpdateTooltipPosition();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (tooltipPanel != null)
+        {
+            tooltipPanel.SetActive(false);
         }
     }
 
     void Update()
     {
-        // Si le tooltip est actif, update sa position en continu
+        // Update position if the tooltip is active
         if (tooltipPanel != null && tooltipPanel.activeSelf)
         {
             UpdateTooltipPosition();
@@ -61,7 +66,7 @@ public class SimpleTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         RectTransform tooltipRect = tooltipPanel.GetComponent<RectTransform>();
         Canvas canvas = tooltipPanel.GetComponentInParent<Canvas>();
 
-        // Converti mouse screen to canvas local
+        // convert screen point to local point in the canvas
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvas.transform as RectTransform,
@@ -70,20 +75,9 @@ public class SimpleTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             out localPoint
         );
 
-        // Offset
+        // offset to avoid mouse cursor overlap
         localPoint += new Vector2(15, -15);
 
-        // Set LOCAL position (pas world position)
         tooltipRect.localPosition = localPoint;
-
-        Debug.Log($"[Tooltip] Mouse: {Input.mousePosition}, LocalPos set to: {localPoint}, Actual localPos: {tooltipRect.localPosition}");
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (tooltipPanel != null)
-        {
-            tooltipPanel.SetActive(false);
-        }
     }
 }

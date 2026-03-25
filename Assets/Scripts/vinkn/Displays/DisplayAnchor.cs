@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace vinkn
@@ -10,11 +8,16 @@ namespace vinkn
 
         [SerializeField] string inkTag;
 
-        private void Start()
+        void Start()
         {
-            GameObjectUtility.FindObjectOfType<VNEngine>()?.Add(this);
-            gameObject.name = "Anchor_" + inkTag;
+            if (VNEngine.Instance != null)
+            {
+                VNEngine.Instance.Add(this);
+            }
+            else
+            {
+                Debug.LogWarning($"[DisplayAnchor] VNEngine.Instance is null! Anchor '{inkTag}' not registered.");
+            }
         }
-
     }
 }

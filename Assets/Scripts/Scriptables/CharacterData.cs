@@ -37,7 +37,7 @@ public class CharacterData : ScriptableObject
     }
 }
 
-// Classe pour stocker les 3 textes de summary
+// class to stock the summaries 
 [System.Serializable]
 public class AffinitySummaries
 {

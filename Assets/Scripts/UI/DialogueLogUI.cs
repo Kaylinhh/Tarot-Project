@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using vinkn;
 
 public class DialogueLogUI : MonoBehaviour
 {
+    // ===== UI ELEMENTS ======
     [SerializeField] private GameObject logPanel;
     [SerializeField] private Transform contentParent;
     [SerializeField] private GameObject entryPrefab;
-
 
     public void ToggleLog()
     {
@@ -26,12 +25,7 @@ public class DialogueLogUI : MonoBehaviour
 
     void RefreshLog()
     {
-
-        Debug.Log("[DialogueLogUI] RefreshLog called");
-        Debug.Log($"[DialogueLogUI] contentParent is null? {contentParent == null}");
-        Debug.Log($"[DialogueLogUI] DialogueHistory.Instance is null? {DialogueHistory.Instance == null}");
-
-        colorCache.Clear(); // Reset le cache
+        colorCache.Clear(); 
 
         foreach (Transform child in contentParent)
         {
@@ -39,8 +33,6 @@ public class DialogueLogUI : MonoBehaviour
         }
 
         var history = DialogueHistory.Instance.GetHistory();
-        Debug.Log($"[DialogueLogUI] History count: {history.Count}");
-
 
         foreach (var entry in history)
         {
@@ -52,9 +44,8 @@ public class DialogueLogUI : MonoBehaviour
                 string speaker = parts[0].Trim();
                 string dialogue = parts[1].Trim();
 
-                // UTILISE LE CACHE
+                // Use the cache
                 Color color = GetCachedColor(speaker);
-
                 text.text = $"<color=#{ColorUtility.ToHtmlStringRGB(color)}><b>{speaker}:</b></color> {dialogue}";
             }
             else
@@ -66,13 +57,12 @@ public class DialogueLogUI : MonoBehaviour
 
     Color GetCachedColor(string speaker)
     {
-        // Si jamais cherché avant, cherche et stocke
+        //if never looked up before, get and store in cache
         if (!colorCache.ContainsKey(speaker))
         {
             colorCache[speaker] = GetColorForSpeaker(speaker);
         }
 
-        // Retourne depuis le cache (super rapide)
         return colorCache[speaker];
     }
 
@@ -90,14 +80,13 @@ public class DialogueLogUI : MonoBehaviour
             }
         }
 
-        // Couleur par défaut si pas trouvé
-        Debug.LogWarning($"[DialogueLog] No character found for '{speakerName}', using white");
+        // default color
         return Color.white;
     }
 
     void Update()
     {
-        // Hotkey pour ouvrir (L = Log)
+        // Hotkey to open
         if (Input.GetKeyDown(KeyCode.L))
         {
             ToggleLog();

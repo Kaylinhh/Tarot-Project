@@ -32,6 +32,10 @@ Nova: (looks around nervously) First day open… I hope someone shows up soon.
 Nova: What a day… Time to close up.
 
 ~ endDay()
+#PAUSE
 ~ changeScene("CardReading")
+
+Nova: At the end of each day, I like to read some tarot cards to see how I did today! We just have to click on the deck.
+Nova: (prepares the deck) # PAUSE_MINIGAME
 
 -> DONE

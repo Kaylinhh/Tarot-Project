@@ -7,6 +7,7 @@ public class DialogueHistory : MonoBehaviour
 
     private List<DialogueEntry> history = new List<DialogueEntry>();
 
+    // ===== SINGLETON SETUP =====
     void Awake()
     {
         if (Instance == null)
@@ -28,8 +29,6 @@ public class DialogueHistory : MonoBehaviour
             tags = tags,
             timestamp = System.DateTime.Now
         });
-
-        Debug.Log($"[History] Added: {content}");
     }
 
     public List<DialogueEntry> GetHistory()

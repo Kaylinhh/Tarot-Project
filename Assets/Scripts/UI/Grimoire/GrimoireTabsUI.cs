@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class GrimoireTabsUI : MonoBehaviour
 {
+    // ===== TABS CONTENT =====
     [Header("Tabs Content")]
     [SerializeField] private PagedTabUI<RecipeData> recipesContent;
     [SerializeField] private PagedTabUI<CharacterData> charactersContent;
 
+    // ===== WELCOME PAGE =====
     [Header("Welcome Page")]
     [SerializeField] private GameObject welcomePagePrefab;
     [SerializeField] private Transform rightPageParent;
 
+    // ===== NAVIGATION =====
     [Header("Navigation Buttons")]
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject previousButton;
@@ -23,18 +26,17 @@ public class GrimoireTabsUI : MonoBehaviour
 
     public void ShowWelcomePage()
     {
-        // Nettoie les autres contenus
+        // clean other content
         recipesContent.Hide();
         charactersContent.Hide();
 
-        // Désactive les boutons de navigation
+        // inactive nav buttons
         nextButton.SetActive(false);
         previousButton.SetActive(false);
 
-        // Instancie la page d'accueil si elle n'existe pas déjà
+        // Instantiate welcome page if it doesn't exist, otherwise just show it
         if (welcomePageInstance == null)
         {
-
             welcomePageInstance = Instantiate(welcomePagePrefab, rightPageParent);
         }
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace vinkn
@@ -8,42 +6,40 @@ namespace vinkn
     public class MainAPI : MonoBehaviour
     {
         StoryReader reader;
-        VNEngine engine;
 
-        // Start is called before the first frame update
         void Start()
         {
             reader = GetComponent<StoryReader>();
-            engine = GameObjectUtility.FindObjectOfType<VNEngine>();
             SetupGlobalMethods();
         }
 
         void SetupGlobalMethods()
         {
-            reader.story.BindExternalFunction("changeBg", (string name) => engine.FadeToBackground(name, 0));
-            reader.story.BindExternalFunction("fadeBg", (string name, float duration) => engine.FadeToBackground(name, duration));
-            reader.story.BindExternalFunction("flipX", (string name) => engine.FlipXChar(name));
-            reader.story.BindExternalFunction("flipY", (string name) => engine.FlipYChar(name));
-            reader.story.BindExternalFunction("show", (string name) => engine.DisplayChar(name, true));
-            reader.story.BindExternalFunction("hide", (string name) => engine.DisplayChar(name, false));
-            reader.story.BindExternalFunction("fadeIn", (string name, float duration) => engine.DisplayChar(name, true, duration));
-            reader.story.BindExternalFunction("fadeOut", (string name, float duration) => engine.DisplayChar(name, false, duration));
-            //reader.story.BindExternalFunction("thenWaitPlayer", () => ThenWaitPlayer());
-            reader.story.BindExternalFunction("face", (string character, string name) => engine.SetEmotion(character, name));
-            reader.story.BindExternalFunction("moveTo", (string character, string name, float duration) => engine.MoveTo(character, name, duration));
-            reader.story.BindExternalFunction("placeTo", (string character, string name) => engine.MoveTo(character, name, 0));
-            reader.story.BindExternalFunction("changeScene", (string sceneName) => engine.ChangeScene(sceneName));
-            reader.story.BindExternalFunction("meetCharacter", (string characterName) => engine.MeetCharacter(characterName));
-            reader.story.BindExternalFunction("discoverRecipe", (string recipeName) => engine.DiscoverRecipe(recipeName));
-            reader.story.BindExternalFunction("gainAffinity", (string characterName, int quantity) => engine.GainAffinity(characterName, quantity));
-            reader.story.BindExternalFunction("endDay", () => engine.EndDay());
-            //reader.story.BindExternalFunction("hideUI", () => engine.HideUI());
+            // Background control
+            reader.story.BindExternalFunction("changeBg", (string name) => VNEngine.Instance?.FadeToBackground(name, 0));
+            reader.story.BindExternalFunction("fadeBg", (string name, float duration) => VNEngine.Instance?.FadeToBackground(name, duration));
 
-        }
+            // Character visibility
+            reader.story.BindExternalFunction("show", (string name) => VNEngine.Instance?.DisplayChar(name, true));
+            reader.story.BindExternalFunction("hide", (string name) => VNEngine.Instance?.DisplayChar(name, false));
+            reader.story.BindExternalFunction("fadeIn", (string name, float duration) => VNEngine.Instance?.DisplayChar(name, true, duration));
+            reader.story.BindExternalFunction("fadeOut", (string name, float duration) => VNEngine.Instance?.DisplayChar(name, false, duration));
 
-        public void Load()
-        {
-            engine = GameObjectUtility.FindObjectOfType<VNEngine>();
+            // Character manipulation
+            reader.story.BindExternalFunction("flipX", (string name) => VNEngine.Instance?.FlipXChar(name));
+            reader.story.BindExternalFunction("flipY", (string name) => VNEngine.Instance?.FlipYChar(name));
+            reader.story.BindExternalFunction("face", (string character, string name) => VNEngine.Instance?.SetEmotion(character, name));
+            reader.story.BindExternalFunction("moveTo", (string character, string name, float duration) => VNEngine.Instance?.MoveTo(character, name, duration));
+            reader.story.BindExternalFunction("placeTo", (string character, string name) => VNEngine.Instance?.MoveTo(character, name, 0));
+            
+            // Scene management 
+            reader.story.BindExternalFunction("changeScene", (string sceneName) => VNEngine.Instance?.ChangeScene(sceneName));
+            
+            // Game progression
+            reader.story.BindExternalFunction("meetCharacter", (string characterName) => VNEngine.Instance?.MeetCharacter(characterName));
+            reader.story.BindExternalFunction("discoverRecipe", (string recipeName) => VNEngine.Instance?.DiscoverRecipe(recipeName));
+            reader.story.BindExternalFunction("gainAffinity", (string characterName, int quantity) => VNEngine.Instance?.GainAffinity(characterName, quantity));
+            reader.story.BindExternalFunction("endDay", () => VNEngine.Instance?.EndDay());
         }
     }
 }

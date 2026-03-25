@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -7,29 +6,17 @@ using vinkn;
 
 public class StoryParser : MonoBehaviour
 {
+    // ===== EVENTS =====
     [Header("Events")]
     [SerializeField] UnityEvent<string> OnContentChange;
     [SerializeField] UnityEvent<SOCharacter> OnCharacterChange;
 
-    VNEngine engine;
     string lastCharacter;
     string content;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        engine = GameObjectUtility.FindObjectOfType<VNEngine>();
-        lastCharacter = null;
-    }
 
     private void Start()
     {
         OnCharacterChange?.Invoke(null);
-    }
-
-    public void Load()
-    {
-        engine = GameObjectUtility.FindObjectOfType<VNEngine>();
     }
 
     public void Parse(string line, List<string> tags)
@@ -86,7 +73,7 @@ public class StoryParser : MonoBehaviour
 
     protected virtual void ChangeCharacter(string id)
     {
-        SOCharacter charac = engine?.FindCharacterDefinition(id);
+        SOCharacter charac = VNEngine.GetCharacterDefinition(id);
 
         if (charac != null)
         {

@@ -1,17 +1,19 @@
+using Ink.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Ink.Runtime;
 using UnityEngine.Events;
 
 namespace vinkn
 {
     public class StoryReader : MonoBehaviour
     {
-        public enum StoryReadState { NONE, READ, WAIT, RESUME };
+        // ===== TYPES POUR EVENTS INK =====
+        [System.Serializable]
+        public class StoryEventTrigger : UnityEvent<StoryReader, object[]> { }
 
-        [System.Serializable] public class StoryEventTrigger : UnityEvent<StoryReader, object[]> { }
-        [System.Serializable] public class VariableEventTrigger : UnityEvent<string, object> { }
+        [System.Serializable]
+        public class VariableEventTrigger : UnityEvent<string, object> { }
 
         [System.Serializable]
         public class EventLink
@@ -27,24 +29,26 @@ namespace vinkn
             public VariableEventTrigger onTrigger;
         }
 
+        // ===== STORY =====
         public Story story { get; private set; }
+        public bool isPaused = false;
 
+        // ===== CONFIGURATION =====
         [Header("Configuration")]
         [SerializeField] bool startOnAwake;
         [SerializeField] TextAsset storyAsset;
         [SerializeField] List<EventLink> eventList;
         [SerializeField] List<VariableLink> variableList;
 
+        // ===== EVENTS =====
         [Header("Events")]
         [SerializeField] UnityEvent<string, List<string>> OnNextLine;
         [SerializeField] UnityEvent<List<Choice>> OnChoices;
         [SerializeField] UnityEvent OnStoryEnd;
+        [SerializeField] UnityEvent OnMinigameStart;
+        [SerializeField] UnityEvent OnMinigameEnd;
 
-        public StoryReadState state { get; private set; }
-        public bool isPaused = false;
-
-        NovelCanvas novelCanvas;
-
+        // ===== INITIALIZATION =====
         void Awake()
         {
             if (storyAsset == null)
@@ -54,8 +58,8 @@ namespace vinkn
             }
 
             story = new Story(storyAsset.text);
-            state = StoryReadState.READ;
 
+            // Bind external functions (loadScene, meetCharacter, etc.)
             foreach (EventLink e in eventList)
             {
                 story.BindExternalFunctionGeneral(e.eventName, (object[] args) =>
@@ -65,13 +69,12 @@ namespace vinkn
                 }, false);
             }
 
+            // Observe Ink variables
             foreach (VariableLink v in variableList)
             {
                 story.ObserveVariable(v.variableName, (string varName, object varValue) =>
                     v.onTrigger?.Invoke(varName, varValue));
             }
-
-            novelCanvas = FindAnyObjectByType<NovelCanvas>();
         }
 
         protected virtual IEnumerator Start()
@@ -82,87 +85,61 @@ namespace vinkn
                 Next();
         }
 
+        // ===== DIALOGUE FLOW =====
         public virtual void Next()
         {
-            Debug.Log($"Next() called - isPaused: {isPaused}, canContinue: {story.canContinue}");
-
             if (isPaused)
-            {
-                Debug.Log("Story is paused");
                 return;
-            }
 
             if (story.canContinue)
             {
                 string content = story.Continue().Trim();
 
-                // PAUSE to change scene
+                // Handle PAUSE tag (scene change)
                 if (story.currentTags.Contains("PAUSE"))
                 {
                     isPaused = true;
                     if (string.IsNullOrEmpty(content))
-                    {
                         return;
-                    }
                 }
 
+                // Handle PAUSE_MINIGAME tag
                 if (story.currentTags.Contains("PAUSE_MINIGAME"))
                 {
                     isPaused = true;
-                    NovelCanvas canvas = FindAnyObjectByType<NovelCanvas>();
-                    if (canvas != null)
-                    {
-                        canvas.DisplayUI(false);
-                    }
+                    OnMinigameStart?.Invoke();
+
                     if (string.IsNullOrEmpty(content))
-                    {
                         return;
-                    }
                 }
 
-                // Si content vide, skip et rappelle Next()
+                // Skip empty lines
                 if (string.IsNullOrEmpty(content))
                 {
-                    Debug.Log("Empty content, calling Next() again");
                     Next();
                     return;
                 }
 
-                // LOG HISTORY (seulement si content existe)
-                if (DialogueHistory.Instance != null)
-                {
-                    DialogueHistory.Instance.AddEntry(content, story.currentTags);
-                }
+                // Log to history
+                DialogueHistory.Instance?.AddEntry(content, story.currentTags);
 
-                // INVOKE UNE SEULE FOIS
+                // Display line
                 OnNextLine?.Invoke(content, story.currentTags);
             }
             else if (story.currentChoices?.Count > 0)
             {
-                Debug.Log($"Choices available: {story.currentChoices.Count}");
                 OnChoices?.Invoke(story.currentChoices);
             }
             else
             {
-                Debug.Log("Story ended");
                 OnStoryEnd?.Invoke();
             }
         }
 
         public void Resume()
         {
-            Debug.Log($"RESUME CALLED - isPaused BEFORE: {isPaused}");
             isPaused = false;
-
-            // Réaffiche l'UI
-            NovelCanvas canvas = FindAnyObjectByType<NovelCanvas>();
-            if (canvas != null)
-            {
-                canvas.DisplayStory(true);
-                Debug.Log("[SR] UI shown on Resume");
-            }
-
-            Debug.Log($"isPaused NOW: {isPaused}");
+            OnMinigameEnd?.Invoke();
             Next();
         }
 
@@ -172,19 +149,7 @@ namespace vinkn
             Next();
         }
 
-        public void CancelWait()
-        {
-            if (state == StoryReadState.WAIT)
-            {
-                state = StoryReadState.READ;
-            }
-        }
-
-        public void ThenWaitPlayer()
-        {
-            state = StoryReadState.WAIT;
-        }
-
+        // ===== UTILITY =====
         public void SetStory(TextAsset asset)
         {
             storyAsset = asset;

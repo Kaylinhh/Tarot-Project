@@ -35,7 +35,7 @@ Nova: To make a drink, we just have to drag and drop the ingredients in the shak
 Nova: Yes, some drinks aren't shaken, it doesn't matter. It's magic. 
 Nova: We can check out the recipes we already know in our grimoire.
 
-// TODO: Grimoire tutorial UI interaction here
+// TODO: Grimoire tutorial UI interaction here(or not)
 
 Nova: (prepares the shaker) # PAUSE_MINIGAME
 
