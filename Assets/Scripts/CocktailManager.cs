@@ -29,8 +29,7 @@ public class CocktailManager : MonoBehaviour
         if (GameModeManager.Instance.IsArcadeMode)
         {
             backButton.SetActive(true);
-        }
-        else
+        } else
         {
             backButton.SetActive(false);
         }
