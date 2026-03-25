@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bab0c5e07520b54da9355dd52135763, type: 3}
+  m_Name: TariqG
+  m_EditorClassIdentifier: 
+  characterName: Tariq
+  portrait: {fileID: 21300000, guid: bfcee999552814d4db67ff7a72d692d6, type: 3}
+  portraitLocked: {fileID: 21300000, guid: 88caf83dca5271b4db8b51854e4135d6, type: 3}
+  arcanaName: The Magician
+  arcanaSprite: {fileID: 21300000, guid: 6a9251f5edf1fac48aad33ee02c933a2, type: 3}
+  description: The Magician
+  friendshipLevel: 0
+  isDiscovered: 0
+  hasMetToday: 1
+  summaries:
+    lowAffinitySummary: Tariq left with a sharp comment and sharper footsteps. Your
+      drink disappointed him. The Magician card dims - potential wasted, connection
+      missed.
+    mediumAffinitySummary: Tariq's shoulders were less rigid when he left, even if
+      his words stayed cold. The Magician card flickers - perhaps there's more beneath
+      that exterior.
+    highAffinitySummary: Tariq paused at the door, something like approval in his
+      gaze. Your drink impressed him, though he'd never admit it. The Magician card
+      glows - you've earned a sliver of respect.

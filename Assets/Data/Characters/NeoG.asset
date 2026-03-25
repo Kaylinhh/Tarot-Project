@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bab0c5e07520b54da9355dd52135763, type: 3}
+  m_Name: NeoG
+  m_EditorClassIdentifier: 
+  characterName: Neo
+  portrait: {fileID: 21300000, guid: 8e4a00b3a7f15bf479bbc7ca5393d6ce, type: 3}
+  portraitLocked: {fileID: 21300000, guid: 1aa940c2bbf4cb843830220ea6d393ce, type: 3}
+  arcanaName: The Tower
+  arcanaSprite: {fileID: 21300000, guid: 38e237ae3a416c246b5207ca9fb59bab, type: 3}
+  description: The Tower
+  friendshipLevel: 0
+  isDiscovered: 0
+  hasMetToday: 1
+  summaries:
+    lowAffinitySummary: Neo left still wound tight, frustration simmering beneath
+      the surface. Your drink didn't reach him tonight. The Tower card flickers dimly
+      - chaos unresolved, transformation delayed.
+    mediumAffinitySummary: Neo seemed lighter when he left, even if just a little.
+      Your drink helped take the edge off. The Tower card glows softly - the first
+      crack in the walls he's built around himself.
+    highAffinitySummary: Neo lingered a moment before leaving, something close to
+      peace in his eyes. You offered exactly what he needed. The Tower card burns
+      bright - you're helping him find solid ground in the rubble.

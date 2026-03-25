@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f80929ce34614489bc12bcae5ba583, type: 3}
+  m_Name: Third Eye
+  m_EditorClassIdentifier: 
+  recipeName: Third Eye
+  recipeImage: {fileID: 21300000, guid: b038c24c24aae2a4f86bb84e881fc4e6, type: 3}
+  recipeImageLocked: {fileID: 21300000, guid: 276dcf1958174184c907f1c98ee2edce, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 00e3ae92f2b96de4299ea9ad0c93c21a, type: 2}
+  - {fileID: 11400000, guid: 7d8193c3d10a81c4bb12fc2290d0b878, type: 2}
+  - {fileID: 11400000, guid: 218551e2b5313d8449e640a93f537683, type: 2}
+  - {fileID: 11400000, guid: 5bb2cd735cf16574a9210d45f57dd61f, type: 2}
+  description: An intriguing drink that will tingle your senses and give you the
+    confidence you need to listen to your inner self.
+  isDiscovered: 0

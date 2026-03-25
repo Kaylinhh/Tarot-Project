@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class CharacterDisplay : MonoBehaviour
 {
-    [SerializeField] TMP_Text characterName;
-
-    // Start is called before the first frame update
-    void Start()
+    TMP_Text characterName; 
+    void Awake()
     {
-        
+        characterName = GetComponent<TMP_Text>();
     }
 
     public void SetCharacter(SOCharacter ch)

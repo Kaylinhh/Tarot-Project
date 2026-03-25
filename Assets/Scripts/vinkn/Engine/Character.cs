@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace vinkn
@@ -8,25 +6,21 @@ namespace vinkn
     {
         [Header("Character")]
         [SerializeField] SOCharacter definition;
+
         public SOCharacter details => definition;
 
-        // Start is called before the first frame update
-        protected override void Init(VNEngine engine)
+        void Awake()
         {
-            type = InkObjectType.CHARACTER;
-
             if (definition != null)
             {
                 itemID = definition.tag.ToLower();
-                gameObject.name = "Character_" + itemID;
+                gameObject.name = $"Character_{itemID}";
             }
             else
             {
+                Debug.LogWarning($"[Character] No SOCharacter definition on {gameObject.name}!");
                 gameObject.name = "Character_Null";
-                itemID = itemID.ToLower();
             }
-
-            engine.AddCharacter(this);
         }
     }
 }

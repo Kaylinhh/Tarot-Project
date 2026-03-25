@@ -1,17 +1,20 @@
+using Ink.Runtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Ink.Runtime;
 using UnityEngine.Events;
 
 namespace vinkn
 {
     public class StoryReader : MonoBehaviour
     {
-        public enum StoryReadState { NONE, READ, WAIT, RESUME };
+        // ===== TYPES POUR EVENTS INK =====
+        [System.Serializable]
+        public class StoryEventTrigger : UnityEvent<StoryReader, object[]> { }
 
-        [System.Serializable] public class StoryEventTrigger : UnityEvent<StoryReader, object[]> { }
-        [System.Serializable] public class VariableEventTrigger : UnityEvent<string, object> { }
+        [System.Serializable]
+        public class VariableEventTrigger : UnityEvent<string, object> { }
+
         [System.Serializable]
         public class EventLink
         {
@@ -25,25 +28,29 @@ namespace vinkn
             public string variableName;
             public VariableEventTrigger onTrigger;
         }
-        public Story story { get; private set; }
 
+        // ===== STORY =====
+        public Story story { get; private set; }
+        public bool isPaused = false;
+
+        // ===== CONFIGURATION =====
         [Header("Configuration")]
         [SerializeField] bool startOnAwake;
         [SerializeField] TextAsset storyAsset;
         [SerializeField] List<EventLink> eventList;
         [SerializeField] List<VariableLink> variableList;
 
+        // ===== EVENTS =====
         [Header("Events")]
         [SerializeField] UnityEvent<string, List<string>> OnNextLine;
         [SerializeField] UnityEvent<List<Choice>> OnChoices;
         [SerializeField] UnityEvent OnStoryEnd;
+        [SerializeField] UnityEvent OnMinigameStart;
+        [SerializeField] UnityEvent OnMinigameEnd;
 
-        public StoryReadState state { get; private set; }
-
-        // Start is called before the first frame update
+        // ===== INITIALIZATION =====
         void Awake()
         {
-
             if (storyAsset == null)
             {
                 gameObject.SetActive(false);
@@ -51,28 +58,23 @@ namespace vinkn
             }
 
             story = new Story(storyAsset.text);
-            state = StoryReadState.READ;
+
+            // Bind external functions (loadScene, meetCharacter, etc.)
             foreach (EventLink e in eventList)
             {
-                story.BindExternalFunctionGeneral(e.eventName, (object[] args) => { e.onTrigger?.Invoke(this, args); return null; }, false);
+                story.BindExternalFunctionGeneral(e.eventName, (object[] args) =>
+                {
+                    e.onTrigger?.Invoke(this, args);
+                    return null;
+                }, false);
             }
 
+            // Observe Ink variables
             foreach (VariableLink v in variableList)
             {
-                story.ObserveVariable(v.variableName, (string varName, object varValue) => v.onTrigger?.Invoke(varName, varValue));
+                story.ObserveVariable(v.variableName, (string varName, object varValue) =>
+                    v.onTrigger?.Invoke(varName, varValue));
             }
-
-            // storyDisplay.engine = engine;
-            // storyDisplay.ReadTags(story.globalTags, true);
-
-        }
-
-        private void OnEnable()
-        {
-        }
-
-        private void OnDisable()
-        {
         }
 
         protected virtual IEnumerator Start()
@@ -81,21 +83,47 @@ namespace vinkn
 
             if (startOnAwake)
                 Next();
-
         }
 
+        // ===== DIALOGUE FLOW =====
         public virtual void Next()
         {
+            if (isPaused)
+                return;
+
             if (story.canContinue)
             {
                 string content = story.Continue().Trim();
 
+                // Handle PAUSE tag (scene change)
+                if (story.currentTags.Contains("PAUSE"))
+                {
+                    isPaused = true;
+                    if (string.IsNullOrEmpty(content))
+                        return;
+                }
+
+                // Handle PAUSE_MINIGAME tag
+                if (story.currentTags.Contains("PAUSE_MINIGAME"))
+                {
+                    isPaused = true;
+                    OnMinigameStart?.Invoke();
+
+                    if (string.IsNullOrEmpty(content))
+                        return;
+                }
+
+                // Skip empty lines
                 if (string.IsNullOrEmpty(content))
                 {
                     Next();
                     return;
                 }
 
+                // Log to history
+                DialogueHistory.Instance?.AddEntry(content, story.currentTags);
+
+                // Display line
                 OnNextLine?.Invoke(content, story.currentTags);
             }
             else if (story.currentChoices?.Count > 0)
@@ -108,30 +136,24 @@ namespace vinkn
             }
         }
 
+        public void Resume()
+        {
+            isPaused = false;
+            OnMinigameEnd?.Invoke();
+            Next();
+        }
+
         public virtual void SelectChoice(Choice choice)
         {
             story.ChooseChoiceIndex(choice.index);
             Next();
         }
 
-        public void CancelWait()
-        {
-            if (state == StoryReadState.WAIT)
-            {
-                state = StoryReadState.READ;
-            }
-        }
-
-        public void ThenWaitPlayer()
-        {
-            state = StoryReadState.WAIT;
-        }
-
+        // ===== UTILITY =====
         public void SetStory(TextAsset asset)
         {
             storyAsset = asset;
             story = new Story(asset.text);
         }
-
     }
 }

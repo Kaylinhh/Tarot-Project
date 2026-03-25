@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bab0c5e07520b54da9355dd52135763, type: 3}
+  m_Name: MeiG
+  m_EditorClassIdentifier: 
+  characterName: Mei
+  portrait: {fileID: 21300000, guid: f92e4a537e5567a4dbf52caa0c535ef5, type: 3}
+  portraitLocked: {fileID: 21300000, guid: 0ccd7ee8dd2fccf43a2a76be5c567683, type: 3}
+  arcanaName: The High Priestess
+  arcanaSprite: {fileID: 21300000, guid: 2637b261a60b6364cb25932f6c7dc3b4, type: 3}
+  description: The High Priestess
+  friendshipLevel: 0
+  isDiscovered: 0
+  hasMetToday: 1
+  summaries:
+    lowAffinitySummary: Mei hurried out, still uncertain, still scared. Your drink
+      didn't give her the courage she needed. The High Priestess card remains veiled
+      - intuition unheard, potential untapped.
+    mediumAffinitySummary: Mei left with a small, hopeful smile. Your drink gave
+      her a moment of clarity. The High Priestess card shimmers gently - she's starting
+      to trust her inner voice.
+    highAffinitySummary: Mei's eyes shone with quiet determination as she left. You
+      helped her see what she already knew. The High Priestess card radiates luminous
+      energy - she's ready to listen to herself.

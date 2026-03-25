@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f80929ce34614489bc12bcae5ba583, type: 3}
+  m_Name: Old Fashioned
+  m_EditorClassIdentifier: 
+  recipeName: Old Fashioned
+  recipeImage: {fileID: 21300000, guid: f608e0f185e99524cae3f800aac2afec, type: 3}
+  recipeImageLocked: {fileID: 21300000, guid: 63b37bf047163e340aa96c5c95877927, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: be710e731d5a9c141899c3fdfc3aa4ed, type: 2}
+  - {fileID: 11400000, guid: 4ec87689f63ef784c868c594f124b14f, type: 2}
+  - {fileID: 11400000, guid: 170862cc9c6fdb14ba7f08ea2ebd8103, type: 2}
+  - {fileID: 11400000, guid: 587f2b7a02a789e4eb9f98b384cf0859, type: 2}
+  description: An all-time classic, well appreciated by people who like it simple
+    and chic.
+  isDiscovered: 0

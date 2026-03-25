@@ -39,3 +39,18 @@ EXTERNAL playSound(name)
 
 === function rotate(ang,b)
 EXTERNAL rotate(a,b)
+
+=== function changeScene(name)
+EXTERNAL changeScene(name)
+
+=== function meetCharacter(characterName)
+EXTERNAL meetCharacter(characterName)
+
+=== function gainAffinity(characterName, quantity)
+EXTERNAL gainAffinity(characterName, quantity)
+
+=== function discoverRecipe(recipeName)
+EXTERNAL discoverRecipe(recipeName)
+
+=== function endDay()
+EXTERNAL endDay()

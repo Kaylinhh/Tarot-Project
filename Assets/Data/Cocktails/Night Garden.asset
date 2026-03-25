@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f80929ce34614489bc12bcae5ba583, type: 3}
+  m_Name: Night Garden
+  m_EditorClassIdentifier: 
+  recipeName: Night Garden
+  recipeImage: {fileID: 21300000, guid: c1b8e255a496da145a4acc54dd66af7d, type: 3}
+  recipeImageLocked: {fileID: 21300000, guid: e55eaa2d65d743249967f9d6562e374e, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 98d7e7635a1bfab4cbbb6c2dfa02a677, type: 2}
+  - {fileID: 11400000, guid: ae102652519cb0c4d8a0374bf228491a, type: 2}
+  - {fileID: 11400000, guid: 293bb278d7b787146a0559aa37eb9914, type: 2}
+  - {fileID: 11400000, guid: c10f78c076902eb459bbd77c05e3dd69, type: 2}
+  description: An earthy, mystical drink that reminds you of moonless nights.
+  isDiscovered: 0
