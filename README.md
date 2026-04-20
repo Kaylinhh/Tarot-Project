@@ -20,7 +20,6 @@ A narrative-driven visual novel developed in Unity where players take on the rol
 
 ### Mixology Mini-Game
 - **Drag & drop mechanics** to combine ingredients
-- **Recipe discovery system** with visual feedback
 - **Duplicate ingredient handling** for complex cocktails
 - **Shake animation** with particle effects
 - **Arcade mode** for free play without narrative
